@@ -6,6 +6,7 @@ import ElementPlus from 'element-plus'
 import App from './App.vue'
 import router from './router'
 import './style.css'
+import './template.js'
 
 // skeleton css  show er jonno start
 import "skeleton-screen-css";
