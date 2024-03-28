@@ -1,4 +1,15 @@
 <script setup>
+import { ref } from 'vue';
+
+const isMenuActive = ref(false);
+
+const toggleMenu = () => {
+  isMenuActive.value =!isMenuActive.value;
+  document.body.classList.toggle('mmenu-active');
+};
+
+
+
 
 </script>
 <template>
@@ -6,7 +17,7 @@
         <div class="header-middle sticky-header" data-sticky-options="{'mobile': true}">
                 <div class="container-fluid">
                     <div class="header-left justify-content-lg-center">
-                        <button class="mobile-menu-toggler text-primary mr-2" type="button">
+                        <button class="mobile-menu-toggler text-primary mr-2" @click="toggleMenu" type="button" :class="{ active: isMenuActive }">
                             <i class="fas fa-bars"></i>
                         </button>
                         <a href="demo40.html" class="logo">

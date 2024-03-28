@@ -7,6 +7,6 @@
     // import "@/assets/js/jquery.appear.min.js";
     // import "@/assets/js/jquery.countdown.min.js";
 
-    // import "@/assets/js/main.js";
+    // import "@/assets/js/main.min.js";
 
     // import "@/assets/vendor/venobox/venobox.min.js";
