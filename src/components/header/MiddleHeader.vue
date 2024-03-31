@@ -2,19 +2,35 @@
 import { ref } from 'vue';
 
 const isMenuActive = ref(false);
+const isCartMenu = ref(false);
+const stickyNavbar = ref(false);
 
+const Top = ref(0)
 const toggleMenu = () => {
   isMenuActive.value =!isMenuActive.value;
   document.body.classList.toggle('mmenu-active');
 };
 
 
+const cartOpen = () => {
+    isCartMenu.value =!isCartMenu.value;
+    document.body.classList.toggle('cart-opened');
+} 
 
+
+window.addEventListener('scroll', () => {
+    const scrollTopWindow = window.pageYOffset;
+    if (scrollTopWindow > 160) {
+      stickyNavbar.value = true;
+    }else{
+      stickyNavbar.value = false;
+    }
+  });
 
 </script>
 <template>
     <div>
-        <div class="header-middle sticky-header" data-sticky-options="{'mobile': true}">
+        <div class="header-middle sticky-header" :class="{'fixed' : stickyNavbar }" data-sticky-options="{'mobile': true}" :style="{'top': Top + 'px'}">
                 <div class="container-fluid">
                     <div class="header-left justify-content-lg-center">
                         <button class="mobile-menu-toggler text-primary mr-2" @click="toggleMenu" type="button" :class="{ active: isMenuActive }">
@@ -81,16 +97,16 @@ const toggleMenu = () => {
                                 <span class="cart-price d-block font2">$0.00</span>
                             </span>
 
-                            <div class="dropdown cart-dropdown">
-                                <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                            <div class="dropdown cart-dropdown" :class="{isCartMenu : 'show'}">
+                                <a href="#" title="Cart" class="cart-toggle"  @click.prevent="cartOpen()" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                     <i class="icon-cart-thick"></i>
                                     <span class=" cart-count badge-circle">3</span>
                                 </a>
 
-                                <div class="cart-overlay"></div>
+                                <div class="cart-overlay" @click.prevent="cartOpen()"></div>
 
-                                <div class="dropdown-menu mobile-cart">
-                                    <a href="#" title="Close (Esc)" class="btn-close">×</a>
+                                <div class="dropdown-menu mobile-cart" :class="{isCartMenu : 'show'}">
+                                    <a href="#" title="Close (Esc)" class="btn-close" @click.prevent="cartOpen()">×</a>
 
                                     <div class="dropdownmenu-wrapper custom-scrollbar">
                                         <div class="dropdown-cart-header">Shopping Cart</div>

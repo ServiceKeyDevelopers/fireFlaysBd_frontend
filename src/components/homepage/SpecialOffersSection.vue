@@ -48,7 +48,7 @@ const modules = ref([Pagination, Autoplay]);
             <figure>
               <a href="demo40-product.html">
                 <img
-                  src="@/assets/images/demoes/demo40/products/product-24.jpg"
+                  src="@/assets/images/demoes/demo40/products/product-9.jpg"
                   width="205"
                   height="205"
                   alt="product"
@@ -105,7 +105,7 @@ const modules = ref([Pagination, Autoplay]);
             <figure>
               <a href="demo40-product.html">
                 <img
-                  src="@/assets/images/demoes/demo40/products/product-24.jpg"
+                  src="@/assets/images/demoes/demo40/products/product-2.jpg"
                   width="205"
                   height="205"
                   alt="product"
@@ -162,7 +162,7 @@ const modules = ref([Pagination, Autoplay]);
             <figure>
               <a href="demo40-product.html">
                 <img
-                  src="@/assets/images/demoes/demo40/products/product-24.jpg"
+                  src="@/assets/images/demoes/demo40/products/product-4.jpg"
                   width="205"
                   height="205"
                   alt="product"
@@ -219,7 +219,7 @@ const modules = ref([Pagination, Autoplay]);
             <figure>
               <a href="demo40-product.html">
                 <img
-                  src="@/assets/images/demoes/demo40/products/product-24.jpg"
+                  src="@/assets/images/demoes/demo40/products/product-1.jpg"
                   width="205"
                   height="205"
                   alt="product"
@@ -276,7 +276,7 @@ const modules = ref([Pagination, Autoplay]);
             <figure>
               <a href="demo40-product.html">
                 <img
-                  src="@/assets/images/demoes/demo40/products/product-24.jpg"
+                  src="@/assets/images/demoes/demo40/products/product-12.jpg"
                   width="205"
                   height="205"
                   alt="product"
@@ -333,7 +333,7 @@ const modules = ref([Pagination, Autoplay]);
             <figure>
               <a href="demo40-product.html">
                 <img
-                  src="@/assets/images/demoes/demo40/products/product-24.jpg"
+                  src="@/assets/images/demoes/demo40/products/product-11.jpg"
                   width="205"
                   height="205"
                   alt="product"
@@ -390,7 +390,7 @@ const modules = ref([Pagination, Autoplay]);
             <figure>
               <a href="demo40-product.html">
                 <img
-                  src="@/assets/images/demoes/demo40/products/product-24.jpg"
+                  src="@/assets/images/demoes/demo40/products/product-7.jpg"
                   width="205"
                   height="205"
                   alt="product"
