@@ -19,16 +19,20 @@ const modules = ref([Pagination, Autoplay]);
 const bestSellerProducts = ref(true);
 const newProducts = ref(false);
 const onSaleProducts = ref(false);
+const isActive = ref(false);
 const featuredItemsShowing = (data) => {
   if(data == "bestSellers"){
+    isActive.value = data
     bestSellerProducts.value = true
     onSaleProducts.value = false
     newProducts.value = false
   }else if(data == "new"){
+    isActive.value = data
     newProducts.value = true
     onSaleProducts.value = false
     bestSellerProducts.value = false
   }else if(data == "onSale"){
+    isActive.value = data
     onSaleProducts.value = true
     newProducts.value = false
     bestSellerProducts.value = false
@@ -51,7 +55,8 @@ const featuredItemsShowing = (data) => {
                     >
                       <li class="nav-item">
                         <a
-                          class="nav-link active"
+                          class="nav-link"
+                          :class="isActive == 'bestSellers' ? 'active' : ''"
                           id="best-products-tab"
                           data-toggle="tab"
                           href="#best-products"
@@ -65,6 +70,7 @@ const featuredItemsShowing = (data) => {
                       <li class="nav-item">
                         <a
                           class="nav-link"
+                          :class="isActive == 'new' ? 'active' : ''"
                           id="new-products-tab"
                           data-toggle="tab"
                           href="#new-products"
@@ -78,6 +84,7 @@ const featuredItemsShowing = (data) => {
                       <li class="nav-item">
                         <a
                           class="nav-link"
+                          :class="isActive == 'onSale' ? 'active' : ''"
                           id="sale-products-tab"
                           data-toggle="tab"
                           href="#sale-products"
