@@ -36,7 +36,7 @@ const modules = ref([Pagination, Autoplay]);
               <div class="home-slide home-slide1 banner">
                 <img
                   class="slide-bg"
-                  src="@/assets/images/demoes/demo40/slider/slide-1.jpg"
+                  src="@/assets/images/demoes/demo40/slider/slide-1.png"
                   alt="slider image"
                   style="background-color: #c0e1f2"
                 />
@@ -46,7 +46,7 @@ const modules = ref([Pagination, Autoplay]);
               <div class="home-slide home-slide1 banner">
                 <img
                   class="slide-bg"
-                  src="@/assets/images/demoes/demo40/slider/slide-2.jpg"
+                  src="@/assets/images/demoes/demo40/slider/slide-2.png"
                   alt="slider image"
                   style="background-color: #c0e1f2"
                 />
@@ -56,7 +56,27 @@ const modules = ref([Pagination, Autoplay]);
               <div class="home-slide home-slide1 banner">
                 <img
                   class="slide-bg"
-                  src="@/assets/images/demoes/demo40/slider/slide-1.jpg"
+                  src="@/assets/images/demoes/demo40/slider/slide-3.png"
+                  alt="slider image"
+                  style="background-color: #c0e1f2"
+                />
+              </div>
+            </swiper-slide>
+            <swiper-slide>
+              <div class="home-slide home-slide1 banner">
+                <img
+                  class="slide-bg"
+                  src="@/assets/images/demoes/demo40/slider/slide-4.png"
+                  alt="slider image"
+                  style="background-color: #c0e1f2"
+                />
+              </div>
+            </swiper-slide>
+            <swiper-slide>
+              <div class="home-slide home-slide1 banner">
+                <img
+                  class="slide-bg"
+                  src="@/assets/images/demoes/demo40/slider/slide-5.png"
                   alt="slider image"
                   style="background-color: #c0e1f2"
                 />

@@ -1,4 +1,6 @@
 <script setup>
+// import GuestLayout from './views/common/GuestLayout.vue'
+// import Layout from './views/common/Layout.vue'
 import Login from './views/pages/Authentication/Login.vue'
 import { ref, onMounted } from "vue";
 import { Header, Sidebar, Footer, MobileMenu, StickyNavber, BannerSection, InfoSection, FeatureSection, PopularSection, ProductSection, SpecialOffersSection } from "@/components";

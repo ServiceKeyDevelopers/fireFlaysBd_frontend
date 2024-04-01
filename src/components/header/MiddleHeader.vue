@@ -78,16 +78,16 @@ window.addEventListener('scroll', () => {
                         <!-- End .header-search -->
 
                         <div class="header-contact header-wishlist d-lg-flex pl-4 pr-sm-4 pr-2 ml-2">
-                            <a href="wishlist.html" class="header-icon mr-0" title="wishlist"><i
-                                    class="icon-wishlist-2"></i></a>
-                            <h6 class="text-capitalize"><span>Favorites</span><a href="login.html">Wishlist</a>
+                            <router-link :to="{name: 'WishlistPage'}" class="header-icon mr-0" title="wishlist"><i
+                                    class="icon-wishlist-2"></i></router-link>
+                            <h6 class="text-capitalize"><span>Favorites</span><router-link :to="{name: 'WishlistPage'}">Wishlist</router-link>
                             </h6>
                         </div>
 
                         <div class="header-contact d-lg-flex pr-sm-4 pr-2">
-                            <a href="login.html" class="header-icon mr-0" title="login"><i class="icon-user-2"></i></a>
-                            <h6 class="text-capitalize"><span class="ls-n-20">Welcome</span><a href="login.html">Sign In
-                                    / Register</a></h6>
+                            <router-link :to="{name: 'LoginPage'}" class="header-icon mr-0" title="login"><i class="icon-user-2"></i></router-link>
+                            <h6 class="text-capitalize"><span class="ls-n-20">Welcome</span><router-link :to="{name: 'LoginPage'}">Sign In
+                                    / Register</router-link></h6>
                         </div>
 
                         <div class="separator"></div>
