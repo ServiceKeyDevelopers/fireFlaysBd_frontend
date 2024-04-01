@@ -36,9 +36,9 @@ window.addEventListener('scroll', () => {
                         <button class="mobile-menu-toggler text-primary mr-2" @click="toggleMenu" type="button" :class="{ active: isMenuActive }">
                             <i class="fas fa-bars"></i>
                         </button>
-                        <a href="demo40.html" class="logo">
+                        <router-link :to="{name: 'HomePage'}" class="logo">
                             <img src="@/assets/images/logo-black.png" class="w-100" width="111" height="44" alt="Porto Logo">
-                        </a>
+                        </router-link>
                     </div>
                     <!-- End .header-left -->
 
