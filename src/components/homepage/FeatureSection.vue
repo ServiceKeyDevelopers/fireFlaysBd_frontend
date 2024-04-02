@@ -106,8 +106,8 @@ const featuredItemsShowing = (data) => {
                       aria-labelledby="best-products-tab"
                     >
                       <swiper
-                        :slidesPerView="4"
-                        :sliderPerGroup="4"
+                        :slidesPerView="6"
+                        :sliderPerGroup="6"
                         :space-between="30"
                         :loop="true"
                         :autoplay="{
@@ -115,7 +115,7 @@ const featuredItemsShowing = (data) => {
                         }"
                         :modules="modules"
                         class="mySwiper"
-                        :breakpoints="{ [425 - 320]:{ slidesPerView:2,spaceBetweenSlides: 20  }, 768:{ slidesPerView:3,spaceBetweenSlides: 30  }, 800:{ slidesPerView:4,spaceBetweenSlides: 30  } }"
+                        :breakpoints="{ [425 - 320]:{ slidesPerView:2,spaceBetweenSlides: 20  }, 768:{ slidesPerView:3,spaceBetweenSlides: 30  }, 800:{ slidesPerView:6,spaceBetweenSlides: 30  } }"
                       >
                         <swiper-slide>
                           <div
@@ -616,8 +616,8 @@ const featuredItemsShowing = (data) => {
                       aria-labelledby="best-products-tab"
                     >
                       <swiper
-                        :slidesPerView="4"
-                        :sliderPerGroup="4"
+                        :slidesPerView="6"
+                        :sliderPerGroup="6"
                         :space-between="30"
                         :loop="true"
                         :autoplay="{
@@ -625,7 +625,7 @@ const featuredItemsShowing = (data) => {
                         }"
                         :modules="modules"
                         class="mySwiper"
-                        :breakpoints="{ [425 - 320]:{ slidesPerView:2,spaceBetweenSlides: 20  }, 768:{ slidesPerView:3,spaceBetweenSlides: 30  }, 800:{ slidesPerView:4,spaceBetweenSlides: 30  } }"
+                        :breakpoints="{ [425 - 320]:{ slidesPerView:2,spaceBetweenSlides: 20  }, 768:{ slidesPerView:3,spaceBetweenSlides: 30  }, 800:{ slidesPerView:6,spaceBetweenSlides: 30  } }"
                       >
                         <swiper-slide>
                           <div
@@ -1126,8 +1126,8 @@ const featuredItemsShowing = (data) => {
                       aria-labelledby="best-products-tab"
                     >
                       <swiper
-                        :slidesPerView="4"
-                        :sliderPerGroup="4"
+                        :slidesPerView="6"
+                        :sliderPerGroup="6"
                         :space-between="30"
                         :loop="true"
                         :autoplay="{
@@ -1135,7 +1135,7 @@ const featuredItemsShowing = (data) => {
                         }"
                         :modules="modules"
                         class="mySwiper"
-                        :breakpoints="{ [425 - 320]:{ slidesPerView:2,spaceBetweenSlides: 20  }, 768:{ slidesPerView:3,spaceBetweenSlides: 30  }, 800:{ slidesPerView:4,spaceBetweenSlides: 30  } }"
+                        :breakpoints="{ [425 - 320]:{ slidesPerView:2,spaceBetweenSlides: 20  }, 768:{ slidesPerView:3,spaceBetweenSlides: 30  }, 800:{ slidesPerView:6,spaceBetweenSlides: 30  } }"
                       >
                         <swiper-slide>
                           <div

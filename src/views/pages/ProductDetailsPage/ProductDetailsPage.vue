@@ -11,7 +11,6 @@ import { Footer } from "@/components";
 // import { Pagination, Autoplay, Navigation } from "swiper/modules";
 
 // const newSlide = ref([Navigation]);
-// const modules = ref([Pagination, Autoplay]);
 
   // Import Swiper Vue.js components
   import { Swiper, SwiperSlide } from 'swiper/vue';
@@ -25,6 +24,7 @@ import { Footer } from "@/components";
 
 
 
+  const modules = ref();
 // image section start
 const thumbnailImage = ref("https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_4.jpg")
 const activeImage = ref(0)
@@ -148,6 +148,12 @@ const changeImage = (img, index) => {
                 class="btn btn-dark add-cart mr-2"
                 title="Add to Cart"
                 >Add to Cart</a
+              >
+              <a
+                href="javascript:;"
+                class="btn buyNowBtn add-cart mr-2"
+                title="Add to Cart"
+                >Buy Now</a
               >
 
               <a href="cart.html" class="btn btn-gray view-cart d-none">View cart</a>
@@ -819,6 +825,15 @@ const changeImage = (img, index) => {
 </template>
 
 <style scoped>
+
+.buyNowBtn{
+  background-color: #8DC540;
+  color: #fff;
+}
+.buyNowBtn:hover{
+  background-color: #69922e;
+  color: #fff;
+}
 
 /* Gallery image start css */
 

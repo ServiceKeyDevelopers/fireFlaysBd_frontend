@@ -11559,7 +11559,7 @@ footer .contact-info-label {
 .footer .social-icon:not(:hover):not(:active):not(:focus) {
   background-color: transparent;
   border-color: #313438;
-  color: #fff;
+  color: #7ee126;
 }
 .footer .social-icon:hover {
   border-color: transparent;
