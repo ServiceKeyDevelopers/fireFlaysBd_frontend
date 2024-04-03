@@ -161,7 +161,7 @@ const cartIncrement = (index) => {
                                         <!-- End .dropdown-cart-total -->
 
                                         <div class="dropdown-cart-action">
-                                            <a href="checkout.html" class="btn btn-dark btn-block">Checkout</a>
+                                            <router-link :to="{name: 'CheckoutPage'}" class="btn btn-dark btn-block">Checkout</router-link>
                                         </div>
                                         <!-- End .dropdown-cart-total -->
                                     </div>

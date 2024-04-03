@@ -29,6 +29,7 @@ export const useProduct = defineStore("product", {
           } else {
             this.products = res.data.result;
           }
+          return res.data.result;
         }
       } catch (error) {
         console.log(error);

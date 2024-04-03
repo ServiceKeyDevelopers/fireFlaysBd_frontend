@@ -44,15 +44,13 @@ onMounted(() => {
                     </nav>
 
                     <h2 class="side-menu-title ls-n-10 pb-2">Categories</h2>
-
                     <nav class="side-nav">
                         <ul class="menu menu-vertical sf-arrows d-block no-superfish">
                             <li v-for="(category, index) in categories.result" :key="index">
                                 <a href="demo40-shop.html">{{ category.name }}<span
                                         class="sf-with-ul menu-btn"></span></a>
-                                <ul>
-                                    <li><a href="demo40-shop.html">Alcohol</a></li>
-                                    <li><a href="demo40-shop.html">Beverages</a></li>
+                                <ul v-if="category.sub_category.length > 0 ">
+                                    <li v-for="(subCategory, index) in category.sub_category" :key="index"><a href="demo40-shop.html">{{ subCategory.name }}</a></li>
                                 </ul>
                             </li>
                         </ul>
