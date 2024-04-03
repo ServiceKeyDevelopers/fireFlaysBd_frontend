@@ -13,3 +13,4 @@ export { default as PopularSection } from "@/components/homepage/PopularSection.
 export { default as ProductSection } from "@/components/homepage/ProductSection.vue";
 export { default as SpecialOffersSection } from "@/components/homepage/SpecialOffersSection.vue";
 export { default as ProductCard } from "@/components/product/ProductCard.vue";
+export { default as ProductPrice } from "@/components/product/ProductPrice.vue";

@@ -1,8 +1,12 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { useCart } from "@/stores";
+import { storeToRefs } from "pinia";
 
+const cart = useCart();
+const { cartItemCount, cartItem, totalPrice } = storeToRefs(cart);
 const isMenuActive = ref(false);
-const isCartMenu = ref(false);
+const isCartMenu   = ref(false);
 const stickyNavbar = ref(false);
 
 const Top = ref(0)
@@ -10,7 +14,6 @@ const toggleMenu = () => {
   isMenuActive.value =!isMenuActive.value;
   document.body.classList.toggle('mmenu-active');
 };
-
 
 const cartOpen = () => {
     isCartMenu.value =!isCartMenu.value;
@@ -26,6 +29,20 @@ window.addEventListener('scroll', () => {
       stickyNavbar.value = false;
     }
   });
+
+  const deleteCart = (index) => {
+    cart.destroy(index);
+    };
+
+const cartDecrement = (index) => {
+    cart.decrement(index);
+    };
+
+const cartIncrement = (index) => {
+    cart.increment(index);
+    };
+
+
 
 </script>
 <template>
@@ -94,13 +111,13 @@ window.addEventListener('scroll', () => {
 
                         <div class="cart-dropdown-wrapper d-flex align-items-center pt-2">
                             <span class="cart-subtotal text-right font2 mr-3">Shopping Cart
-                                <span class="cart-price d-block font2">$0.00</span>
+                                <span class="cart-price d-block font2">{{ $filters.currencySymbol(totalPrice)}}</span>
                             </span>
 
                             <div class="dropdown cart-dropdown" :class="{isCartMenu : 'show'}">
                                 <a href="#" title="Cart" class="cart-toggle"  @click.prevent="cartOpen()" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                     <i class="icon-cart-thick"></i>
-                                    <span class=" cart-count badge-circle">3</span>
+                                    <span class=" cart-count badge-circle">{{ cartItemCount }}</span>
                                 </a>
 
                                 <div class="cart-overlay" @click.prevent="cartOpen()"></div>
@@ -113,14 +130,14 @@ window.addEventListener('scroll', () => {
                                         <!-- End .dropdown-cart-header -->
 
                                         <div class="dropdown-cart-products">
-                                            <div class="product">
+                                            <div class="product" v-for="(cart, index) in cartItem" :key="index">
                                                 <div class="product-details">
                                                     <h4 class="product-title">
-                                                        <a href="product.html">Ultimate 3D Bluetooth Speaker</a>
+                                                        <a href="product.html">{{ cart.name }}</a>
                                                     </h4>
 
                                                     <span class="cart-product-info">
-                                                        <span class="cart-product-qty">1</span> × $99.00
+                                                        <span class="cart-product-qty">{{ cart.quantity }}</span> × {{ $filters.currencySymbol(cart.offer_price == 0 ? cart.mrp : cart.offer_price) }}
                                                     </span>
                                                 </div>
                                                 <!-- End .product-details -->
@@ -130,66 +147,20 @@ window.addEventListener('scroll', () => {
                                                         <img src="@/assets/images/products/product-1.jpg" alt="product" width="80" height="80">
                                                     </a>
 
-                                                    <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
+                                                    <a href="#" class="btn-remove" title="Remove Product"  @click.prevent="deleteCart(index)"><span>×</span></a>
                                                 </figure>
                                             </div>
-                                            <!-- End .product -->
-
-                                            <div class="product">
-                                                <div class="product-details">
-                                                    <h4 class="product-title">
-                                                        <a href="product.html">Brown Women Casual HandBag</a>
-                                                    </h4>
-
-                                                    <span class="cart-product-info">
-                                                        <span class="cart-product-qty">1</span> × $35.00
-                                                    </span>
-                                                </div>
-                                                <!-- End .product-details -->
-
-                                                <figure class="product-image-container">
-                                                    <a href="product.html" class="product-image">
-                                                        <img src="@/assets/images/products/product-2.jpg" alt="product" width="80" height="80">
-                                                    </a>
-
-                                                    <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                                </figure>
-                                            </div>
-                                            <!-- End .product -->
-
-                                            <div class="product">
-                                                <div class="product-details">
-                                                    <h4 class="product-title">
-                                                        <a href="product.html">Circled Ultimate 3D Speaker</a>
-                                                    </h4>
-
-                                                    <span class="cart-product-info">
-                                                        <span class="cart-product-qty">1</span> × $35.00
-                                                    </span>
-                                                </div>
-                                                <!-- End .product-details -->
-
-                                                <figure class="product-image-container">
-                                                    <a href="product.html" class="product-image">
-                                                        <img src="@/assets/images/products/product-3.jpg" alt="product" width="80" height="80">
-                                                    </a>
-                                                    <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                                </figure>
-                                            </div>
-                                            <!-- End .product -->
                                         </div>
                                         <!-- End .cart-product -->
 
                                         <div class="dropdown-cart-total">
                                             <span>SUBTOTAL:</span>
 
-                                            <span class="cart-total-price float-right">$134.00</span>
+                                            <span class="cart-total-price float-right">{{ $filters.currencySymbol(totalPrice)}}</span>
                                         </div>
                                         <!-- End .dropdown-cart-total -->
 
                                         <div class="dropdown-cart-action">
-                                            <a href="cart.html" class="btn btn-gray btn-block view-cart">View
-                                                Cart</a>
                                             <a href="checkout.html" class="btn btn-dark btn-block">Checkout</a>
                                         </div>
                                         <!-- End .dropdown-cart-total -->

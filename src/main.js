@@ -1,6 +1,6 @@
 
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createPinia} from 'pinia'
 import ElementPlus from 'element-plus'
 
 import App from './App.vue'
@@ -17,8 +17,8 @@ pinia.use(piniaPluginPersistedstate)
 
 const app = createApp(App)
 
-app.use(ElementPlus)
 app.use(pinia)
+app.use(ElementPlus)
 app.use(router)
 
 

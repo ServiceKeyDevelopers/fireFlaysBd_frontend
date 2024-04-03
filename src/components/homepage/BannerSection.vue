@@ -2,6 +2,10 @@
 import { Banner } from "@/components";
 import { ref, onMounted } from "vue";
 
+// slider get data 
+import { storeToRefs } from 'pinia';
+// slider data fetch 
+import {useSlider} from '@/stores'
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
 // Import Swiper styles
@@ -12,6 +16,21 @@ import { Pagination, Autoplay, Navigation } from "swiper/modules";
 
 const newSlide = ref([Navigation]);
 const modules = ref([Pagination, Autoplay]);
+
+// All Variable  Code Is Here.....................................................................................................
+
+
+// slider data fetch 
+const slider = useSlider();
+const {sliders} = storeToRefs(slider)
+
+onMounted(() => {
+    slider.getData();
+})
+
+// API Calling Code Is Here.....................................................................................................
+
+// All Function  Code Is Here.....................................................................................................
 </script>
 
 <template>
@@ -32,51 +51,11 @@ const modules = ref([Pagination, Autoplay]);
             :modules="modules"
             class="mySwiper"
           >
-            <swiper-slide>
+            <swiper-slide v-for="(slider, index) in sliders.result" :key="index">
               <div class="home-slide home-slide1 banner">
                 <img
                   class="slide-bg"
-                  src="@/assets/images/demoes/demo40/slider/slide-1.png"
-                  alt="slider image"
-                  style="background-color: #c0e1f2"
-                />
-              </div>
-            </swiper-slide>
-            <swiper-slide>
-              <div class="home-slide home-slide1 banner">
-                <img
-                  class="slide-bg"
-                  src="@/assets/images/demoes/demo40/slider/slide-2.png"
-                  alt="slider image"
-                  style="background-color: #c0e1f2"
-                />
-              </div>
-            </swiper-slide>
-            <swiper-slide>
-              <div class="home-slide home-slide1 banner">
-                <img
-                  class="slide-bg"
-                  src="@/assets/images/demoes/demo40/slider/slide-3.png"
-                  alt="slider image"
-                  style="background-color: #c0e1f2"
-                />
-              </div>
-            </swiper-slide>
-            <swiper-slide>
-              <div class="home-slide home-slide1 banner">
-                <img
-                  class="slide-bg"
-                  src="@/assets/images/demoes/demo40/slider/slide-4.png"
-                  alt="slider image"
-                  style="background-color: #c0e1f2"
-                />
-              </div>
-            </swiper-slide>
-            <swiper-slide>
-              <div class="home-slide home-slide1 banner">
-                <img
-                  class="slide-bg"
-                  src="@/assets/images/demoes/demo40/slider/slide-5.png"
+                  :src="slider.image"
                   alt="slider image"
                   style="background-color: #c0e1f2"
                 />
