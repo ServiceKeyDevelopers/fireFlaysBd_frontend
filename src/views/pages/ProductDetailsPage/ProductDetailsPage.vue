@@ -24,7 +24,7 @@ import { Footer } from "@/components";
 
 
 
-  const modules = ref();
+const modules = ref();
 // image section start
 const thumbnailImage = ref("https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_4.jpg")
 const activeImage = ref(0)
@@ -46,12 +46,24 @@ const images = ref([
     imgUrl: "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_1.jpg"
   }
 ])
+
 const changeImage = (img, index) => {
     thumbnailImage.value = img
     activeImage.value = index
 }
 
 // image section end
+
+// video url setup start
+
+const getEmbedUrl = (watchUrl) => {
+  const videoIdMatch = watchUrl.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+  const videoId = (videoIdMatch && videoIdMatch[1]) || '';
+  
+  return `https://www.youtube.com/embed/${videoId}`;
+}
+
+// video url setup end
 
 
 </script>
@@ -122,7 +134,7 @@ const changeImage = (img, index) => {
                 Pellentesque habitant morbi tristique senectus et netus et malesuada fames
                 ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
                 tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
-                Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
+                Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, neque.
               </p>
             </div>
             <!-- End .product-desc -->
@@ -203,6 +215,9 @@ const changeImage = (img, index) => {
                 </a>
               </div>
               <!-- End .social-icons -->
+            </div>
+            <div class="videoHW">
+              <iframe class="mt-5"   src="https://www.youtube.com/embed/0J3bMvYEFOM?si=JEAooYiLUrLS5MEg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>              
             </div>
             <!-- End .product single-share -->
           </div>
@@ -932,5 +947,59 @@ img{
 }
 
 /* Product Quentity end css */
+
+/* video section start */
+.videoHW iframe{
+  width: 560px !important;
+  height: 315px !important;
+}
+/* video section end */
+
+@media (max-width: 1024px) {
+
+.videoHW iframe{
+  width: 383px !important;
+  height: 190px!important;
+}
+
+}
+
+
+
+@media (max-width: 768px) {
+
+.videoHW iframe{
+  width: auto !important;
+  height: auto !important;
+}
+
+}
+
+
+
+@media (max-width: 425px) {
+
+  .videoHW iframe{
+    width: 355px !important;
+    height: 220px !important;
+  }
+
+}
+
+@media (max-width: 375px) {
+
+  .videoHW iframe{
+    width: 305px !important;
+    height: 170px !important;
+  }
+}
+
+@media (max-width: 320px) {
+
+  .videoHW iframe{
+    width: 251px !important;
+    height: 150px !important;
+  }
+}
 
 </style>
