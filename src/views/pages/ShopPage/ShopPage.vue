@@ -111,24 +111,6 @@ onMounted(() => {
                 </div>
             </template>
         </div>
-        <!-- End .row -->
-
-        <nav class="toolbox toolbox-pagination">
-            <ul class="pagination toolbox-item">
-                <li class="page-item disabled">
-                    <a class="page-link page-link-btn" href="#"><i class="icon-angle-left"></i></a>
-                </li>
-                <li class="page-item active">
-                    <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><span class="page-link">...</span></li>
-                <li class="page-item">
-                    <a class="page-link page-link-btn" href="#"><i class="icon-angle-right"></i></a>
-                </li>
-            </ul>
-        </nav>
 
         <footer class="footer font2">
             <div class="footer-middle">

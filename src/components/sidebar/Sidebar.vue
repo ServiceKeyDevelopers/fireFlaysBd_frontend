@@ -14,10 +14,24 @@ const category = useCategory();
 const {categories} = storeToRefs(category)
 
 
+const activeIndex = ref(null);
+
 const route = useRoute();
 const isActiveRoute = (routeName) =>  {
       return route.name === routeName;
     }
+
+    const toggleDropdown = (index, category) => {
+        if (category.sub_category.length > 0) {
+            if (activeIndex.value === index) {
+            activeIndex.value = null; // Hide dropdown if already active
+            } else {
+            activeIndex.value = index; // Show dropdown of clicked item
+            }
+        }else{
+            // router.push({ name:'shopPage', query:{ category: category.id} });
+        }
+     }
 
 
 onMounted(() => {
@@ -47,10 +61,9 @@ onMounted(() => {
                     <nav class="side-nav">
                         <ul class="menu menu-vertical sf-arrows d-block no-superfish">
                             <li v-for="(category, index) in categories.result" :key="index">
-                                <a href="demo40-shop.html">{{ category.name }}<span
-                                        class="sf-with-ul menu-btn"></span></a>
-                                <ul v-if="category.sub_category.length > 0 ">
-                                    <li v-for="(subCategory, index) in category.sub_category" :key="index"><a href="demo40-shop.html">{{ subCategory.name }}</a></li>
+                                <router-link :to="{name: 'HomePage'}" >{{ category.name }}<span class="sf-with-ul menu-btn" @click.prevent="toggleDropdown(index, category)" v-if="category.sub_category.length > 0"></span></router-link>
+                                <ul v-if="category.sub_category.length > 0 " :style="{ 'display': activeIndex === index ? 'block' : 'none' }">
+                                    <li v-for="(subCategory, index) in category.sub_category" :key="index"><a >{{ subCategory.name }}</a></li>
                                 </ul>
                             </li>
                         </ul>

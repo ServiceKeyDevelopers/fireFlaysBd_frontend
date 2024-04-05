@@ -111,7 +111,7 @@ const cartIncrement = (index) => {
 
                         <div class="cart-dropdown-wrapper d-flex align-items-center pt-2">
                             <span class="cart-subtotal text-right font2 mr-3">Shopping Cart
-                                <span class="cart-price d-block font2">{{ $filters.currencySymbol(totalPrice)}}</span>
+                                <span class="cart-price d-block font2">৳ {{ totalPrice == 0 ? 0 : totalPrice }}</span>
                             </span>
 
                             <div class="dropdown cart-dropdown" :class="{isCartMenu : 'show'}">
