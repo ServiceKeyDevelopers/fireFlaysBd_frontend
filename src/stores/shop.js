@@ -32,11 +32,7 @@ export const useShop = defineStore("shop", {
           return res.data.result
         }
       } catch (error) {
-        if (error.response.data) {
-          return new Promise((reject) => {
-            reject(error.response.data);
-          });
-        }
+          console.log(error);
       } finally {
         this.loading = false
       }

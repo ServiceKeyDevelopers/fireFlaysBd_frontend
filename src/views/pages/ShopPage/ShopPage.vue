@@ -3,7 +3,7 @@ import { ref, onMounted } from "vue";
 // import {Header} from "@/components";
 import {ProductCard} from "@/components";
 import { storeToRefs } from 'pinia';
-import {useProduct} from '@/stores'
+import {useShop} from '@/stores'
 
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -14,15 +14,38 @@ import "swiper/css/pagination";
 import { Pagination, Autoplay, Navigation } from "swiper/modules";
 
 const allProducts = ref('');
-const product = useProduct();
-const {products} = storeToRefs(product)
+const shop = useShop();
+const { products, sideBar, loading } = storeToRefs(shop);
 
 const newSlide = ref([Navigation]);
 const modules = ref([Pagination, Autoplay]);
 
+const productType = ref("");
+const selectedBrandIds = ref([]);
+const selectedCategoryIds = ref([]);
+const selectedSubCategoryIds = ref("");
+const sortingPrice = ref([]);
+const searchQuery = ref("");
+const paginateSize = ref("");
+
+// sorting functions 
+const getProducts = () => {
+  products.value = [];
+  shop.getData(
+    productType.value,
+    selectedBrandIds.value,
+    selectedCategoryIds.value,
+    selectedSubCategoryIds.value,
+    sortingPrice.value,
+    searchQuery.value,
+    paginateSize.value,
+  );
+};
+
 
 onMounted(() => {
-    product.getData();
+    // product.getData();
+    getProducts();
 })
 
 </script>
@@ -65,13 +88,11 @@ onMounted(() => {
                     <label>Sort By:</label>
 
                     <div class="select-custom">
-                        <select name="orderby" class="form-control">
-                            <option value="menu_order" selected="selected">Default sorting</option>
-                            <option value="popularity">Sort by popularity</option>
-                            <option value="rating">Sort by average rating</option>
-                            <option value="date">Sort by newness</option>
-                            <option value="price">Sort by price: low to high</option>
-                            <option value="price-desc">Sort by price: high to low</option>
+                        <select name="orderby" class="form-control" @change="getProducts" v-model="productType">
+                            <option value="" selected>All</option>
+                            <option value="top-product">Top</option>
+                            <option value="feature-product">Feature</option>
+                            <option value="recent-product">Recent</option>
                         </select>
                     </div>
                     <!-- End .select-custom -->
@@ -81,32 +102,6 @@ onMounted(() => {
                 <!-- End .toolbox-item -->
             </div>
             <!-- End .toolbox-left -->
-
-            <div class="toolbox-right">
-                <div class="toolbox-item toolbox-show">
-                    <label>Show:</label>
-
-                    <div class="select-custom">
-                        <select name="count" class="form-control">
-                            <option value="12">18</option>
-                            <option value="24">36</option>
-                        </select>
-                    </div>
-                    <!-- End .select-custom -->
-                </div>
-                <!-- End .toolbox-item -->
-
-                <div class="toolbox-item layout-modes">
-                    <a href="category.html" class="layout-btn btn-grid active" title="Grid">
-                        <i class="icon-mode-grid"></i>
-                    </a>
-                    <a href="category-list.html" class="layout-btn btn-list" title="List">
-                        <i class="icon-mode-list"></i>
-                    </a>
-                </div>
-                <!-- End .layout-modes -->
-            </div>
-            <!-- End .toolbox-right -->
         </nav>
 
         <div class="row products-group">
@@ -119,19 +114,6 @@ onMounted(() => {
         <!-- End .row -->
 
         <nav class="toolbox toolbox-pagination">
-            <div class="toolbox-item toolbox-show">
-                <label>Show:</label>
-
-                <div class="select-custom">
-                    <select name="count" class="form-control">
-                        <option value="12">18</option>
-                        <option value="36">36</option>
-                    </select>
-                </div>
-                <!-- End .select-custom -->
-            </div>
-            <!-- End .toolbox-item -->
-
             <ul class="pagination toolbox-item">
                 <li class="page-item disabled">
                     <a class="page-link page-link-btn" href="#"><i class="icon-angle-left"></i></a>
