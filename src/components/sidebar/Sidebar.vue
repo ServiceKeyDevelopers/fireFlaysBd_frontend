@@ -61,9 +61,9 @@ onMounted(() => {
                     <nav class="side-nav">
                         <ul class="menu menu-vertical sf-arrows d-block no-superfish">
                             <li v-for="(category, index) in categories.result" :key="index">
-                                <router-link :to="{name: 'HomePage'}" >{{ category.name }}<span class="sf-with-ul menu-btn" @click.prevent="toggleDropdown(index, category)" v-if="category.sub_category.length > 0"></span></router-link>
+                                <router-link  >{{ category.name }}<span class="sf-with-ul menu-btn" @click.prevent="toggleDropdown(index, category)" v-if="category.sub_category.length > 0"></span></router-link>
                                 <ul v-if="category.sub_category.length > 0 " :style="{ 'display': activeIndex === index ? 'block' : 'none' }">
-                                    <li v-for="(subCategory, index) in category.sub_category" :key="index"><a >{{ subCategory.name }}</a></li>
+                                    <li v-for="(subCategory, index) in category.sub_category" :key="index"><router-link  >{{ subCategory.name }}</router-link></li>
                                 </ul>
                             </li>
                         </ul>

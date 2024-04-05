@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 // import {Header} from "@/components";
 import {ProductCard} from "@/components";
 import { storeToRefs } from 'pinia';
@@ -43,8 +43,42 @@ const getProducts = () => {
 };
 
 
+// Category wise product showing
+
+const queryProducts = () => {
+  selectedCategoryIds.value = [];
+  selectedBrandIds.value = [];
+  if (route.query.category) {
+    selectedCategoryIds.value.push(route.query.category);
+  }
+  if (route.query.subCategory) {
+    selectedSubCategoryIds.value = route.query.subCategory;
+  }
+  if (route.query.brand) {
+    selectedBrandIds.value.push(route.query.brand);
+  }
+  if (route.query.recent) {
+    productType.value = route.query.recent;
+  }
+  if (route.query.top) {
+    productType.value = route.query.top;
+  }
+  if (route.query.feature) {
+    productType.value = route.query.feature;
+  }
+};
+
+// category slug wise product showing
+watch(
+  () => route.query.category || route.query.brand || route.query.subCategory,
+  async (newValue, oldValue) => {
+    queryProducts();
+    getProducts();
+  }
+);
+
 onMounted(() => {
-    // product.getData();
+    queryProducts();
     getProducts();
 })
 
