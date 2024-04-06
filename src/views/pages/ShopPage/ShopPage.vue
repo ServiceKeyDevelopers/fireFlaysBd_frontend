@@ -4,6 +4,7 @@ import { ref, onMounted, watch } from "vue";
 import {ProductCard} from "@/components";
 import { storeToRefs } from 'pinia';
 import {useShop} from '@/stores'
+import { useRoute, useRouter } from "vue-router";
 
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -12,6 +13,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 // import required modules
 import { Pagination, Autoplay, Navigation } from "swiper/modules";
+
+const route = useRoute();
+const router= useRouter();
 
 const allProducts = ref('');
 const shop = useShop();

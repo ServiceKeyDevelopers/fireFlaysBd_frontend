@@ -21,17 +21,17 @@ const isActiveRoute = (routeName) =>  {
       return route.name === routeName;
     }
 
-    const toggleDropdown = (index, category) => {
-        if (category.sub_category.length > 0) {
-            if (activeIndex.value === index) {
-            activeIndex.value = null; // Hide dropdown if already active
-            } else {
-            activeIndex.value = index; // Show dropdown of clicked item
-            }
-        }else{
-            // router.push({ name:'shopPage', query:{ category: category.id} });
+const toggleDropdown = (index, category) => {
+    if (category.sub_category.length > 0) {
+        if (activeIndex.value === index) {
+        activeIndex.value = null; 
+        } else {
+        activeIndex.value = index; 
         }
-     }
+    }else{
+        router.push({ name:'shopPage', query:{ category: category.id} });
+    }
+ }
 
 
 onMounted(() => {
@@ -61,9 +61,9 @@ onMounted(() => {
                     <nav class="side-nav">
                         <ul class="menu menu-vertical sf-arrows d-block no-superfish">
                             <li v-for="(category, index) in categories.result" :key="index">
-                                <router-link  >{{ category.name }}<span class="sf-with-ul menu-btn" @click.prevent="toggleDropdown(index, category)" v-if="category.sub_category.length > 0"></span></router-link>
+                                <router-link :to="{name: 'ShopPage', query:{ category: category.id}}" class="active">{{ category.name }}<span class="sf-with-ul menu-btn" @click.prevent="toggleDropdown(index, category)" v-if="category.sub_category.length > 0"></span></router-link>
                                 <ul v-if="category.sub_category.length > 0 " :style="{ 'display': activeIndex === index ? 'block' : 'none' }">
-                                    <li v-for="(subCategory, index) in category.sub_category" :key="index"><router-link  >{{ subCategory.name }}</router-link></li>
+                                    <li v-for="(subCategory, index) in category.sub_category" :key="index"><router-link  :to="{name: 'ShopPage', query:{ subCategory: subCategory.id}}">{{ subCategory.name }}</router-link></li>
                                 </ul>
                             </li>
                         </ul>
@@ -78,5 +78,7 @@ onMounted(() => {
 </template>
 
 <style>
-
+.category-sidebar-active{
+    color: #8dc540;
+}
 </style>
