@@ -45,11 +45,7 @@ export const useProduct = defineStore("product", {
         return res.data.data;
         
       } catch (error) {
-        if (error.response.data) {
-          return new Promise((reject) => {
-            reject(error.response.data);
-          });
-        }
+        console.log(error);
       } finally {
         this.loading = false;
       }

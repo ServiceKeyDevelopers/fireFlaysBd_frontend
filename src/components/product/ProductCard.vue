@@ -22,16 +22,14 @@ const props = defineProps({
     <div>
         <div class="product-default inner-quickview inner-icon">
             <figure>
-                <a href="demo40-product.html">
+                <router-link :to="{name: 'ProductDetailsPage',params: { id: product.id, slug: product.slug },}">
                     <img :src="product.image" width="205" height="205" :alt="product.name">
-                </a>
+                </router-link>
 
                 <div class="btn-icon-group">
                     <a href="" class="btn-icon btn-add-cart product-type-simple" @click.prevent="addToCart(product)"><i class="icon-shopping-cart" ></i></a>
                 </div>
-                <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick
-                    View
-                </a>
+                <router-link :to="{name: 'ProductDetailsPage',params: { id: product.id, slug: product.slug },}" class="btn-quickview" title="Quick View">Quick View</router-link>
             </figure>
             <div class="product-details">
                 <div class="category-wrap">

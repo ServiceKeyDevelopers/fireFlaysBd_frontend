@@ -16,7 +16,7 @@ const routes = [
     meta: { title: "Fireflys BD | Shop Page" },
   },
   {
-    path: '/ProductDetailsPage',
+    path: "/product-details/:id/:slug",
     name: 'ProductDetailsPage',
     component: ProductDetailsPage,
     meta: { title: "Fireflys BD | Product Details Page" },

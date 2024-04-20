@@ -1,27 +1,22 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { Footer } from "@/components";
+import { Footer, Breadcrumb } from "@/components";
+import { useRouter, useRoute } from "vue-router";
+import { useProduct, useCart, useNotification, useShop } from "@/stores";
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/navigation';
+import 'swiper/css/thumbs';
+// import './style.css';
 
-// // Import Swiper Vue.js components
-// import { Swiper, SwiperSlide } from "swiper/vue";
-// // Import Swiper styles
-// import "swiper/css";
-// import "swiper/css/pagination";
-// // import required modules
-// import { Pagination, Autoplay, Navigation } from "swiper/modules";
+const route   = useRoute();
+const product = useProduct();
 
-// const newSlide = ref([Navigation]);
-
-  // Import Swiper Vue.js components
-  import { Swiper, SwiperSlide } from 'swiper/vue';
-  import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
-  // Import Swiper styles
-  import 'swiper/css';
-  import 'swiper/css/free-mode';
-  import 'swiper/css/navigation';
-  import 'swiper/css/thumbs';
-//   import './style.css';
-
+const singleProduct = ref('');
 
 
 const modules = ref();
@@ -54,16 +49,26 @@ const changeImage = (img, index) => {
 
 // image section end
 
+// single product get by id start 
+const productByid = async () => {
+  singleProduct.value = await product.productById(route.params.id);
+};
+// single product get by id end 
+
+
+
+
 // video url setup start
-
-const getEmbedUrl = (watchUrl) => {
-  const videoIdMatch = watchUrl.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
-  const videoId = (videoIdMatch && videoIdMatch[1]) || '';
-  
-  return `https://www.youtube.com/embed/${videoId}`;
-}
-
+  const getEmbedUrl = (watchUrl) => {
+    const videoIdMatch = watchUrl.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+    const videoId = (videoIdMatch && videoIdMatch[1]) || ''; 
+    return `https://www.youtube.com/embed/${videoId}`;
+  }
 // video url setup end
+
+onMounted(() => {
+  productByid();
+})
 
 
 </script>
@@ -71,15 +76,8 @@ const getEmbedUrl = (watchUrl) => {
 <template>
   <div>
     <div class="main-content">
-      <nav aria-label="breadcrumb" class="breadcrumb-nav font2">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="demo40.html"><i class="icon-home"></i></a>
-          </li>
-          <li class="breadcrumb-item"><a href="#">Product</a></li>
-        </ol>
-      </nav>
-
+      <Breadcrumb />
+      {{ singleProduct }}
       <div class="product-single-container product-single-default">
         <div class="cart-message d-none">
           <strong class="single-cart-notice">“Men Black Sports Shoes”</strong>
@@ -106,7 +104,7 @@ const getEmbedUrl = (watchUrl) => {
           <!-- End .product-single-gallery -->
 
           <div class="col-xl-7 col-md-6 product-single-details">
-            <h1 class="product-title">Product Short Name</h1>
+            <h1 class="product-title">{{ singleProduct?.name }}</h1>
 
             
 
@@ -125,17 +123,12 @@ const getEmbedUrl = (watchUrl) => {
             <hr class="short-divider" />
 
             <div class="price-box">
-              <span class="product-price"> $35.00</span>
+              <span class="product-price">{{ singleProduct?.mrp }}</span>
             </div>
             <!-- End .price-box -->
 
             <div class="product-desc ls-0 font2">
-              <p>
-                Pellentesque habitant morbi tristique senectus et netus et malesuada fames
-                ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
-                tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
-                Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, neque.
-              </p>
+              <p v-html="singleProduct?.short_description"></p>
             </div>
             <!-- End .product-desc -->
 
@@ -143,7 +136,7 @@ const getEmbedUrl = (watchUrl) => {
               <li>
                 CATEGORies:
                 <strong>
-                  <a href="#" class="product-category">Breakfast</a>
+                  <a href="#" class="product-category">{{ singleProduct?.category }}</a>
                 </strong>
               </li>
             </ul>
@@ -264,24 +257,7 @@ const getEmbedUrl = (watchUrl) => {
             aria-labelledby="product-tab-desc"
           >
             <div class="product-desc-content">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                veniam, nostrud ipsum consectetur sed do, quis nostrud exercitation
-                ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat.
-              </p>
-              <ul>
-                <li>Any Product types that You want - Simple, Configurable</li>
-                <li>Downloadable/Digital Products, Virtual Products</li>
-                <li>Inventory Management with Backordered items</li>
-              </ul>
-              <p>
-                Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat.
-              </p>
+              <p v-html="singleProduct?.description"></p>
             </div>
             <!-- End .product-desc-content -->
           </div>

@@ -49,7 +49,6 @@ onMounted(() => {
                         <ul class="menu menu-vertical main-vertical sf-arrows d-block pb-0 no-superfish">
                             <li :class="{ 'active': isActiveRoute('ShopPage') }"><router-link :to="{name: 'ShopPage'}">Shop</router-link></li>
                             <li :class="{ 'active': isActiveRoute('CheckoutPage') }"><router-link :to="{name: 'CheckoutPage'}">Checkout Page</router-link></li>
-                            <li :class="{ 'active': isActiveRoute('ProductDetailsPage') }"><router-link :to="{name: 'ProductDetailsPage'}">Single Product</router-link></li>
                             <li :class="{ 'active': isActiveRoute('WishlistPage') }"><router-link :to="{name: 'WishlistPage'}">Wishlist</router-link></li>
                             <li :class="{ 'active': isActiveRoute('AboutPage') }"><router-link :to="{name: 'AboutPage'}">About Us</router-link></li>
                             <li :class="{ 'active': isActiveRoute('ContactPage') }"><router-link :to="{name: 'ContactPage'}">Contact Us</router-link></li>
