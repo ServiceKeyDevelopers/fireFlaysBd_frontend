@@ -36,7 +36,7 @@ const props = defineProps({
             <div class="product-details">
                 <div class="category-wrap">
                     <div class="category-list">
-                        <a href="demo40-shop.html" class="product-category">{{ product.category.name }}</a>
+                        <router-link :to="{name: 'ShopPage', query:{ category: product.category.id}}" class="product-category">{{ product.category.name }}</router-link>
                     </div>
                     <a href="wishlist.html" class="btn-icon-wish"><i
                             class="icon-heart"></i></a>

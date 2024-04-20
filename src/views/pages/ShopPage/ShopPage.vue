@@ -93,12 +93,10 @@ onMounted(() => {
     <div class="main-content">
         <nav aria-label="breadcrumb" class="breadcrumb-nav">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="demo40.html"><i class="icon-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="#">Men</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Accessories</li>
+                <li class="breadcrumb-item"><router-link :to="{ name: 'HomePage'}"><i class="icon-home"></i></router-link></li>
+                <li class="breadcrumb-item"><router-link :to="{ name: 'ShopPage'}">Shop-Page</router-link></li>
             </ol>
         </nav>
-
         <nav class="toolbox sticky-header" data-sticky-options="{'mobile': true}">
             <div class="toolbox-left">
                 <a href="#" class="sidebar-toggle"><svg data-name="Layer 3" id="Layer_3"
