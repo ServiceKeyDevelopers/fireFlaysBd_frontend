@@ -15,3 +15,4 @@ export { default as ProductSection } from "@/components/homepage/ProductSection.
 export { default as SpecialOffersSection } from "@/components/homepage/SpecialOffersSection.vue";
 export { default as ProductCard } from "@/components/product/ProductCard.vue";
 export { default as ProductPrice } from "@/components/product/ProductPrice.vue";
+export { default as ProductSize } from "@/components/product/ProductSize.vue";

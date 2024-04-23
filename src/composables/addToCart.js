@@ -2,13 +2,12 @@ import { ref } from 'vue'
 import { useCart, useNotification } from "@/stores";
 
 
-export function addToCart(tProduct) {
+export function addToCart(tProduct, quantity = 1) {
   
     const cart           = useCart();
     const notify         = useNotification();
     const sizeMrp        = ref();
     const sizeOfferPrice = ref();
-    const quantityInput  = ref(1);
 
 
     if(sizeMrp.value || sizeOfferPrice.value){
@@ -33,7 +32,7 @@ export function addToCart(tProduct) {
         offer_price  : tProduct.offer_price,
         image        : tProduct.image,
         size_id      : '',
-        quantity     : quantityInput.value,
+        quantity     : quantity,
         free_shipping: tProduct.free_shipping,
       });
   

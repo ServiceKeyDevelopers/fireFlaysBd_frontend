@@ -1,11 +1,13 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { Footer, Breadcrumb } from "@/components";
+import { Footer, Breadcrumb, ProductSize, ProductPrice } from "@/components";
 import { useRouter, useRoute } from "vue-router";
 import { useProduct, useCart, useNotification, useShop } from "@/stores";
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
+import axiosInstance from "@/services/axiosService.js";
+import { addToCart } from '@/composables/addToCart';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -13,34 +15,40 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 // import './style.css';
 
-const route   = useRoute();
-const product = useProduct();
-
+const route         = useRoute();
+const product       = useProduct();
 const singleProduct = ref('');
+const quantityInput = ref(1);
+
+// get size price start  
+const sizeID        = ref('');
+const productPrices = ref('');
+// get size price end 
+
 
 
 const modules = ref();
 // image section start
 const thumbnailImage = ref("https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_4.jpg")
 const activeImage = ref(0)
-const images = ref([
-  {
-    id: 1,
-    imgUrl: "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_4.jpg"
-  },
-  {
-    id: 2,
-    imgUrl: "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_2.jpg"
-  },
-  {
-    id: 3,
-    imgUrl: "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_3.jpg"
-  },
-  {
-    id: 4,
-    imgUrl: "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_1.jpg"
-  }
-])
+// const images = ref([
+//   {
+//     id: 1,
+//     imgUrl: "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_4.jpg"
+//   },
+//   {
+//     id: 2,
+//     imgUrl: "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_2.jpg"
+//   },
+//   {
+//     id: 3,
+//     imgUrl: "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_3.jpg"
+//   },
+//   {
+//     id: 4,
+//     imgUrl: "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_1.jpg"
+//   }
+// ])
 
 const changeImage = (img, index) => {
     thumbnailImage.value = img
@@ -57,13 +65,37 @@ const productByid = async () => {
 
 
 
+// get size price start  
+
+const sizeByPrice = (sizeByProductPrice) => {
+  productPrices.value = sizeByProductPrice;
+}
+// get size price end
+
+// cart increment && Decrement function start 
+const incrementCartItem = () => {
+  quantityInput.value = parseInt(quantityInput.value) + 1;
+  
+};
+const decrementCartItem = () => {
+  if (quantityInput.value != 1) {
+    quantityInput.value = parseInt(quantityInput.value) - 1;
+  }
+};
+// cart increment && Decrement function end 
+
+
+
 
 // video url setup start
-  const getEmbedUrl = (watchUrl) => {
-    const videoIdMatch = watchUrl.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
-    const videoId = (videoIdMatch && videoIdMatch[1]) || ''; 
-    return `https://www.youtube.com/embed/${videoId}`;
-  }
+
+const getEmbedUrl = (watchUrl) => {
+  const videoIdMatch = watchUrl.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+  const videoId = (videoIdMatch && videoIdMatch[1]) || '';
+  
+  return `https://www.youtube.com/embed/${videoId}`;
+}
+
 // video url setup end
 
 onMounted(() => {
@@ -90,11 +122,11 @@ onMounted(() => {
             <div class = "product-imgs">
                 <div class = "img-display">
                     <div class = "img-showcase">
-                    <img :src="thumbnailImage" alt = "shoe image">
+                      <img :src="singleProduct?.image" alt = "shoe image">
                     </div>
                 </div>
                 <div class = "img-select">
-                    <div class = "img-item" v-for="(image, index) in images" :key="index" :class="[activeImage == index ? 'active-thumb' : '']">
+                    <div class = "img-item" v-for="(image, index) in singleProduct?.images" :key="index" :class="[activeImage == index ? 'active-thumb' : '']">
                         <img :src="image.imgUrl" alt = "shoe image" @click.prevent="changeImage(image.imgUrl, index)">
                     </div>
                 </div>
@@ -122,9 +154,8 @@ onMounted(() => {
 
             <hr class="short-divider" />
 
-            <div class="price-box">
-              <span class="product-price">{{ singleProduct?.mrp }}</span>
-            </div>
+
+            <ProductPrice :product="singleProduct" :productSizePrice="productPrices"/>
             <!-- End .price-box -->
 
             <div class="product-desc ls-0 font2">
@@ -136,30 +167,23 @@ onMounted(() => {
               <li>
                 CATEGORies:
                 <strong>
-                  <a href="#" class="product-category">{{ singleProduct?.category }}</a>
+                  <router-link :to="{name: 'ShopPage', query:{ category: singleProduct.category_id }}" class="product-category">{{ singleProduct?.category }}</router-link>
                 </strong>
               </li>
             </ul>
 
+            <ProductSize  :product="singleProduct" @sizeByPrice="sizeByPrice"/>
+
             <div class="product-action">
               <div class="product-single-qty">
-                <a href="#" class="quantity__minus"><span>-</span></a>
-                <input name="quantity" type="text" class="quantity__input" value="1">
-                <a href="#" class="quantity__plus"><span>+</span></a>
+                <a href="#" class="quantity__minus" @click.prevent="decrementCartItem"><span>-</span></a>
+                <input name="quantity" type="text" class="quantity__input" v-model="quantityInput">
+                <a href="#" class="quantity__plus" @click.prevent="incrementCartItem"><span>+</span></a>
               </div>
 
-              <a
-                href="javascript:;"
-                class="btn btn-dark add-cart mr-2"
-                title="Add to Cart"
-                >Add to Cart</a
-              >
-              <a
-                href="javascript:;"
-                class="btn buyNowBtn add-cart mr-2"
-                title="Add to Cart"
-                >Buy Now</a
-              >
+              
+              <a href="javascript:;" class="btn btn-dark add-cart mr-2" title="Add to Cart" @click.prevent="addToCart(singleProduct, quantityInput)">Add to Cart</a>
+              <a href="javascript:;" class="btn buyNowBtn add-cart mr-2" title="Add to Cart">Buy Now</a>
 
               <a href="cart.html" class="btn btn-gray view-cart d-none">View cart</a>
             </div>
@@ -209,8 +233,8 @@ onMounted(() => {
               </div>
               <!-- End .social-icons -->
             </div>
-            <div class="videoHW">
-              <iframe class="mt-5"   src="https://www.youtube.com/embed/0J3bMvYEFOM?si=JEAooYiLUrLS5MEg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>              
+            <div class="videoHW" v-if="singleProduct?.video_url">
+              <iframe class="" :src="getEmbedUrl(singleProduct?.video_url)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>              
             </div>
             <!-- End .product single-share -->
           </div>

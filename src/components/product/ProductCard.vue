@@ -40,7 +40,7 @@ const props = defineProps({
                             class="icon-heart"></i></a>
                 </div>
                 <h3 class="product-title">
-                    <a href="demo40-product.html">{{ product.name }}</a>
+                    <router-link :to="{name: 'ProductDetailsPage',params: { id: product.id, slug: product.slug },}">{{ product.name }}</router-link>
                 </h3>
                 <div class="ratings-container">
                     <div class="product-ratings">
@@ -52,7 +52,7 @@ const props = defineProps({
                 </div>
                 <!-- End .product-container -->
 
-                <ProductPrice :mrpPrice="product.mrp" :offerPrice="product.offer_price"/>
+                <ProductPrice :product="product" />
                 <!-- End .price-box -->
             </div>
             <!-- End .product-details -->
