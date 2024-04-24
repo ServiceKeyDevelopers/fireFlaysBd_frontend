@@ -4,6 +4,7 @@ export { default as TopHeader } from "@/components/header/TopHeader.vue";
 export { default as MiddleHeader } from "@/components/header/MiddleHeader.vue";
 export { default as Breadcrumb } from "@/components/header/Breadcrumb.vue";
 export { default as Sidebar } from "@/components/sidebar/Sidebar.vue";
+export { default as CartSidebar } from "@/components/sidebar/CartSidebar.vue";
 export { default as Banner } from "@/components/sidebar/Banner.vue";
 export { default as Footer } from "@/components/footer/Footer.vue";
 export { default as MobileMenu } from "@/components/mobile/MobileMenu.vue";

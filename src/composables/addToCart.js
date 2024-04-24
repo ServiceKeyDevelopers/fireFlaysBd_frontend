@@ -2,29 +2,27 @@ import { ref } from 'vue'
 import { useCart, useNotification } from "@/stores";
 
 
-export function addToCart(tProduct, quantity = 1) {
-  
+export function addToCart(tProduct, quantity = 1, productPrices = '') {
     const cart           = useCart();
     const notify         = useNotification();
-    const sizeMrp        = ref();
-    const sizeOfferPrice = ref();
+    const sizeMrp        = ref(productPrices.mrp);
+    const sizeOfferPrice = ref(productPrices.offer_price);
+    const sizeId         = ref(productPrices.size_id);
 
 
-    if(sizeMrp.value || sizeOfferPrice.value){
-  
+    if(productPrices){
       cart.addToCart({
         item_id      : tProduct.id,
         name         : tProduct.name,
-        mrp          : sizeMrp.value,
-        offer_price  : sizeOfferPrice.value,
+        mrp          : sizeMrp,
+        offer_price  : sizeOfferPrice,
         image        : tProduct.image,
-        size_id      : sizeId.value,
+        size_id      : sizeId,
         quantity     : 1,
         free_shipping: tProduct.free_shipping,
       });
       
     }else{
-      
       cart.addToCart({
         item_id      : tProduct.id,
         name         : tProduct.name,

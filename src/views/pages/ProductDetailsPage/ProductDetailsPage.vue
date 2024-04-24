@@ -1,8 +1,9 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { Footer, Breadcrumb, ProductSize, ProductPrice } from "@/components";
+import { ref, onMounted, watch } from "vue";
+import { Footer, Breadcrumb, ProductSize, ProductPrice, ProductCard } from "@/components";
 import { useRouter, useRoute } from "vue-router";
 import { useProduct, useCart, useNotification, useShop } from "@/stores";
+import { storeToRefs } from "pinia";
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
@@ -15,6 +16,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 // import './style.css';
 
+const shop = useShop();
+const { products } = storeToRefs(shop);
+
 const route         = useRoute();
 const product       = useProduct();
 const singleProduct = ref('');
@@ -24,31 +28,16 @@ const quantityInput = ref(1);
 const sizeID        = ref('');
 const productPrices = ref('');
 // get size price end 
-
+// related product start
+const relatedProducts = ref('');
+const categoryId = ref([]);
+// related product end
 
 
 const modules = ref();
 // image section start
 const thumbnailImage = ref("https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_4.jpg")
 const activeImage = ref(0)
-// const images = ref([
-//   {
-//     id: 1,
-//     imgUrl: "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_4.jpg"
-//   },
-//   {
-//     id: 2,
-//     imgUrl: "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_2.jpg"
-//   },
-//   {
-//     id: 3,
-//     imgUrl: "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_3.jpg"
-//   },
-//   {
-//     id: 4,
-//     imgUrl: "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_1.jpg"
-//   }
-// ])
 
 const changeImage = (img, index) => {
     thumbnailImage.value = img
@@ -60,9 +49,42 @@ const changeImage = (img, index) => {
 // single product get by id start 
 const productByid = async () => {
   singleProduct.value = await product.productById(route.params.id);
+  categoryId.value.push(singleProduct.value.category_id);
 };
 // single product get by id end 
 
+
+// Related product  start
+const getRelatedProductData = async (catId) => {
+  let type = "";
+  let brand = [];
+  let subCategory = [];
+  let price = [];
+  let search = "";
+  let paginateSize = 8;
+  const res = await shop.getData(type, brand, catId, subCategory, price, search, paginateSize);
+  relatedProducts.value = res.data;
+};
+
+// product changes function 
+
+const productChangesFunction = async() => {
+  singleProduct.value = await product.productById(route.params.id);
+}
+// product detials changes start
+watch(() => route.params.id, (newValue, oldValue) => {
+  productChangesFunction();
+});
+// product detials changes end
+watch(
+  categoryId,
+  (newValue, oldValue) => {
+    getRelatedProductData(newValue);
+  },
+  { deep: true }
+);
+
+// Related product end
 
 
 // get size price start  
@@ -83,6 +105,7 @@ const decrementCartItem = () => {
   }
 };
 // cart increment && Decrement function end 
+
 
 
 
@@ -109,7 +132,6 @@ onMounted(() => {
   <div>
     <div class="main-content">
       <Breadcrumb />
-      {{ singleProduct }}
       <div class="product-single-container product-single-default">
         <div class="cart-message d-none">
           <strong class="single-cart-notice">“Men Black Sports Shoes”</strong>
@@ -171,9 +193,9 @@ onMounted(() => {
                 </strong>
               </li>
             </ul>
-
-            <ProductSize  :product="singleProduct" @sizeByPrice="sizeByPrice"/>
-
+            <template v-if="singleProduct &&  singleProduct?.product_prices.length > 0">
+              <ProductSize  :product="singleProduct" @sizeByPrice="sizeByPrice"/>
+            </template>
             <div class="product-action">
               <div class="product-single-qty">
                 <a href="#" class="quantity__minus" @click.prevent="decrementCartItem"><span>-</span></a>
@@ -181,13 +203,30 @@ onMounted(() => {
                 <a href="#" class="quantity__plus" @click.prevent="incrementCartItem"><span>+</span></a>
               </div>
 
-              
-              <a href="javascript:;" class="btn btn-dark add-cart mr-2" title="Add to Cart" @click.prevent="addToCart(singleProduct, quantityInput)">Add to Cart</a>
-              <a href="javascript:;" class="btn buyNowBtn add-cart mr-2" title="Add to Cart">Buy Now</a>
-
+              <template v-if="singleProduct && singleProduct.product_prices.length > 0">
+                <template v-if="productPrices">
+                  <a href="javascript:;" class="btn btn-dark add-cart mr-2"  @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Add to Cart</a>
+                  <router-link :to="{name: 'CheckoutPage'}" href="javascript:;" class="btn buyNowBtn add-cart mr-2" @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Buy Now</router-link>
+                </template>
+                <template v-else>
+                  <p class="mb-2 text-danger">প্রথমে ওয়েট সিলেক্ট করুন তারপর<span class="fw-bold"> BUY NOW </span> বাটনে ক্লিক করুন অথবা<span class="fw-bold"> ADD TO CART </span>বাটনে ক্লিক করুন</p>
+                  <button href="javascript:;" disabled class="btn btn-dark add-cart mr-2" title="Add to Cart" @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Add to Cart</button>
+                  <button href="javascript:;" disabled class="btn buyNowBtn add-cart mr-2" >Buy Now</button>
+                </template>
+              </template>
+              <template v-else>
+                <a href="javascript:;" class="btn btn-dark add-cart mr-2" title="Add to Cart" @click.prevent="addToCart(singleProduct, quantityInput)">Add to Cart</a>
+                <router-link :to="{name: 'CheckoutPage'}" href="javascript:;" class="btn buyNowBtn add-cart mr-2" @click.prevent="addToCart(singleProduct, quantityInput)">Buy Now</router-link>
+              </template>
+              <div class="mt-2">
+                  <a :href="`https://wa.me/+8801791580400?text=Product%20Details%0A%0AWebsite:%20https://fireflysbd.com/single-product/${singleProduct?.id}%0AProduct%20Name:%20${singleProduct?.name}%0AProduct%20Size:%20${sizeName}%0AOffer%20Price:%20${productPrices ? productPrices?.offer_price : singleProduct?.offer_price}৳%0ARegular%20Price:%20${productPrices ? productPrices?.mrp : singleProduct?.mrp}৳`" 
+                    class="btn btn-success mr-2" target="_blank">
+                    <i class="fab fa-whatsapp mr-2"></i><span>হোয়াটসঅ্যাপ</span>
+                  </a>
+                  <a href="tel:+8801791580400" class="btn btn-danger  mr-2"><i class="fas fa-phone-volume mr-2"></i><span>ফোন করুন</span></a>
+              </div>              
               <a href="cart.html" class="btn btn-gray view-cart d-none">View cart</a>
             </div>
-            <!-- End .product-action -->
 
             <hr class="divider mb-0 mt-0" />
 
@@ -231,7 +270,7 @@ onMounted(() => {
                   <i class="icon-mail-alt"></i>
                 </a>
               </div>
-              <!-- End .social-icons -->
+              
             </div>
             <div class="videoHW" v-if="singleProduct?.video_url">
               <iframe class="" :src="getEmbedUrl(singleProduct?.video_url)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>              
@@ -423,7 +462,7 @@ onMounted(() => {
       </div>
       <!-- End .product-single-tabs -->
 
-      <div class="products-section pt-0">
+      <div class="products-section pt-0" v-if="relatedProducts.length > 0">
         <h2 class="section-title pb-3">Related Products</h2>
 
         <div class="products-slider">
@@ -443,390 +482,8 @@ onMounted(() => {
               1200: { slidesPerView: 6, spaceBetweenSlides: 30 },
             }"
           >
-            <swiper-slide>
-              <div class="product-default inner-quickview inner-icon">
-                <figure>
-                  <a href="demo40-product.html">
-                    <img
-                      src="@/assets/images/demoes/demo40/products/product-17.jpg"
-                      width="205"
-                      height="205"
-                      alt="product"
-                    />
-                  </a>
-
-                  <div class="btn-icon-group">
-                    <a href="#" class="btn-icon btn-add-cart product-type-simple"
-                      ><i class="icon-shopping-cart"></i
-                    ></a>
-                  </div>
-                  <a
-                    href="ajax/product-quick-view.html"
-                    class="btn-quickview"
-                    title="Quick View"
-                    >Quick View
-                  </a>
-                </figure>
-                <div class="product-details">
-                  <div class="category-wrap">
-                    <div class="category-list">
-                      <a href="demo40-shop.html" class="product-category">category</a>
-                    </div>
-                    <a href="wishlist.html" class="btn-icon-wish"
-                      ><i class="icon-heart"></i
-                    ></a>
-                  </div>
-                  <h3 class="product-title">
-                    <a href="demo40-product.html">Product Short Name</a>
-                  </h3>
-                  <div class="ratings-container">
-                    <div class="product-ratings">
-                      <span class="ratings" style="width: 100%"></span>
-                      <!-- End .ratings -->
-                      <span class="tooltiptext tooltip-top"></span>
-                    </div>
-                    <!-- End .product-ratings -->
-                  </div>
-                  <!-- End .product-container -->
-
-                  <div class="price-box">
-                    <span class="old-price">$90.00</span>
-                    <span class="product-price">$70.00</span>
-                  </div>
-                  <!-- End .price-box -->
-                </div>
-                <!-- End .product-details -->
-              </div>
-            </swiper-slide>
-            <swiper-slide>
-              <div class="product-default inner-quickview inner-icon">
-                <figure>
-                  <a href="demo40-product.html">
-                    <img
-                      src="@/assets/images/demoes/demo40/products/product-16.jpg"
-                      width="205"
-                      height="205"
-                      alt="product"
-                    />
-                  </a>
-
-                  <div class="btn-icon-group">
-                    <a href="#" class="btn-icon btn-add-cart product-type-simple"
-                      ><i class="icon-shopping-cart"></i
-                    ></a>
-                  </div>
-                  <a
-                    href="ajax/product-quick-view.html"
-                    class="btn-quickview"
-                    title="Quick View"
-                    >Quick View
-                  </a>
-                </figure>
-                <div class="product-details">
-                  <div class="category-wrap">
-                    <div class="category-list">
-                      <a href="demo40-shop.html" class="product-category">category</a>
-                    </div>
-                    <a href="wishlist.html" class="btn-icon-wish"
-                      ><i class="icon-heart"></i
-                    ></a>
-                  </div>
-                  <h3 class="product-title">
-                    <a href="demo40-product.html">Product Short Name</a>
-                  </h3>
-                  <div class="ratings-container">
-                    <div class="product-ratings">
-                      <span class="ratings" style="width: 100%"></span>
-                      <!-- End .ratings -->
-                      <span class="tooltiptext tooltip-top"></span>
-                    </div>
-                    <!-- End .product-ratings -->
-                  </div>
-                  <!-- End .product-container -->
-
-                  <div class="price-box">
-                    <span class="old-price">$90.00</span>
-                    <span class="product-price">$70.00</span>
-                  </div>
-                  <!-- End .price-box -->
-                </div>
-                <!-- End .product-details -->
-              </div>
-            </swiper-slide>
-            <swiper-slide>
-              <div class="product-default inner-quickview inner-icon">
-                <figure>
-                  <a href="demo40-product.html">
-                    <img
-                      src="@/assets/images/demoes/demo40/products/product-18.jpg"
-                      width="205"
-                      height="205"
-                      alt="product"
-                    />
-                  </a>
-
-                  <div class="btn-icon-group">
-                    <a href="#" class="btn-icon btn-add-cart product-type-simple"
-                      ><i class="icon-shopping-cart"></i
-                    ></a>
-                  </div>
-                  <a
-                    href="ajax/product-quick-view.html"
-                    class="btn-quickview"
-                    title="Quick View"
-                    >Quick View
-                  </a>
-                </figure>
-                <div class="product-details">
-                  <div class="category-wrap">
-                    <div class="category-list">
-                      <a href="demo40-shop.html" class="product-category">category</a>
-                    </div>
-                    <a href="wishlist.html" class="btn-icon-wish"
-                      ><i class="icon-heart"></i
-                    ></a>
-                  </div>
-                  <h3 class="product-title">
-                    <a href="demo40-product.html">Product Short Name</a>
-                  </h3>
-                  <div class="ratings-container">
-                    <div class="product-ratings">
-                      <span class="ratings" style="width: 100%"></span>
-                      <!-- End .ratings -->
-                      <span class="tooltiptext tooltip-top"></span>
-                    </div>
-                    <!-- End .product-ratings -->
-                  </div>
-                  <!-- End .product-container -->
-
-                  <div class="price-box">
-                    <span class="old-price">$90.00</span>
-                    <span class="product-price">$70.00</span>
-                  </div>
-                  <!-- End .price-box -->
-                </div>
-                <!-- End .product-details -->
-              </div>
-            </swiper-slide>
-            <swiper-slide>
-              <div class="product-default inner-quickview inner-icon">
-                <figure>
-                  <a href="demo40-product.html">
-                    <img
-                      src="@/assets/images/demoes/demo40/products/product-19.jpg"
-                      width="205"
-                      height="205"
-                      alt="product"
-                    />
-                  </a>
-
-                  <div class="btn-icon-group">
-                    <a href="#" class="btn-icon btn-add-cart product-type-simple"
-                      ><i class="icon-shopping-cart"></i
-                    ></a>
-                  </div>
-                  <a
-                    href="ajax/product-quick-view.html"
-                    class="btn-quickview"
-                    title="Quick View"
-                    >Quick View
-                  </a>
-                </figure>
-                <div class="product-details">
-                  <div class="category-wrap">
-                    <div class="category-list">
-                      <a href="demo40-shop.html" class="product-category">category</a>
-                    </div>
-                    <a href="wishlist.html" class="btn-icon-wish"
-                      ><i class="icon-heart"></i
-                    ></a>
-                  </div>
-                  <h3 class="product-title">
-                    <a href="demo40-product.html">Product Short Name</a>
-                  </h3>
-                  <div class="ratings-container">
-                    <div class="product-ratings">
-                      <span class="ratings" style="width: 100%"></span>
-                      <!-- End .ratings -->
-                      <span class="tooltiptext tooltip-top"></span>
-                    </div>
-                    <!-- End .product-ratings -->
-                  </div>
-                  <!-- End .product-container -->
-
-                  <div class="price-box">
-                    <span class="old-price">$90.00</span>
-                    <span class="product-price">$70.00</span>
-                  </div>
-                  <!-- End .price-box -->
-                </div>
-                <!-- End .product-details -->
-              </div>
-            </swiper-slide>
-            <swiper-slide>
-              <div class="product-default inner-quickview inner-icon">
-                <figure>
-                  <a href="demo40-product.html">
-                    <img
-                      src="@/assets/images/demoes/demo40/products/product-20.jpg"
-                      width="205"
-                      height="205"
-                      alt="product"
-                    />
-                  </a>
-
-                  <div class="btn-icon-group">
-                    <a href="#" class="btn-icon btn-add-cart product-type-simple"
-                      ><i class="icon-shopping-cart"></i
-                    ></a>
-                  </div>
-                  <a
-                    href="ajax/product-quick-view.html"
-                    class="btn-quickview"
-                    title="Quick View"
-                    >Quick View
-                  </a>
-                </figure>
-                <div class="product-details">
-                  <div class="category-wrap">
-                    <div class="category-list">
-                      <a href="demo40-shop.html" class="product-category">category</a>
-                    </div>
-                    <a href="wishlist.html" class="btn-icon-wish"
-                      ><i class="icon-heart"></i
-                    ></a>
-                  </div>
-                  <h3 class="product-title">
-                    <a href="demo40-product.html">Product Short Name</a>
-                  </h3>
-                  <div class="ratings-container">
-                    <div class="product-ratings">
-                      <span class="ratings" style="width: 100%"></span>
-                      <!-- End .ratings -->
-                      <span class="tooltiptext tooltip-top"></span>
-                    </div>
-                    <!-- End .product-ratings -->
-                  </div>
-                  <!-- End .product-container -->
-
-                  <div class="price-box">
-                    <span class="old-price">$90.00</span>
-                    <span class="product-price">$70.00</span>
-                  </div>
-                  <!-- End .price-box -->
-                </div>
-                <!-- End .product-details -->
-              </div>
-            </swiper-slide>
-            <swiper-slide>
-              <div class="product-default inner-quickview inner-icon">
-                <figure>
-                  <a href="demo40-product.html">
-                    <img
-                      src="@/assets/images/demoes/demo40/products/product-21.jpg"
-                      width="205"
-                      height="205"
-                      alt="product"
-                    />
-                  </a>
-
-                  <div class="btn-icon-group">
-                    <a href="#" class="btn-icon btn-add-cart product-type-simple"
-                      ><i class="icon-shopping-cart"></i
-                    ></a>
-                  </div>
-                  <a
-                    href="ajax/product-quick-view.html"
-                    class="btn-quickview"
-                    title="Quick View"
-                    >Quick View
-                  </a>
-                </figure>
-                <div class="product-details">
-                  <div class="category-wrap">
-                    <div class="category-list">
-                      <a href="demo40-shop.html" class="product-category">category</a>
-                    </div>
-                    <a href="wishlist.html" class="btn-icon-wish"
-                      ><i class="icon-heart"></i
-                    ></a>
-                  </div>
-                  <h3 class="product-title">
-                    <a href="demo40-product.html">Product Short Name</a>
-                  </h3>
-                  <div class="ratings-container">
-                    <div class="product-ratings">
-                      <span class="ratings" style="width: 100%"></span>
-                      <!-- End .ratings -->
-                      <span class="tooltiptext tooltip-top"></span>
-                    </div>
-                    <!-- End .product-ratings -->
-                  </div>
-                  <!-- End .product-container -->
-
-                  <div class="price-box">
-                    <span class="old-price">$90.00</span>
-                    <span class="product-price">$70.00</span>
-                  </div>
-                  <!-- End .price-box -->
-                </div>
-                <!-- End .product-details -->
-              </div>
-            </swiper-slide>
-            <swiper-slide>
-              <div class="product-default inner-quickview inner-icon">
-                <figure>
-                  <a href="demo40-product.html">
-                    <img
-                      src="@/assets/images/demoes/demo40/products/product-7.jpg"
-                      width="205"
-                      height="205"
-                      alt="product"
-                    />
-                  </a>
-
-                  <div class="btn-icon-group">
-                    <a href="#" class="btn-icon btn-add-cart product-type-simple"
-                      ><i class="icon-shopping-cart"></i
-                    ></a>
-                  </div>
-                  <a
-                    href="ajax/product-quick-view.html"
-                    class="btn-quickview"
-                    title="Quick View"
-                    >Quick View
-                  </a>
-                </figure>
-                <div class="product-details">
-                  <div class="category-wrap">
-                    <div class="category-list">
-                      <a href="demo40-shop.html" class="product-category">category</a>
-                    </div>
-                    <a href="wishlist.html" class="btn-icon-wish"
-                      ><i class="icon-heart"></i
-                    ></a>
-                  </div>
-                  <h3 class="product-title">
-                    <a href="demo40-product.html">Product Short Name</a>
-                  </h3>
-                  <div class="ratings-container">
-                    <div class="product-ratings">
-                      <span class="ratings" style="width: 100%"></span>
-                      <!-- End .ratings -->
-                      <span class="tooltiptext tooltip-top"></span>
-                    </div>
-                    <!-- End .product-ratings -->
-                  </div>
-                  <!-- End .product-container -->
-
-                  <div class="price-box">
-                    <span class="old-price">$90.00</span>
-                    <span class="product-price">$70.00</span>
-                  </div>
-                  <!-- End .price-box -->
-                </div>
-                <!-- End .product-details -->
-              </div>
+            <swiper-slide v-for="(relatedProduct, index) in relatedProducts" :key="index">
+              <ProductCard :product="relatedProduct"/>
             </swiper-slide>
           </swiper>
         </div>

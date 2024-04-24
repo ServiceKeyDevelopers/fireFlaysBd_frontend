@@ -1,8 +1,8 @@
 <script setup>
 
 const props = defineProps({
-  product: Object,
-  productSizePrice: String,
+  product: [Object, String],
+  productSizePrice: [Object, String],
 });
 
 
