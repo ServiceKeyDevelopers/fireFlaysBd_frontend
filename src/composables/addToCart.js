@@ -18,7 +18,7 @@ export function addToCart(tProduct, quantity = 1, productPrices = '') {
         offer_price  : sizeOfferPrice,
         image        : tProduct.image,
         size_id      : sizeId,
-        quantity     : 1,
+        quantity     : quantity,
         free_shipping: tProduct.free_shipping,
       });
       

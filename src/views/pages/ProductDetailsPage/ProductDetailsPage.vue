@@ -548,7 +548,7 @@ img{
 /* Product Quentity start css */
 
 .product-single-qty{
-    display: flex;
+  display: flex;
   width: 100%;
   justify-content: center;
   align-items: center;

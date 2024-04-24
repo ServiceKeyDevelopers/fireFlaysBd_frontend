@@ -17,3 +17,5 @@ export { default as SpecialOffersSection } from "@/components/homepage/SpecialOf
 export { default as ProductCard } from "@/components/product/ProductCard.vue";
 export { default as ProductPrice } from "@/components/product/ProductPrice.vue";
 export { default as ProductSize } from "@/components/product/ProductSize.vue";
+export { default as CheckoutCoupon } from "@/components/checkout/CheckoutCoupon.vue";
+export { default as CheckoutLogin } from "@/components/checkout/CheckoutLogin.vue";

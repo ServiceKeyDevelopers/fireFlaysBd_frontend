@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import {HomePage, ShopPage, ProductDetailsPage, WishlistPage, Login, CheckoutPage, Contact, About} from "@/views/pages";
+import {HomePage, ShopPage, ProductDetailsPage, WishlistPage, Login, CheckoutPage, Contact, About, CartPage} from "@/views/pages";
 import NProgress from "nprogress";
 
 const routes = [
@@ -26,6 +26,12 @@ const routes = [
     name: 'WishlistPage',
     component: WishlistPage,
     meta: { title: "Fireflys BD | Wishlist Page" },
+  },
+  {
+    path: '/cart',
+    name: 'CartPage',
+    component: CartPage,
+    meta: { title: "Fireflys BD | Cart Page" },
   },
   {
     path: '/checkoutPage',
