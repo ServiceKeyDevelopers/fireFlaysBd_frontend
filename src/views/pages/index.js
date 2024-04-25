@@ -7,3 +7,4 @@ export { default as CheckoutPage } from "./Checkout/CheckoutPage.vue";
 export { default as Login } from "./Authentication/Login.vue";
 export { default as About } from "./Social/About.vue";
 export { default as Contact } from "./Social/Contact.vue";
+export { default as thankyou } from "./thankyou.vue";

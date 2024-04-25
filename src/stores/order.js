@@ -22,15 +22,16 @@ export const useOrder = defineStore('order', {
       async storeOrder(orderInfo) {
         try {
           const response = await axiosInstance.post('/orders',{
-            customer_name: orderInfo.name,
-            phone_number: orderInfo.phoneNumber,
-            address_details : orderInfo.address,
-            items: orderInfo.items,
+            customer_name      : orderInfo.name,
+            phone_number       : orderInfo.phoneNumber,
+            address_details    : orderInfo.address,
+            order_note         : orderInfo.orderNote,
+            items              : orderInfo.items,
             delivery_gateway_id: orderInfo.delivery_gateway_id,
-            payment_gateway_id: orderInfo.payment_gateway_id,
-            district: orderInfo.district,
-            coupon_id: orderInfo.coupon_id,
-            // campaign_id: orderInfo.campaign_id,
+            payment_gateway_id : orderInfo.payment_gateway_id,
+            customer_email     : orderInfo.email,
+            coupon_id          : orderInfo.coupon_id,
+              // campaign_id: orderInfo.campaign_id,
           });
 
                 if (response.status === 200) {
@@ -41,7 +42,7 @@ export const useOrder = defineStore('order', {
                         let url = response.data.result;
                         window.location.href = url;
                     } else {
-                        router.push({ name: 'thankYou.page', query: {orderInfo: JSON.stringify(orderInfo)} });
+                        router.push({ name: 'thankYou.page' });
                     }
                 }else{
                   this.backendErrors = response.data.message

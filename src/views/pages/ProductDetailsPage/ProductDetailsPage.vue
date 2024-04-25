@@ -36,7 +36,7 @@ const categoryId = ref([]);
 
 const modules = ref();
 // image section start
-const thumbnailImage = ref("https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_4.jpg")
+const thumbnailImage = ref(null)
 const activeImage = ref(0)
 
 const changeImage = (img, index) => {
@@ -49,7 +49,9 @@ const changeImage = (img, index) => {
 // single product get by id start 
 const productByid = async () => {
   singleProduct.value = await product.productById(route.params.id);
-  categoryId.value.push(singleProduct.value.category_id);
+  // for related products
+  console.log(singleProduct.value);
+  categoryId.value.push(singleProduct.value?.category_id);
 };
 // single product get by id end 
 
@@ -137,20 +139,20 @@ onMounted(() => {
           <strong class="single-cart-notice">“Men Black Sports Shoes”</strong>
           <span>has been added to your cart.</span>
         </div>
-
         <div class="row">
           <div class="col-xl-5 col-md-6 product-single-gallery">
-            
-            <div class = "product-imgs">
-                <div class = "img-display">
-                    <div class = "img-showcase">
-                      <img :src="singleProduct?.image" alt = "shoe image">
-                    </div>
-                </div>
-                <div class = "img-select">
-                    <div class = "img-item" v-for="(image, index) in singleProduct?.images" :key="index" :class="[activeImage == index ? 'active-thumb' : '']">
-                        <img :src="image.imgUrl" alt = "shoe image" @click.prevent="changeImage(image.imgUrl, index)">
-                    </div>
+            <div class="product-imgs">
+              <div class="img-display">
+                <div class="img-showcase">
+                  <img :src="singleProduct?.image" alt="shoe image" v-if="thumbnailImage == null">
+                  <img :src="thumbnailImage" alt="shoe image" v-else>
+                  </div>
+                  </div>
+                  <div class="img-select">
+                    <div class="img-item" v-for="(image, index) in singleProduct?.images" :key="index" :class="[activeImage == index ? 'active-thumb' : '']">
+                      <img :src="image.image" alt="shoe image" @click.prevent="changeImage(image.image, index)">
+                  </div>
+
                 </div>
             </div>
 
@@ -160,7 +162,7 @@ onMounted(() => {
           <div class="col-xl-7 col-md-6 product-single-details">
             <h1 class="product-title">{{ singleProduct?.name }}</h1>
 
-            
+
 
             <div class="ratings-container">
               <div class="product-ratings">
@@ -177,7 +179,7 @@ onMounted(() => {
             <hr class="short-divider" />
 
 
-            <ProductPrice :product="singleProduct" :productSizePrice="productPrices"/>
+            <ProductPrice :product="singleProduct" :productSizePrice="productPrices" />
             <!-- End .price-box -->
 
             <div class="product-desc ls-0 font2">
@@ -189,12 +191,13 @@ onMounted(() => {
               <li>
                 CATEGORies:
                 <strong>
-                  <router-link :to="{name: 'ShopPage', query:{ category: singleProduct.category_id }}" class="product-category">{{ singleProduct?.category }}</router-link>
+                  <router-link :to="{name: 'ShopPage', query:{ category: singleProduct?.category_id }}"
+                    class="product-category">{{ singleProduct?.category }}</router-link>
                 </strong>
               </li>
             </ul>
             <template v-if="singleProduct &&  singleProduct?.product_prices.length > 0">
-              <ProductSize  :product="singleProduct" @sizeByPrice="sizeByPrice"/>
+              <ProductSize :product="singleProduct" @sizeByPrice="sizeByPrice" />
             </template>
             <div class="product-action">
               <div class="product-single-qty">
@@ -205,26 +208,33 @@ onMounted(() => {
 
               <template v-if="singleProduct && singleProduct.product_prices.length > 0">
                 <template v-if="productPrices">
-                  <a href="javascript:;" class="btn btn-dark add-cart mr-2"  @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Add to Cart</a>
-                  <router-link :to="{name: 'CheckoutPage'}" href="javascript:;" class="btn buyNowBtn add-cart mr-2" @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Buy Now</router-link>
+                  <a href="javascript:;" class="btn btn-dark add-cart mr-2"
+                    @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Add to Cart</a>
+                  <router-link :to="{name: 'CheckoutPage'}" href="javascript:;" class="btn buyNowBtn add-cart mr-2"
+                    @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Buy Now</router-link>
                 </template>
                 <template v-else>
-                  <p class="mb-2 text-danger">প্রথমে ওয়েট সিলেক্ট করুন তারপর<span class="fw-bold"> BUY NOW </span> বাটনে ক্লিক করুন অথবা<span class="fw-bold"> ADD TO CART </span>বাটনে ক্লিক করুন</p>
-                  <button href="javascript:;" disabled class="btn btn-dark add-cart mr-2" title="Add to Cart" @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Add to Cart</button>
-                  <button href="javascript:;" disabled class="btn buyNowBtn add-cart mr-2" >Buy Now</button>
+                  <p class="mb-2 text-danger">প্রথমে ওয়েট সিলেক্ট করুন তারপর<span class="fw-bold"> BUY NOW </span> বাটনে
+                    ক্লিক করুন অথবা<span class="fw-bold"> ADD TO CART </span>বাটনে ক্লিক করুন</p>
+                  <button href="javascript:;" disabled class="btn btn-dark add-cart mr-2" title="Add to Cart"
+                    @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Add to Cart</button>
+                  <button href="javascript:;" disabled class="btn buyNowBtn add-cart mr-2">Buy Now</button>
                 </template>
               </template>
               <template v-else>
-                <a href="javascript:;" class="btn btn-dark add-cart mr-2" title="Add to Cart" @click.prevent="addToCart(singleProduct, quantityInput)">Add to Cart</a>
-                <router-link :to="{name: 'CheckoutPage'}" href="javascript:;" class="btn buyNowBtn add-cart mr-2" @click.prevent="addToCart(singleProduct, quantityInput)">Buy Now</router-link>
+                <a href="javascript:;" class="btn btn-dark add-cart mr-2" title="Add to Cart"
+                  @click.prevent="addToCart(singleProduct, quantityInput)">Add to Cart</a>
+                <router-link :to="{name: 'CheckoutPage'}" href="javascript:;" class="btn buyNowBtn add-cart mr-2"
+                  @click.prevent="addToCart(singleProduct, quantityInput)">Buy Now</router-link>
               </template>
               <div class="mt-2">
-                  <a :href="`https://wa.me/+8801791580400?text=Product%20Details%0A%0AWebsite:%20https://fireflysbd.com/single-product/${singleProduct?.id}%0AProduct%20Name:%20${singleProduct?.name}%0AProduct%20Size:%20${sizeName}%0AOffer%20Price:%20${productPrices ? productPrices?.offer_price : singleProduct?.offer_price}৳%0ARegular%20Price:%20${productPrices ? productPrices?.mrp : singleProduct?.mrp}৳`" 
-                    class="btn btn-success mr-2" target="_blank">
-                    <i class="fab fa-whatsapp mr-2"></i><span>হোয়াটসঅ্যাপ</span>
-                  </a>
-                  <a href="tel:+8801791580400" class="btn btn-danger  mr-2"><i class="fas fa-phone-volume mr-2"></i><span>ফোন করুন</span></a>
-              </div>              
+                <a :href="`https://wa.me/+8801791580400?text=Product%20Details%0A%0AWebsite:%20https://fireflysbd.com/single-product/${singleProduct?.id}%0AProduct%20Name:%20${singleProduct?.name}%0AProduct%20Size:%20${sizeName}%0AOffer%20Price:%20${productPrices ? productPrices?.offer_price : singleProduct?.offer_price}৳%0ARegular%20Price:%20${productPrices ? productPrices?.mrp : singleProduct?.mrp}৳`"
+                  class="btn btn-success mr-2" target="_blank">
+                  <i class="fab fa-whatsapp mr-2"></i><span>হোয়াটসঅ্যাপ</span>
+                </a>
+                <a href="tel:+8801791580400" class="btn btn-danger  mr-2"><i
+                    class="fas fa-phone-volume mr-2"></i><span>ফোন করুন</span></a>
+              </div>
               <a href="cart.html" class="btn btn-gray view-cart d-none">View cart</a>
             </div>
 
@@ -234,46 +244,28 @@ onMounted(() => {
               <label class="sr-only">Share:</label>
 
               <div class="social-icons">
-                <a
-                  href="#"
-                  class="social-icon social-facebook"
-                  target="_blank"
-                  title="Facebook"
-                >
+                <a href="#" class="social-icon social-facebook" target="_blank" title="Facebook">
                   <i class="icon-facebook"></i>
                 </a>
-                <a
-                  href="#"
-                  class="social-icon social-twitter"
-                  target="_blank"
-                  title="Twitter"
-                >
+                <a href="#" class="social-icon social-twitter" target="_blank" title="Twitter">
                   <i class="icon-twitter"></i>
                 </a>
-                <a
-                  href="#"
-                  class="social-icon social-linkedin"
-                  target="_blank"
-                  title="Linkedin"
-                >
+                <a href="#" class="social-icon social-linkedin" target="_blank" title="Linkedin">
                   <i class="fab fa-linkedin-in"></i>
                 </a>
-                <a
-                  href="#"
-                  class="social-icon social-gplus"
-                  target="_blank"
-                  title="Google +"
-                >
+                <a href="#" class="social-icon social-gplus" target="_blank" title="Google +">
                   <i class="fab fa-google-plus-g"></i>
                 </a>
                 <a href="#" class="social-icon social-mail" target="_blank" title="Email">
                   <i class="icon-mail-alt"></i>
                 </a>
               </div>
-              
+
             </div>
             <div class="videoHW" v-if="singleProduct?.video_url">
-              <iframe class="" :src="getEmbedUrl(singleProduct?.video_url)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>              
+              <iframe class="" :src="getEmbedUrl(singleProduct?.video_url)" title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
             </div>
             <!-- End .product single-share -->
           </div>
@@ -286,39 +278,19 @@ onMounted(() => {
       <div class="product-single-tabs font2">
         <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item">
-            <a
-              class="nav-link active"
-              id="product-tab-desc"
-              data-toggle="tab"
-              href="#product-desc-content"
-              role="tab"
-              aria-controls="product-desc-content"
-              aria-selected="true"
-              >Description</a
-            >
+            <a class="nav-link active" id="product-tab-desc" data-toggle="tab" href="#product-desc-content" role="tab"
+              aria-controls="product-desc-content" aria-selected="true">Description</a>
           </li>
 
           <li class="nav-item">
-            <a
-              class="nav-link"
-              id="product-tab-reviews"
-              data-toggle="tab"
-              href="#product-reviews-content"
-              role="tab"
-              aria-controls="product-reviews-content"
-              aria-selected="false"
-              >Reviews (1)</a
-            >
+            <a class="nav-link" id="product-tab-reviews" data-toggle="tab" href="#product-reviews-content" role="tab"
+              aria-controls="product-reviews-content" aria-selected="false">Reviews (1)</a>
           </li>
         </ul>
 
         <div class="tab-content">
-          <div
-            class="tab-pane fade show active"
-            id="product-desc-content"
-            role="tabpanel"
-            aria-labelledby="product-tab-desc"
-          >
+          <div class="tab-pane fade show active" id="product-desc-content" role="tabpanel"
+            aria-labelledby="product-tab-desc">
             <div class="product-desc-content">
               <p v-html="singleProduct?.description"></p>
             </div>
@@ -326,24 +298,14 @@ onMounted(() => {
           </div>
           <!-- End .tab-pane -->
 
-          <div
-            class="tab-pane fade"
-            id="product-reviews-content"
-            role="tabpanel"
-            aria-labelledby="product-tab-reviews"
-          >
+          <div class="tab-pane fade" id="product-reviews-content" role="tabpanel" aria-labelledby="product-tab-reviews">
             <div class="product-reviews-content">
               <h3 class="reviews-title">1 review for Men Black Sports Shoes</h3>
 
               <div class="comment-list">
                 <div class="comments">
                   <figure class="img-thumbnail">
-                    <img
-                      src="@/assets/images/blog/author.jpg"
-                      alt="author"
-                      width="80"
-                      height="80"
-                    />
+                    <img src="@/assets/images/blog/author.jpg" alt="author" width="80" height="80" />
                   </figure>
 
                   <div class="comment-block">
@@ -378,9 +340,7 @@ onMounted(() => {
 
                 <form action="#" class="comment-form m-0">
                   <div class="rating-form">
-                    <label for="rating"
-                      >Your rating <span class="required">*</span></label
-                    >
+                    <label for="rating">Your rating <span class="required">*</span></label>
                     <span class="rating-stars">
                       <a class="star-1" href="#">1</a>
                       <a class="star-2" href="#">2</a>
@@ -401,11 +361,7 @@ onMounted(() => {
 
                   <div class="form-group">
                     <label>Your review <span class="required">*</span></label>
-                    <textarea
-                      cols="5"
-                      rows="6"
-                      class="form-control form-control-sm"
-                    ></textarea>
+                    <textarea cols="5" rows="6" class="form-control form-control-sm"></textarea>
                   </div>
                   <!-- End .form-group -->
 
@@ -413,11 +369,7 @@ onMounted(() => {
                     <div class="col-md-6 col-xl-12">
                       <div class="form-group">
                         <label>Name <span class="required">*</span></label>
-                        <input
-                          type="text"
-                          class="form-control form-control-sm"
-                          required
-                        />
+                        <input type="text" class="form-control form-control-sm" required />
                       </div>
                       <!-- End .form-group -->
                     </div>
@@ -425,26 +377,17 @@ onMounted(() => {
                     <div class="col-md-6 col-xl-12">
                       <div class="form-group">
                         <label>Email <span class="required">*</span></label>
-                        <input
-                          type="text"
-                          class="form-control form-control-sm"
-                          required
-                        />
+                        <input type="text" class="form-control form-control-sm" required />
                       </div>
                       <!-- End .form-group -->
                     </div>
 
                     <div class="col-md-6 col-xl-12">
                       <div class="custom-control custom-checkbox">
-                        <input
-                          type="checkbox"
-                          class="custom-control-input"
-                          id="save-name"
-                        />
-                        <label class="custom-control-label mb-0" for="save-name"
-                          >Save my name, email, and website in this browser for the next
-                          time I comment.</label
-                        >
+                        <input type="checkbox" class="custom-control-input" id="save-name" />
+                        <label class="custom-control-label mb-0" for="save-name">Save my name, email, and website in
+                          this browser for the next
+                          time I comment.</label>
                       </div>
                     </div>
                   </div>
@@ -466,24 +409,16 @@ onMounted(() => {
         <h2 class="section-title pb-3">Related Products</h2>
 
         <div class="products-slider">
-          <swiper
-            :slidesPerView="6"
-            :sliderPerGroup="6"
-            :loop="true"
-            :autoplay="{
+          <swiper :slidesPerView="6" :sliderPerGroup="6" :loop="true" :autoplay="{
               delay: 2000,
-            }"
-            :modules="modules"
-            class="mySwiper"
-            :breakpoints="{
+            }" :modules="modules" class="mySwiper" :breakpoints="{
               [425 - 320]: { slidesPerView: 2, spaceBetweenSlides: 20 },
               768: { slidesPerView: 3, spaceBetweenSlides: 30 },
               1024: { slidesPerView: 4, spaceBetweenSlides: 30 },
               1200: { slidesPerView: 6, spaceBetweenSlides: 30 },
-            }"
-          >
+            }">
             <swiper-slide v-for="(relatedProduct, index) in relatedProducts" :key="index">
-              <ProductCard :product="relatedProduct"/>
+              <ProductCard :product="relatedProduct" />
             </swiper-slide>
           </swiper>
         </div>

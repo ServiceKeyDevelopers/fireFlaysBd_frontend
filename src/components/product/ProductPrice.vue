@@ -37,12 +37,12 @@ const props = defineProps({
         </template>
         <template v-else>
             <div class="price-box">
-                <template v-if="product.offer_price == 0">
-                    <span class="product-price">{{ $filters.currencySymbol(product.mrp) }}</span>
+                <template v-if="product && product?.offer_price == 0">
+                    <span class="product-price">{{ $filters.currencySymbol(product?.mrp) }}</span>
                 </template>
                 <template v-else>
-                    <span class="old-price">{{ $filters.currencySymbol(product.mrp) }}</span>
-                    <span class="product-price">{{ $filters.currencySymbol(product.offer_price) }}</span>
+                    <span class="old-price">{{ $filters.currencySymbol(product?.mrp) }}</span>
+                    <span class="product-price">{{ $filters.currencySymbol(product?.offer_price) }}</span>
                 </template>
             </div>
         </template>
