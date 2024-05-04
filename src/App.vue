@@ -3,7 +3,7 @@
 // import Layout from './views/common/Layout.vue'
 import Login from './views/pages/Authentication/Login.vue'
 import { ref, onMounted } from "vue";
-import { Header, Sidebar, Footer, MobileMenu, StickyNavber, BannerSection, InfoSection, FeatureSection, PopularSection, ProductSection, SpecialOffersSection } from "@/components";
+import { Header, Sidebar, Footer, Modal, MobileMenu, StickyNavber, BannerSection, InfoSection, FeatureSection, PopularSection, ProductSection, SpecialOffersSection } from "@/components";
 import { useRoute } from 'vue-router';
 const route = useRoute();
 // Import Swiper Vue.js components
@@ -27,7 +27,7 @@ const toggleMenu = () => {
   <div>
     <div class="page-wrapper">
       <Header />
-
+      <Modal />
       <Layout v-if="route.path != '/login'">
             <main class="main home">
               <div class="container-fluid p-0">
@@ -61,7 +61,11 @@ const toggleMenu = () => {
 
    <StickyNavber />
 
+
+
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>

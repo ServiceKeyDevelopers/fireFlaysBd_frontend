@@ -1,18 +1,12 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import {
-  Header,
-  Sidebar,
-  Footer,
-  MobileMenu,
-  StickyNavber,
-  BannerSection,
-  InfoSection,
-  FeatureSection,
-  PopularSection,
-  ProductSection,
-  SpecialOffersSection,
-} from "@/components";
+import {Header, Sidebar, Footer, MobileMenu, StickyNavber, Modal, BannerSection, InfoSection, FeatureSection, PopularSection, ProductSection, SpecialOffersSection, } from "@/components";
+
+
+import { storeToRefs } from 'pinia';
+import {useModal} from '@/stores'
+
+const modal = useModal();
 
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -25,12 +19,18 @@ import { Pagination, Autoplay, Navigation } from "swiper/modules";
 const newSlide = ref([Navigation]);
 const modules = ref([Pagination, Autoplay]);
 
+function ff(){
+  modal.toggleModal();
+}
 
 </script>
 
 <template>
   <div>
     <div class="main-content">
+
+      <button @click="ff()">click</button>
+
       <BannerSection />
 
       <!-- banner end -->
@@ -57,8 +57,11 @@ const modules = ref([Pagination, Autoplay]);
 
       <Footer />
       <!-- End .footer -->
+      
     </div>
   </div>
 </template>
 
-<style></style>
+<style>
+
+</style>

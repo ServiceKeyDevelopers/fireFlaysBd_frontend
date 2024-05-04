@@ -14,6 +14,7 @@ export function addToCart(tProduct, quantity = 1, productPrices = '') {
       cart.addToCart({
         item_id      : tProduct.id,
         name         : tProduct.name,
+        slug         : tProduct.slug,
         mrp          : sizeMrp,
         offer_price  : sizeOfferPrice,
         image        : tProduct.image,
@@ -26,6 +27,7 @@ export function addToCart(tProduct, quantity = 1, productPrices = '') {
       cart.addToCart({
         item_id      : tProduct.id,
         name         : tProduct.name,
+        slug         : tProduct.slug,
         mrp          : tProduct.mrp,
         offer_price  : tProduct.offer_price,
         image        : tProduct.image,

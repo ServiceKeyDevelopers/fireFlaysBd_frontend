@@ -50,7 +50,6 @@ const changeImage = (img, index) => {
 const productByid = async () => {
   singleProduct.value = await product.productById(route.params.id);
   // for related products
-  console.log(singleProduct.value);
   categoryId.value.push(singleProduct.value?.category_id);
 };
 // single product get by id end 

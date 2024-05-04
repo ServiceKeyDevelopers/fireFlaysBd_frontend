@@ -51,7 +51,7 @@ const cartIncrement = (index) => {
                         <div class="product" v-for="(cart, index) in cartItem" :key="index">
                             <div class="product-details">
                                 <h4 class="product-title">
-                                    <a href="product.html">{{ cart.name }}</a>
+                                    <router-link :to="{name: 'ProductDetailsPage',params: { id: cart.item_id, slug: cart.slug },}" @click.prevent="cartOpen()">{{ cart.name }}</router-link>
                                 </h4>
 
                                 <span class="cart-product-info">
@@ -61,9 +61,9 @@ const cartIncrement = (index) => {
                             <!-- End .product-details -->
 
                             <figure class="product-image-container">
-                                <a href="product.html" class="product-image">
-                                    <img src="@/assets/images/products/product-1.jpg" alt="product" width="80" height="80">
-                                </a>
+                                <router-link :to="{name: 'ProductDetailsPage',params: { id: cart.item_id, slug: cart.slug },}" @click.prevent="cartOpen()" class="product-image">
+                                    <img :src="cart.image" alt="product" width="80" height="80">
+                                </router-link>
 
                                 <a href="#" class="btn-remove" title="Remove Product"  @click.prevent="deleteCart(index)"><span>×</span></a>
                             </figure>
