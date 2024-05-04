@@ -2,8 +2,24 @@
 
 <script setup>
 import { ref } from "vue";
+import { Modal } from "@/components";
+import axiosInstance from "@/services/axiosService.js";
+import { useAuth, useModal } from "@/stores";
+import { useRoute } from 'vue-router';
 
 const loginOpened = ref(false);
+const modal =  useModal()
+const auth = useAuth();
+const name = ref('');
+const phoneNumber = ref('');
+
+const loginOrRegisterUser = async() => {
+	const res = await auth.login({phone_number: phoneNumber.value, name: name.value});
+	if (res?.status == 200) {
+      modal.toggleModal() 
+    }
+}
+
 
 const loginOpen = () => {
     loginOpened.value =! loginOpened.value
@@ -12,6 +28,8 @@ const loginOpen = () => {
 </script>
 
 <template>
+<Modal @orderSubmitted="handleOrderSubmitted"/>
+
     <div class="login-form-container">
         <h4>
             Returning customer?
@@ -26,25 +44,18 @@ const loginOpen = () => {
                 <div class="row">
                     <div class="col-md-6">
                     <div class="form-group">
-                        <label class="mb-0 pb-1">Username or email <span class="required">*</span></label>
-                        <input type="email" class="form-control" required />
+                        <label class="mb-0 pb-1">Name<span class="required">*</span></label>
+                        <input type="text" class="form-control" required v-model="name"/>
                     </div>
                     </div>
                     <div class="col-md-6">
                     <div class="form-group">
-                        <label class="mb-0 pb-1">Password <span class="required">*</span></label>
-                        <input type="password" class="form-control" required />
+                        <label class="mb-0 pb-1">Phone Number <span class="required">*</span></label>
+                        <input type="text" class="form-control" required v-model="phoneNumber"/>
                     </div>
                     </div>
                 </div>
-                <button type="submit" class="btn">LOGIN</button>
-                <div class="form-footer mb-1">
-                    <div class="custom-control custom-checkbox mb-0 mt-0">
-                    <input type="checkbox" class="custom-control-input" id="lost-password" />
-                    <label class="custom-control-label mb-0" for="lost-password">Remember me</label>
-                    </div>
-                    <a href="forgot-password.html" class="forget-password">Lost your password?</a>
-                </div>
+                <button type="submit" class="btn" @click.prevent="loginOrRegisterUser">LOGIN</button>
                 </form>
             </div>
             </div>

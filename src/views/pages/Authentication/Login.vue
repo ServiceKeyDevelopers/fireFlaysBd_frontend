@@ -1,8 +1,34 @@
 <script setup>
+import { ref } from 'vue';
+import { Modal } from "@/components";
+import axiosInstance from "@/services/axiosService.js";
+import { useAuth, useModal } from "@/stores";
+import { useRoute } from 'vue-router';
+
+const modal =  useModal()
+const auth = useAuth();
+
+const name = ref();
+const phoneNumber = ref();
+
+const loginOrRegisterUser = async() => {
+	const res = await auth.login({phone_number: phoneNumber.value, name: name.value});
+	if (res?.status == 200) {
+      modal.toggleModal() 
+    }
+}
+
+const handleOrderSubmitted = () => {
+	router.push({ name: routeLocationKey.path == '/login' ? 'HomePage' : 'CheckoutPage' });
+}
+
 
 </script>
 
 <template>
+
+<Modal @orderSubmitted="handleOrderSubmitted"/>
+
 <div class="page-wrapper">
 		<main class="main">
 			<div class="page-header">
@@ -27,55 +53,25 @@
 				<div class="row">
 					<div class="col-lg-10 mx-auto">
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-12">
 								<div class="heading mb-1">
 									<h2 class="title">Login</h2>
 								</div>
 
-								<form action="#">
+								<form>
 									<label for="register-email">
-										Email address
+										Name
 										<span class="required">*</span>
 									</label>
-									<input type="email" class="form-input form-wide" id="register-email" required />
-
-									<label for="register-password">
-										Password
+									<input type="text" class="form-input form-wide" required  v-model="name"/>
+									<label for="register-email">
+										Phone Number
 										<span class="required">*</span>
 									</label>
-									<input type="password" class="form-input form-wide" id="register-password"
-										required />
+									<input type="text" class="form-input form-wide" required  v-model="phoneNumber"/>
 
 									<div class="form-footer mb-2">
-										<button type="submit" class="btn btn-dark btn-md w-100 mr-0">
-											Login
-										</button>
-									</div>
-								</form>
-							</div>
-							<div class="col-md-6">
-								<div class="heading mb-1">
-									<h2 class="title">Register</h2>
-								</div>
-
-								<form action="#">
-									<label for="register-email">
-										Email address
-										<span class="required">*</span>
-									</label>
-									<input type="email" class="form-input form-wide" id="register-email" required />
-
-									<label for="register-password">
-										Password
-										<span class="required">*</span>
-									</label>
-									<input type="password" class="form-input form-wide" id="register-password"
-										required />
-
-									<div class="form-footer mb-2">
-										<button type="submit" class="btn btn-dark btn-md w-100 mr-0">
-											Register
-										</button>
+										<button type="submit" class="btn btn-dark btn-md w-100 mr-0" @click.prevent="loginOrRegisterUser">Login</button>
 									</div>
 								</form>
 							</div>

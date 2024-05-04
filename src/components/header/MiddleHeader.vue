@@ -2,6 +2,23 @@
 import { onMounted, ref } from 'vue';
 import { CartSidebar } from "@/components";
 
+// All Import File  Code Is Here......................................................................................................
+import { useAuth, useNotification } from '@/stores';
+import { useRouter, useRoute } from "vue-router";
+import { storeToRefs } from 'pinia';
+const auth = useAuth()
+const router = useRouter();
+const {user, loading} =  storeToRefs(auth)
+const notify = useNotification();
+
+const logout = async () => {
+    const res = await auth.logout();
+    if (res.success) {
+        router.push({ name: "HomePage"});
+        notify.Success("Logout Successfully Done");
+    }
+}
+
 
 const isMenuActive = ref(false);
 const stickyNavbar = ref(false);
@@ -62,10 +79,13 @@ window.addEventListener('scroll', () => {
                             </h6>
                         </div>
 
-                        <div class="header-contact d-lg-flex pr-sm-4 pr-2">
+                        <div class="header-contact d-lg-flex pr-sm-4 pr-2" @click.prevent="logout" v-if="user.user">
+                            <a href="" class="header-icon mr-0" title="login"><i class="icon-user-2"></i></a>
+                            <h6 class="text-capitalize"><a href="">Logout</a></h6>
+                        </div>
+                        <div class="header-contact d-lg-flex pr-sm-4 pr-2" v-else>
                             <router-link :to="{name: 'LoginPage'}" class="header-icon mr-0" title="login"><i class="icon-user-2"></i></router-link>
-                            <h6 class="text-capitalize"><span class="ls-n-20">Welcome</span><router-link :to="{name: 'LoginPage'}">Sign In
-                                    / Register</router-link></h6>
+                            <h6 class="text-capitalize"><span class="ls-n-20">Welcome</span><router-link :to="{name: 'LoginPage'}">Sign In / Register</router-link></h6>
                         </div>
 
                         <div class="separator"></div>

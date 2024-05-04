@@ -1,5 +1,5 @@
 <script setup>
-import {  CheckoutCoupon, CheckoutLogin } from "@/components";
+import {  CheckoutCoupon, CheckoutLogin, Modal } from "@/components";
 import axiosInstance from "@/services/axiosService.js";
 import { useCart, useOrder, useAuth, useModal } from "@/stores";
 import { storeToRefs } from "pinia";
@@ -90,21 +90,21 @@ const orderSubmited = async () => {
 }
 
 const placeOrder = async() => {
-//   if (Object.keys(auth.user).length > 0) {
-//     orderSubmited();
-//   }else{
-//     const res = await auth.login({phone_number: phoneNumber.value, name: name.value});
-//     if (res?.status == 200) {
-//       modal.toggleModal() 
-//     }
-//   }
-   orderSubmited();
+  if (Object.keys(auth.user).length > 0) {
+    orderSubmited();
+  }else{
+    const res = await auth.login({phone_number: phoneNumber.value, name: name.value});
+    if (res?.status == 200) {
+      modal.toggleModal() 
+    }
+  }
 
 };
 
-// const handleOrderSubmitted = () => {
-//   orderSubmited(); 
-// }
+const handleOrderSubmitted = async () => {
+  console.log('Order submitted event received');
+  await orderSubmited(); // Wait for orderSubmited to complete
+};
 
 // order work end here 
 
@@ -127,6 +127,9 @@ onMounted(() => {
 </script>
 
 <template>
+
+<Modal @orderSubmitted="handleOrderSubmitted"/>
+
  <main class="main main-test">
             <div class="container checkout-container">
                 <ul class="checkout-progress-bar d-flex justify-content-center flex-wrap">
@@ -141,7 +144,12 @@ onMounted(() => {
                     </li>
                 </ul>
 
-                <CheckoutLogin />
+                <template v-if="Object.keys(auth.user).length > 0">
+                    <p>Welcome {{ auth?.user?.user?.name }}</p>
+                </template>
+                <template v-else>
+                    <CheckoutLogin />
+                </template>
 
                 <CheckoutCoupon />
 
@@ -283,7 +291,7 @@ onMounted(() => {
                                 </tfoot>
                             </table>
 
-                            <button type="submit" :disabled="isSubmitting" class="btn btn-dark btn-place-order" @click="placeOrder()"><span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>Order Now</button>
+                            <button type="submit" :disabled="isSubmitting" class="btn btn-dark btn-place-order" @click.prevent="placeOrder()"><span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>Order Now</button>
                         </div>
                         <!-- End .cart-summary -->
                     </div>
