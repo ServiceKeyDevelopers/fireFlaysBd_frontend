@@ -99,6 +99,7 @@ const socialMedia = async () => {
   try {
     const res = await axiosInstance.get("/social-medias");
     socialShares.value = res.data.result;
+    console.log(socialShares.value);
   } catch (error) {
     console.log(error);
   }
@@ -291,7 +292,7 @@ onMounted(() => {
 
               <div class="social-icons" v-show="socialShares.length > 0">
                 <template v-for="(socialShare, index) in socialShares" :key="index">
-                  <a :href="socialURL(socialShare.type, socialShare.contact)" target="_blank" title=""><i :class="socialIcons(socialShare.type)"></i></a>
+                  <a :href="socialURL(socialShare.type, socialShare.contact)" target="_blank" title="" class="icon-font-size"><i :class="socialIcons(socialShare.type)"></i></a>
                 </template>
               </div>
 
@@ -466,6 +467,11 @@ onMounted(() => {
 </template>
 
 <style scoped>
+
+.icon-font-size{
+  font-size:20px;
+  margin-right:15px;
+}
 
 .buyNowBtn{
   background-color: #8DC540;

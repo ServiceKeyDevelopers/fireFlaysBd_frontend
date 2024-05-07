@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import {HomePage, ShopPage, ProductDetailsPage, WishlistPage, Login, CheckoutPage, Contact, About, CartPage, thankyou} from "@/views/pages";
+import {HomePage, ShopPage, ProductDetailsPage, WishlistPage, Login, CheckoutPage, Contact, About, CartPage, thankyou, TermsConditions, PrivacyPolicy, ReturnRefund,} from "@/views/pages";
 import NProgress from "nprogress";
 import {useAuth} from '@/stores'
 
@@ -63,6 +63,24 @@ const routes = [
     name: "thankYou.page",
     component: thankyou,
     meta: { title: "Fireflys BD | Thank You" },
+  },
+  {
+    path: "/terms-and-conditions",
+    name: "TermsConditions",
+    component: TermsConditions,
+    meta: { title: "Glossit | Terms & Conditions Page" },
+  },
+  {
+    path: "/Privacy-Policy",
+    name: "PrivacyPolicy",
+    component: PrivacyPolicy,
+    meta: { title: "Glossit | Privacy & Policy Page" },
+  },
+  {
+    path: "/Privacy-Policy",
+    name: "ReturnRefund",
+    component: ReturnRefund,
+    meta: { title: "Glossit | Return & Refund Page" },
   },
 ];
 

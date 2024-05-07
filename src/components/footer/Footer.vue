@@ -127,11 +127,9 @@ onMounted(() => {
                             <h3 class="widget-title">Customer Services</h3>
                             <div class="widget-content">
                                 <ul>
-                                    <li><a href="#">Help & FAQs</a></li>
-                                    <li><a href="#">Order Tracking</a></li>
-                                    <li><a href="#">Shipping & Delivery</a></li>
-                                    <li><a href="#">Orders History</a></li>
-                                    <li><a href="#">Advanced Search</a></li>
+                                  <li><router-link :to="{name : 'PrivacyPolicy'}">Privacy Policy</router-link></li>
+                                  <li><router-link :to="{name : 'TermsConditions'}">Terms Conditions</router-link></li>
+                                    <li><router-link :to="{name : 'ReturnRefund'}">Return Refund</router-link></li>
                                     <li><router-link :to="{name: 'LoginPage'}">Login</router-link></li>
                                 </ul>
                             </div>
@@ -156,10 +154,10 @@ onMounted(() => {
                             <h3 class="widget-title">More Information</h3>
                             <div class="widget-content">
                                 <ul>
-                                    <li><a href="#">Affiliates</a></li>
-                                    <li><a href="#">Refer a Friend</a></li>
-                                    <li><a href="#">Student Beans Offers</a></li>
-                                    <li><a href="#">Gift Vouchers</a></li>
+                                    <li><a href="#">{{ email?.value }}</a></li>
+                                    <li><a href="#">+88{{ phone?.value }}</a></li>
+                                    <li><a href="#">{{ address?.value }}</a></li>
+                                    <li><a href="#">{{ whatsapp?.value }}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -167,12 +165,10 @@ onMounted(() => {
                     <div class="col-md-6 col-lg-3">
                         <div class="widget">
                             <h3 class="widget-title">Follow Us</h3>
-                            <div class="widget-content">
-                                <div class="social-icons">
-                                    <a href="#" class="social-icon social-facebook icon-facebook" target="_blank" title="Facebook"></a>
-                                    <a href="#" class="social-icon social-twitter icon-twitter" target="_blank" title="Twitter"></a>
-                                    <a href="#" class="social-icon social-instagram icon-instagram" target="_blank" title="Instagram"></a>
-                                </div>
+                            <div class="social-icons" v-show="socialShares.length > 0">
+                              <template v-for="(socialShare, index) in socialShares" :key="index">
+                                <a :href="socialURL(socialShare.type, socialShare.contact)" target="_blank" title="" class="icon-font-size"><i :class="socialIcons(socialShare.type)"></i></a>
+                              </template>
                             </div>
                         </div>
                     </div>
@@ -188,6 +184,9 @@ onMounted(() => {
     </div>
 </template>
 
-<style lang="scss" scoped>
-
+<style>
+.icon-font-size{
+  font-size:20px;
+  margin-right:15px;
+}
 </style>

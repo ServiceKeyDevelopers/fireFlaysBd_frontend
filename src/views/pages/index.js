@@ -8,3 +8,6 @@ export { default as Login } from "./Authentication/Login.vue";
 export { default as About } from "./Social/About.vue";
 export { default as Contact } from "./Social/Contact.vue";
 export { default as thankyou } from "./thankyou.vue";
+export { default as TermsConditions } from "./FooterPages/TermsConditions.vue";
+export { default as PrivacyPolicy } from "./FooterPages/PrivacyPolicy.vue";
+export { default as ReturnRefund } from "./FooterPages/ReturnRefund.vue";
