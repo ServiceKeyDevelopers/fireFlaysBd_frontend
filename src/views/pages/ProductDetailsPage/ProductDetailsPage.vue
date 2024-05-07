@@ -29,11 +29,15 @@ const sizeID        = ref('');
 const productPrices = ref('');
 const sizeName      = ref('');
 // get size price end 
+
 // related product start
 const relatedProducts = ref('');
 const categoryId = ref([]);
 // related product end
 
+// social Icons start
+const socialShares = ref("");
+// social Icons end
 
 const modules = ref();
 // image section start
@@ -89,6 +93,46 @@ watch(
 // Related product end
 
 
+// social media link  start
+
+const socialMedia = async () => {
+  try {
+    const res = await axiosInstance.get("/social-medias");
+    socialShares.value = res.data.result;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const socialIcons = (socialType) => {
+  const iconMapping = {
+    Facebook: "fab fa-facebook-f",
+    Twitter: "fab fa-twitter",
+    Whatsapp: "fab fa-whatsapp",
+    Messenger: "fab fa-facebook-messenger",
+    Linkedin: "fab fa-linkedin",
+    Instagram: "fab fa-instagram",
+    Phone: "fas fa-phone",
+  };
+  return iconMapping[socialType] || "default-icon-class";
+};
+
+const socialURL = (socialType, socialUrl) => {
+  const iconMapping = {
+    Facebook: `https://www.facebook.com/${socialUrl}/`,
+    Twitter: `https://www.twitter.com/${socialUrl}/`,
+    Whatsapp: `https://wa.me/+88${socialUrl}?text=Hello!`,
+    Messenger: `https://www.messenger.com/t/${socialUrl}/`,
+    Linkedin: `https://www.linkedin.com/${socialUrl}/`,
+    Instagram: `https://www.instagram.com/${socialUrl}/`,
+    Phone: `https://m.me/+88${socialUrl}`,
+  };
+  return iconMapping[socialType] || "default-icon-class";
+};
+
+// social media link  end
+
+
 // get size price start  
 
 const sizeByPrice = (sizeByProductPrice) => {
@@ -125,6 +169,7 @@ const getEmbedUrl = (watchUrl) => {
 
 onMounted(() => {
   productByid();
+  socialMedia();
 })
 
 
@@ -146,14 +191,15 @@ onMounted(() => {
                 <div class="img-showcase">
                   <img :src="singleProduct?.image" alt="shoe image" v-if="thumbnailImage == null">
                   <img :src="thumbnailImage" alt="shoe image" v-else>
-                  </div>
-                  </div>
-                  <div class="img-select">
-                    <div class="img-item" v-for="(image, index) in singleProduct?.images" :key="index" :class="[activeImage == index ? 'active-thumb' : '']">
-                      <img :src="image.image" alt="shoe image" @click.prevent="changeImage(image.image, index)">
-                  </div>
-
                 </div>
+              </div>
+              <div class="img-select">
+                <div class="img-item" v-for="(image, index) in singleProduct?.images" :key="index"
+                  :class="[activeImage == index ? 'active-thumb' : '']">
+                  <img :src="image.image" alt="shoe image" @click.prevent="changeImage(image.image, index)">
+                </div>
+
+              </div>
             </div>
 
           </div>
@@ -208,7 +254,8 @@ onMounted(() => {
 
               <template v-if="singleProduct && singleProduct.product_prices.length > 0">
                 <template v-if="productPrices">
-                  <a href="javascript:;" class="btn btn-dark add-cart mr-2" @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Add to Cart</a>
+                  <a href="javascript:;" class="btn btn-dark add-cart mr-2"
+                    @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Add to Cart</a>
                   <router-link :to="{name: 'CheckoutPage'}" href="javascript:;" class="btn buyNowBtn add-cart mr-2"
                     @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Buy Now</router-link>
                 </template>
@@ -242,22 +289,10 @@ onMounted(() => {
             <div class="product-single-share icon-with-color mb-2 mt-2">
               <label class="sr-only">Share:</label>
 
-              <div class="social-icons">
-                <a href="#" class="social-icon social-facebook" target="_blank" title="Facebook">
-                  <i class="icon-facebook"></i>
-                </a>
-                <a href="#" class="social-icon social-twitter" target="_blank" title="Twitter">
-                  <i class="icon-twitter"></i>
-                </a>
-                <a href="#" class="social-icon social-linkedin" target="_blank" title="Linkedin">
-                  <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="#" class="social-icon social-gplus" target="_blank" title="Google +">
-                  <i class="fab fa-google-plus-g"></i>
-                </a>
-                <a href="#" class="social-icon social-mail" target="_blank" title="Email">
-                  <i class="icon-mail-alt"></i>
-                </a>
+              <div class="social-icons" v-show="socialShares.length > 0">
+                <template v-for="(socialShare, index) in socialShares" :key="index">
+                  <a :href="socialURL(socialShare.type, socialShare.contact)" target="_blank" title=""><i :class="socialIcons(socialShare.type)"></i></a>
+                </template>
               </div>
 
             </div>

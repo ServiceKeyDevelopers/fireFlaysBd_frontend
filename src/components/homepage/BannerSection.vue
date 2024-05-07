@@ -2,6 +2,10 @@
 import { Banner } from "@/components";
 import { ref, onMounted } from "vue";
 
+// banner start here 
+import {useBanner} from '@/stores'
+// banner end  here 
+
 // slider get data 
 import { storeToRefs } from 'pinia';
 // slider data fetch 
@@ -14,23 +18,36 @@ import "swiper/css/pagination";
 // import required modules
 import { Pagination, Autoplay, Navigation } from "swiper/modules";
 
+// All Variable  Code Is Here.....................................................................................................
 const newSlide = ref([Navigation]);
 const modules = ref([Pagination, Autoplay]);
 
-// All Variable  Code Is Here.....................................................................................................
+// banner part start
+const banner = useBanner();
+const banner1 = ref(''); 
+const banner2 = ref(''); 
+// banner part end
 
+
+// All Function  Code Is Here.....................................................................................................
+
+// banner part start
+
+const getBanner = async() => {
+  banner1.value =  await banner.getData('home-page-b1');
+  banner2.value =  await banner.getData('home-page-b2');
+}
+
+// banner part end
 
 // slider data fetch 
 const slider = useSlider();
 const {sliders} = storeToRefs(slider)
 
 onMounted(() => {
+    getBanner();
     slider.getData();
 })
-
-// API Calling Code Is Here.....................................................................................................
-
-// All Function  Code Is Here.....................................................................................................
 </script>
 
 <template>
@@ -64,11 +81,12 @@ onMounted(() => {
           </swiper>
         </div>
         <div class="col-md-12 col-xl-4 col-lg-12 d-sm-flex d-xl-block">
-          <Banner />
-          <!-- End .home-slide -->
-
-          <Banner />
-          <!-- End .home-slide -->
+          <template v-if="banner1">
+            <Banner :banner="banner1"/>
+          </template>
+          <template v-if="banner2">
+            <Banner :banner="banner2"/>
+          </template>
         </div>
       </div>
     </section>

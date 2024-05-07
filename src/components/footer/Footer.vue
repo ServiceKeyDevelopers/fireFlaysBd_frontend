@@ -1,5 +1,118 @@
-<script setup lang="ts">
+<script setup>
+// All Import File  Code Is Here......................................................................................................
+import { onMounted, ref } from "vue";
+import { storeToRefs } from 'pinia';
+import {useSetting} from '@/stores'
+import axiosInstance from "@/services/axiosService.js";
+// All Variable  Code Is Here.....................................................................................................
+const setting = useSetting();
+const { settings } = storeToRefs(setting);
 
+const email = ref()
+const logo = ref()
+const address = ref()
+const phone = ref()
+const description = ref()
+const facebook = ref()
+const whatsapp = ref()
+
+const fbPageUrl = ref('https://www.facebook.com/maxfitfood1')
+
+// social Icons start
+const socialShares = ref("");
+// social Icons end
+
+// API Calling Code Is Here.....................................................................................................
+
+
+// All Function  Code Is Here.....................................................................................................
+
+
+
+const getSettingsData = async() => {
+  const settingData = await setting.getData();
+  settingData.map((ele)=> {
+    if (ele.key == "email" ) {
+      email.value = ele
+    } 
+    if (ele.key == "facebook" ) {
+      facebook.value = ele
+    } 
+    if (ele.key == "address" ) {
+      address.value = ele
+    } 
+    if (ele.key == "phone" ) {
+      phone.value = ele
+    } 
+    if (ele.key == "description" ) {
+      description.value = ele
+    } 
+    if (ele.key == "logo" ) {
+      logo.value = ele
+    } 
+    if (ele.key == "whatsapp" ) {
+      whatsapp.value = ele
+    } 
+  })
+}
+
+
+
+// social media link  start
+
+const socialMedia = async () => {
+  try {
+    const res = await axiosInstance.get("/social-medias");
+    socialShares.value = res.data.result;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const socialIcons = (socialType) => {
+  const iconMapping = {
+    Facebook: "fab fa-facebook-f",
+    Twitter: "fab fa-twitter",
+    Whatsapp: "fab fa-whatsapp",
+    Messenger: "fab fa-facebook-messenger",
+    Linkedin: "fab fa-linkedin",
+    Instagram: "fab fa-instagram",
+    Phone: "fas fa-phone",
+  };
+  return iconMapping[socialType] || "default-icon-class";
+};
+
+const socialURL = (socialType, socialUrl) => {
+  const iconMapping = {
+    Facebook: `https://www.facebook.com/${socialUrl}/`,
+    Twitter: `https://www.twitter.com/${socialUrl}/`,
+    Whatsapp: `https://wa.me/+88${socialUrl}?text=Hello!`,
+    Messenger: `https://www.messenger.com/t/${socialUrl}/`,
+    Linkedin: `https://www.linkedin.com/${socialUrl}/`,
+    Instagram: `https://www.instagram.com/${socialUrl}/`,
+    Phone: `https://m.me/+88${socialUrl}`,
+  };
+  return iconMapping[socialType] || "default-icon-class";
+};
+
+// social media link  end
+
+
+
+onMounted(() => {
+    getSettingsData(); 
+    socialMedia();
+    // Load the Facebook SDK script here
+    const script = document.createElement('script');
+        script.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v18.0';
+        script.async = true;
+        script.defer = true;
+        script.crossOrigin = 'anonymous';
+        script.nonce = 'isN1HXTF';
+
+        // Append the script to the document's body
+        document.body.appendChild(script);
+})
 </script>
 
 <template>
@@ -19,7 +132,7 @@
                                     <li><a href="#">Shipping & Delivery</a></li>
                                     <li><a href="#">Orders History</a></li>
                                     <li><a href="#">Advanced Search</a></li>
-                                    <li><a href="login.html">Login</a></li>
+                                    <li><router-link :to="{name: 'LoginPage'}">Login</router-link></li>
                                 </ul>
                             </div>
                         </div>
@@ -29,11 +142,11 @@
                             <h3 class="widget-title">About Us</h3>
                             <div class="widget-content">
                                 <ul>
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="#">Careers</a></li>
-                                    <li><a href="#">Our Stores</a></li>
-                                    <li><a href="#">Corporate Sales</a></li>
-                                    <li><a href="#">Careers</a></li>
+                                    <li><router-link :to="{name: 'AboutPage'}">About Us</router-link></li>
+                                    <li><router-link :to="{name: 'ContactPage'}">Contact Us</router-link></li>
+                                    <li><router-link :to="{name: 'ShopPage'}">Our Stores</router-link></li>
+                                    <li><router-link :to="{name: 'CartPage'}">Cart Page</router-link></li>
+                                    <li><router-link :to="{name: 'WishlistPage'}">Wishlist Page</router-link></li>
                                 </ul>
                             </div>
                         </div>
