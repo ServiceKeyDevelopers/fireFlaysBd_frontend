@@ -28,12 +28,10 @@ const deliveryInfo = ref([]);
 const payment_gateways = ref([]);
 const orderNote = ref("");
 
-// coupon 
-const showCouponForm  = ref(false);
-const couponDiscountAmount  = ref();
-const coupon = ref();
-const couponErrorMessage = ref();
-const couponId = ref();
+const discountCouponPrice = ref("");
+const couponId = ref("");
+
+
 
 const getDeliveryGateway = async () => {
   try {
@@ -102,11 +100,18 @@ const placeOrder = async() => {
 };
 
 const handleOrderSubmitted = async () => {
-  console.log('Order submitted event received');
-  await orderSubmited(); // Wait for orderSubmited to complete
+  await orderSubmited(); 
 };
 
 // order work end here 
+
+// coupon
+
+const handleCuponSubmited = (discoutAmount, coupon) => {
+    console.log(coupon);
+    couponId.value            = coupon;
+    discountCouponPrice.value = discoutAmount;
+}
 
 
 // validation error
@@ -121,7 +126,7 @@ const schema = yup.object({
 onMounted(() => {
   getDeliveryGateway();
   getPaymentGetway();
-//   modal.Modalclose();
+  modal.Modalclose();
 });
 
 </script>
@@ -151,7 +156,7 @@ onMounted(() => {
                     <CheckoutLogin />
                 </template>
 
-                <CheckoutCoupon />
+                <CheckoutCoupon @cuponSubmited="handleCuponSubmited"/>
 
                 <div class="row">
                     <div class="col-lg-7">
@@ -285,7 +290,7 @@ onMounted(() => {
                                             <h4>Total</h4>
                                         </td>
                                         <td>
-                                            <b class="total-price"><span>{{ $filters.currencySymbol(totalPrice) }}</span></b>
+                                            <b class="total-price"><span>{{ $filters.currencySymbol(discountCouponPrice ? totalPrice - discountCouponPrice : totalPrice) }}</span></b>
                                         </td>
                                     </tr>
                                 </tfoot>

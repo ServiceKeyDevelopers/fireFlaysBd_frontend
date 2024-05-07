@@ -2,12 +2,37 @@
 
 <script setup>
 import { ref } from "vue";
+import axiosInstance from "@/services/axiosService.js";
+import { useCart } from "@/stores";
+import { storeToRefs } from "pinia";
+
+const emit = defineEmits(['cuponSubmited']);
+const cart = useCart();
+const { totalPrice } = storeToRefs(cart);
+// coupon 
+const showCouponForm  = ref(false);
+const couponDiscountAmount  = ref();
+const coupon = ref('');
+const couponErrorMessage = ref();
+const couponId = ref();
 
 const couponOpened = ref(false);
 
 const cuponOpen = () => {
     couponOpened.value =! couponOpened.value
 }
+
+// coupon 
+
+const couponCalculate = async() => {
+  const res = await axiosInstance.get(`/coupons/check?coupon_code=${coupon.value}&cart_total_amount=${totalPrice.value}`); 
+  console.log(res);
+  couponErrorMessage.value = res.data.message 
+  couponDiscountAmount.value = res.data.result.discount_amount;
+  couponId.value = res.data.result.coupon_id;
+  emit('cuponSubmited', couponDiscountAmount.value, couponId.value);
+}
+
 
 </script>
 
@@ -24,14 +49,15 @@ const cuponOpen = () => {
 
                         <form action="#">
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-sm w-auto" placeholder="Coupon code" required="" />
+                                <input type="text" class="form-control form-control-sm w-auto" placeholder="Coupon code" required="" v-model="coupon"/>
                                 <div class="input-group-append">
-                                    <button class="btn btn-sm mt-0" type="submit">
+                                    <button class="btn btn-sm mt-0" type="submit" @click.prevent="couponCalculate()">
                                         Apply Coupon
                                     </button>
                                 </div>
                             </div>
                         </form>
+                        <p class="text-danger">{{ couponErrorMessage }}</p>
                     </div>
                 </div>
             </div>

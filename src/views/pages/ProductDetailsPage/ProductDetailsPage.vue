@@ -27,6 +27,7 @@ const quantityInput = ref(1);
 // get size price start  
 const sizeID        = ref('');
 const productPrices = ref('');
+const sizeName      = ref('');
 // get size price end 
 // related product start
 const relatedProducts = ref('');
@@ -207,8 +208,7 @@ onMounted(() => {
 
               <template v-if="singleProduct && singleProduct.product_prices.length > 0">
                 <template v-if="productPrices">
-                  <a href="javascript:;" class="btn btn-dark add-cart mr-2"
-                    @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Add to Cart</a>
+                  <a href="javascript:;" class="btn btn-dark add-cart mr-2" @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Add to Cart</a>
                   <router-link :to="{name: 'CheckoutPage'}" href="javascript:;" class="btn buyNowBtn add-cart mr-2"
                     @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Buy Now</router-link>
                 </template>

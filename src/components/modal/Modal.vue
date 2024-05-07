@@ -31,7 +31,6 @@ const otpSubmit = async () => {
           router.push({ name: route.path === "/login" ? "HomePage" : "" });
         }else if(route.path === "/checkoutPage"){
             emit('orderSubmitted');
-            console.log('ok');
         }else{
             router.push({ name: "CheckoutPage" });
         }

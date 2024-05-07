@@ -42,20 +42,12 @@ export const useCart = defineStore("cart", {
       this.campaignId = product.campaign_id;
       this.loading = product.id;
       let item = product;
-
       if (this.cartItem.length > 0) {
         if (item.size_id) {
-          let boolean = this.cartItem.some(
-            (i) =>
-              i.item_id === item.item_id &&
-              i.size_id === item.size_id
-          );
+          let boolean = this.cartItem.some((i) => i.item_id === item.item_id && i.size_id === item.size_id);
+          console.log(item);
           if (boolean) {
-            let index = this.cartItem.findIndex(
-              (i) =>
-                i.item_id === item.item_id &&
-                i.size_id === item.size_id
-            );
+            let index = this.cartItem.findIndex((i) => i.item_id === item.item_id && i.size_id === item.size_id);
             this.cartItem[index]["quantity"] += item.quantity;
           } else {
             this.cartItem.push(item);
