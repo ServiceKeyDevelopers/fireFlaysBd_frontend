@@ -14,3 +14,4 @@ export * from "./status";
 export * from "./section";
 export * from "./setting";
 export * from "./banner";
+export * from "./wishlist";

@@ -1,5 +1,5 @@
 <script setup>
-import { Banner } from "@/components";
+import { Banner, HomeSliderSkeleton, BannerSkeleton } from "@/components";
 import { ref, onMounted } from "vue";
 
 // banner start here 
@@ -54,38 +54,53 @@ onMounted(() => {
   <div>
     <section class="home-section mb-2">
       <div class="row">
+        
         <div class="col-md-12 col-xl-8 col-lg-12 mb-xl-0 mb-2">
-          <swiper
-            :slidesPerView="1"
-            :sliderPerGroup="1"
-            :loop="true"
-            :pagination="{
-              clickable: true,
-            }"
-            :autoplay="{
-              delay: 2000,
-            }"
-            :modules="modules"
-            class="mySwiper"
-          >
-            <swiper-slide v-for="(slider, index) in sliders.result" :key="index">
-              <div class="home-slide home-slide1 banner">
-                <img
-                  class="slide-bg"
-                  :src="slider.image"
-                  alt="slider image"
-                  style="background-color: #c0e1f2"
-                />
-              </div>
-            </swiper-slide>
-          </swiper>
+          <template v-if="sliders.result">
+            <swiper
+              :slidesPerView="1"
+              :sliderPerGroup="1"
+              :loop="true"
+              :pagination="{
+                clickable: true,
+              }"
+              :autoplay="{
+                delay: 2000,
+              }"
+              :modules="modules"
+              class="mySwiper"
+            >
+              <swiper-slide v-for="(slider, index) in sliders.result" :key="index">
+                <div class="home-slide home-slide1 banner">
+                  <img
+                    class="slide-bg"
+                    :src="slider.image"
+                    alt="slider image"
+                    style="background-color: #c0e1f2"
+                  />
+                </div>
+              </swiper-slide>
+            </swiper>
+          </template>
+          <template v-else>
+            <HomeSliderSkeleton />
+          </template>
         </div>
-        <div class="col-md-12 col-xl-4 col-lg-12 d-sm-flex d-xl-block">
+          
+
+          
+          <div class="col-md-12 col-xl-4 col-lg-12 d-sm-flex d-xl-block">
           <template v-if="banner1">
             <Banner :banner="banner1"/>
           </template>
+          <template v-else>
+            <BannerSkeleton />
+          </template>
           <template v-if="banner2">
             <Banner :banner="banner2"/>
+          </template>
+          <template v-else>
+            <BannerSkeleton />
           </template>
         </div>
       </div>

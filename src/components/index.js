@@ -20,3 +20,7 @@ export { default as ProductSize } from "@/components/product/ProductSize.vue";
 export { default as CheckoutCoupon } from "@/components/checkout/CheckoutCoupon.vue";
 export { default as CheckoutLogin } from "@/components/checkout/CheckoutLogin.vue";
 export { default as Modal } from "@/components/modal/Modal.vue";
+export { default as LoginModal } from "@/components/modal/LoginModal.vue";
+export { default as HomeSliderSkeleton } from "@/components/skeleton/HomeSliderSkeleton.vue";
+export { default as BannerSkeleton } from "@/components/skeleton/BannerSkeleton.vue";
+export { default as ProductSkeleton } from "@/components/skeleton/ProductSkeleton.vue";

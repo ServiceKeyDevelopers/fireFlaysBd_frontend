@@ -5,7 +5,7 @@ import { MiddleHeader, TopHeader } from "@/components";
     <div>
         <header class="header">
             
-            <TopHeader />
+            <!-- <TopHeader /> -->
             <!-- End .header-top -->
 
             <MiddleHeader />

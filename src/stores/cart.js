@@ -64,11 +64,9 @@ export const useCart = defineStore("cart", {
       } else {
         this.cartItem.push(item);
       }
-
-      setTimeout(() => {
-        this.loading = false;
-      }, 1000);
-
+      //looging animation 
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      this.loading = false;      
     },
 
     async destroy(index) {

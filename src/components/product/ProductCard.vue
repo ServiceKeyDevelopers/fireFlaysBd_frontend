@@ -1,11 +1,18 @@
 <script setup>
-import { ProductPrice } from "@/components";
+import { ProductPrice, LoginModal } from "@/components";
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
-// import { useCart, useNotification } from "@/stores";
+import { useCart, useNotification, useModal, useAuth, useWishlist } from "@/stores";
 import { addToCart } from '@/composables/addToCart'
+import { storeToRefs } from "pinia";
 
-
+const auth        = useAuth();
+const wishlist    = useWishlist();
+const modal       = useModal();
+const cart        = useCart();
+const {loading}   = storeToRefs(cart);
+const name        = ref('')
+const phoneNumber = ref('')
 
 const props = defineProps({
   product: Object,
@@ -14,7 +21,13 @@ const props = defineProps({
   required: true,
 });
 
-
+const addToWishlist = async(product) => {
+    if (Object.keys(auth.user).length > 0) {
+        let res = await wishlist.addToWishlist(product);
+    }else{
+        modal.toggleLoginModal()
+    }
+}
 
 </script>
 
@@ -27,7 +40,9 @@ const props = defineProps({
                 </router-link>
 
                 <div class="btn-icon-group">
-                    <a href="" class="btn-icon btn-add-cart product-type-simple" @click.prevent="addToCart(product)"><i class="icon-shopping-cart" ></i></a>
+                    <a href="" class="btn-icon btn-add-cart product-type-simple" @click.prevent="addToCart(product)">
+                        <i class="icon-shopping-cart"></i>
+                    </a>
                 </div>
                 <router-link :to="{name: 'ProductDetailsPage',params: { id: product.id, slug: product.slug },}" class="btn-quickview" title="Quick View">Quick View</router-link>
             </figure>
@@ -36,8 +51,10 @@ const props = defineProps({
                     <div class="category-list">
                         <router-link :to="{name: 'ShopPage', query:{ category: product.category.id}}" class="product-category">{{ product.category.name }}</router-link>
                     </div>
-                    <a href="wishlist.html" class="btn-icon-wish"><i
-                            class="icon-heart"></i></a>
+                    <a href="wishlist.html" class="btn-icon-wish">
+                        <i class="icon-heart" @click.prevent="addToWishlist(product)"></i>
+                        <!-- <i class="fas fa-spinner fa-spin"></i> -->
+                    </a>
                 </div>
                 <h3 class="product-title">
                     <router-link :to="{name: 'ProductDetailsPage',params: { id: product.id, slug: product.slug },}">{{ product.name }}</router-link>

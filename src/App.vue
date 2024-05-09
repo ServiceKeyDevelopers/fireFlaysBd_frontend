@@ -3,7 +3,7 @@
 // import Layout from './views/common/Layout.vue'
 // import Login from './views/pages/Authentication/Login.vue'
 import { ref, onMounted } from "vue";
-import { Header, Sidebar, Footer, Modal, MobileMenu, StickyNavber, BannerSection, InfoSection, FeatureSection, PopularSection, ProductSection, SpecialOffersSection } from "@/components";
+import { Header, Sidebar, Footer, Modal,LoginModal, MobileMenu, StickyNavber, BannerSection, InfoSection, FeatureSection, PopularSection, ProductSection, SpecialOffersSection } from "@/components";
 import { useRoute } from 'vue-router';
 const route = useRoute();
 // Import Swiper Vue.js components

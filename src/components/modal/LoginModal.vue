@@ -5,62 +5,53 @@ import {useModal, useAuth, useNotification} from '@/stores'
 import { useRouter, useRoute } from "vue-router";
 const {backendErrors, user, isOrder} = storeToRefs(useAuth())
 
-const modal = useModal();
-const router = useRouter();
-const route = useRoute();
-const auth = useAuth();
-const notify = useNotification();
-const emit = defineEmits(['orderSubmitted']);
+const modal       = useModal();
+const { isLogin } = storeToRefs(modal);
+const router      = useRouter();
+const route       = useRoute();
+const auth        = useAuth();
+const notify      = useNotification();
+const emit        = defineEmits(['orderSubmitted']);
+const name        = ref('');
+const phoneNumber = ref('');
 
-const otp = ref('');
-const { isOpen } = storeToRefs(modal);
 const modalOC = () => {
-    isOpen.value = !isOpen.value;
+    isLogin.value = !isLogin.value;
 }
 
-
-const otpSubmit = async () => {
-  const fromData = {otp: otp.value, phone_number: user.value.phone_number }
-  // console.log(fromData);
-  try {
-    const res = await auth.otpVerify(fromData);
-    console.log(res);
-    if (res.status == 200) {
-      modal.Modalclose()
-      if (route.path === "/login") {
-          router.push({ name: route.path === "/login" ? "HomePage" : "" });
-        }
-      if(route.path === "/checkoutPage"){
-            emit('orderSubmitted');
-      }
-      notify.Success("Login Successfully Done");
-    } else {
-      console.error("Unexpected response:", res);
+const loginOrRegisterUser = async() => {
+	const res = await auth.login({phone_number: phoneNumber.value, name: name.value});
+	if (res?.status == 200) {
+      modal.toggleLoginModal() 
+      modal.toggleModal() 
+      name.value = ''
+      phoneNumber.value = ''
     }
-  } catch (error) {
-    console.error("Error:", error);
-  }
-};
+}
+
 
 </script>
 
 
 <template>
     <div>
-      <div class="main-modal" :style="{ display: isOpen ? 'flex' : 'none' }">
+      <div class="main-modal" :style="{ display: isLogin ? 'flex' : 'none' }">
           <div class="opacity-blockshadow" @click="modalOC"></div>
           <div class="main-body">
           <i class="fas fa-times close-btn" @click="modalOC"></i>
               <div class="d-flex flex-column">
-                <router-link :to="{name: 'HomePage'}" class="logo mb-2 m-auto" @click="modal.toggleModal()">
+                <router-link :to="{name: 'HomePage'}" class="logo mb-2 m-auto" @click="modal.toggleLoginModal()">
                     <img src="@/assets/images/logo-black.png" class="w-100" width="111" height="44" alt="Porto Logo">
                 </router-link>
-                <span class="text-danger">আপনার নাম্বারে একটি ওটিপি কোড পাঠানো হয়েছে সেই কোডটি এখানে সাবমিট করুন</span>
                 <div class="">
-                    <label for="exampleFormControlInput1" class="form-label fw-bold my-2">OPT CODE</label>
-                    <input type="email" class="form-control" id="Enter Your OPT CODE" placeholder="Enter Your OPT Code" v-model="otp"
+                    <label for="exampleFormControlInput1" class="form-label fw-bold my-2">Name <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" id="Enter Your Name" placeholder="Enter Your Name" v-model="name"
                 </div>
-                <button class="btn btn-sm btn-primary" @click="otpSubmit">Submit</button>  
+                <div class="">
+                    <label for="exampleFormControlInput1" class="form-label fw-bold my-2">Phone Number <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" id="Enter Your Phone Number" placeholder="Enter Your Phone Number" v-model="phoneNumber"
+                </div>
+                <button class="btn btn-sm btn-primary" @click.prevent="loginOrRegisterUser">LOGIN</button> 
               </div>
              </div>
           </div>

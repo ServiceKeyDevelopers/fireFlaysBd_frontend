@@ -9,6 +9,7 @@ export const useModal = defineStore('modal', {
   // All Variable  Code Is Here.....................................................................................................
   state: () => ({ 
     isOpen: false,
+    isLogin: false,
   }),
   
   actions: {
@@ -16,7 +17,11 @@ export const useModal = defineStore('modal', {
     
      toggleModal() {
         this.isOpen = !this.isOpen;
-     },
+      },
+
+     toggleLoginModal() {
+        this.isLogin = !this.isLogin;
+      },
 
      Modalclose() {
         this.isOpen = false;
