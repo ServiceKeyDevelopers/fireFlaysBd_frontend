@@ -27,7 +27,7 @@ const cartIncrement = (index) => {
 
 </script>
 <template>
-    <div class="cart-dropdown-wrapper d-flex align-items-center pt-2">
+    <div class="cart-dropdown-wrapper d-flex align-items-center">
         <span class="cart-subtotal text-right font2 mr-3">Shopping Cart
             <span class="cart-price d-block font2">৳ {{ totalPrice == 0 ? 0 : totalPrice }}</span>
         </span>
@@ -78,6 +78,9 @@ const cartIncrement = (index) => {
                     </div>
                     <!-- End .dropdown-cart-total -->
 
+                    <div class="dropdown-cart-action mb-2">
+                        <router-link :to="{name: 'CartPage'}" class="btn btn-dark btn-block" @click.prevent="cartOpen()">Cart</router-link>
+                    </div>
                     <div class="dropdown-cart-action">
                         <router-link :to="{name: 'CheckoutPage'}" class="btn btn-dark btn-block" @click.prevent="cartOpen()">Checkout</router-link>
                     </div>

@@ -127,11 +127,12 @@ const clearSearchBar = () =>{
                         </div>
                         <!-- End .header-search -->
 
-                        <div class="header-contact header-wishlist d-lg-flex pl-4 pr-sm-4 pr-2 ml-2">
-                            <router-link :to="{name: 'WishlistPage'}" class="header-icon mr-0" title="wishlist"><i
-                                    class="icon-wishlist-2"></i></router-link>
-                            <h6 class="text-capitalize"><span>Favorites</span><router-link :to="{name: 'WishlistPage'}">Wishlist</router-link>
-                            </h6>
+                        <div :to="{name: 'WishlistPage'}" class="header-contact header-wishlist dropdown cart-dropdown d-lg-flex pl-4 pr-sm-4 pr-2 ml-2">
+                            <router-link :to="{name: 'WishlistPage'}" class="header-mr-0" title="wishlist">
+                                <i class="icon-wishlist-2"></i>
+                                <span class=" cart-count badge-circle">{{ auth?.user?.wishlist?.length }}</span>
+                            </router-link>
+                            <h6 class="text-capitalize"><span>Favorites</span><router-link :to="{name: 'WishlistPage'}">Wishlist</router-link></h6>
                         </div>
 
                         <div class="header-contact d-lg-flex pr-sm-4 pr-2" @click.prevent="logout" v-if="user.user">

@@ -1,4 +1,19 @@
 <script setup>
+import { useAuth, useWishlist } from "@/stores";
+import { storeToRefs } from "pinia";
+import { onMounted } from "vue";
+import { mrpOrOfferPrice } from '@/composables/mrpOrOfferPrice'
+import { addToCart } from '@/composables/addToCart'
+const auth = useAuth();
+const wishlist = useWishlist();
+
+const removedWishlist = (index) => {
+    wishlist.destroy(index);
+}
+
+// onMounted(()=>{
+//     wishlist.
+// })
 
 </script>
 
@@ -32,95 +47,32 @@
                             <th class="thumbnail-col"></th>
                             <th class="product-col">Product</th>
                             <th class="price-col">Price</th>
-                            <th class="status-col">Stock Status</th>
                             <th class="action-col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="product-row">
+                        <tr class="product-row" v-for="(wishlist, index) in auth.user.wishlist" :key="index">
+                            <!-- {{ wishlist }} -->
                             <td>
                                 <figure class="product-image-container">
-                                    <a href="product.html" class="product-image">
-                                        <img src="@/assets/images/products/product-4.jpg" alt="product">
-                                    </a>
-
-                                    <a href="#" class="btn-remove icon-cancel" title="Remove Product"></a>
+                                    <router-link :to="{name: 'ProductDetailsPage',params: { id: wishlist.id, slug: wishlist.slug },}" class="product-image">
+                                        <img :src="wishlist.image" alt="product">
+                                    </router-link>
+                                    <a href="#" class="btn-remove icon-cancel" title="Remove Product" @click.prevent="removedWishlist(index)"></a>
                                 </figure>
                             </td>
                             <td>
                                 <h5 class="product-title">
-                                    <a href="product.html">Men Watch</a>
+                                    <router-link :to="{name: 'ProductDetailsPage',params: { id: wishlist.id, slug: wishlist.slug },}">{{ wishlist.name }}</router-link>
                                 </h5>
                             </td>
-                            <td class="price-box">$17.90</td>
-                            <td>
-                                <span class="stock-status">In stock</span>
-                            </td>
+                            <td class="price-box">{{ mrpOrOfferPrice(wishlist.mrp, wishlist.offer_price) }}</td>
                             <td class="action">
-                                <a href="ajax/product-quick-view.html" class="btn btn-quickview mt-1 mt-md-0"
-                                    title="Quick View">Quick
-                                    View</a>
-                                <button class="btn btn-dark btn-add-cart product-type-simple btn-shop">
+                                <router-link :to="{name: 'ProductDetailsPage',params: { id: wishlist.id, slug: wishlist.slug },}" class="btn btn-quickview mt-1 mt-md-0"
+                                    title="Quick View">Quick View</router-link>
+                                <button class="btn btn-dark btn-add-cart product-type-simple btn-shop" @click.prevent="addToCart(wishlist)">
                                     ADD TO CART
                                 </button>
-                            </td>
-                        </tr>
-
-                        <tr class="product-row">
-                            <td>
-                                <figure class="product-image-container">
-                                    <a href="product.html" class="product-image">
-                                        <img src="@/assets/images/products/product-5.jpg" alt="product">
-                                    </a>
-
-                                    <a href="#" class="btn-remove icon-cancel" title="Remove Product"></a>
-                                </figure>
-                            </td>
-                            <td>
-                                <h5 class="product-title">
-                                    <a href="product.html">Men Cap</a>
-                                </h5>
-                            </td>
-                            <td class="price-box">$17.90</td>
-                            <td>
-                                <span class="stock-status">In stock</span>
-                            </td>
-                            <td class="action">
-                                <a href="ajax/product-quick-view.html" class="btn btn-quickview mt-1 mt-md-0"
-                                    title="Quick View">Quick
-                                    View</a>
-                                <a href="product.html" class="btn btn-dark btn-add-cart btn-shop">
-                                    SELECT OPTION
-                                </a>
-                            </td>
-                        </tr>
-
-                        <tr class="product-row">
-                            <td>
-                                <figure class="product-image-container">
-                                    <a href="product.html" class="product-image">
-                                        <img src="@/assets/images/products/product-6.jpg" alt="product">
-                                    </a>
-
-                                    <a href="#" class="btn-remove icon-cancel" title="Remove Product"></a>
-                                </figure>
-                            </td>
-                            <td>
-                                <h5 class="product-title">
-                                    <a href="product.html">Men Black Gentle Belt</a>
-                                </h5>
-                            </td>
-                            <td class="price-box">$17.90</td>
-                            <td>
-                                <span class="stock-status">In stock</span>
-                            </td>
-                            <td class="action">
-                                <a href="ajax/product-quick-view.html" class="btn btn-quickview mt-1 mt-md-0"
-                                    title="Quick View">Quick
-                                    View</a>
-                                <a href="product.html" class="btn btn-dark btn-add-cart btn-shop">
-                                    SELECT OPTION
-                                </a>
                             </td>
                         </tr>
                     </tbody>

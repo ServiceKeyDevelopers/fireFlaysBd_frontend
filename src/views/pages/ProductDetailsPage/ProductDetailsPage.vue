@@ -282,7 +282,7 @@ onMounted(() => {
                 <a href="tel:+8801791580400" class="btn btn-danger  mr-2"><i
                     class="fas fa-phone-volume mr-2"></i><span>ফোন করুন</span></a>
               </div>
-              <a href="cart.html" class="btn btn-gray view-cart d-none">View cart</a>
+              <router-link :to="{name: 'CartPage'}" class="btn btn-gray view-cart mt-2">View cart</router-link>
             </div>
 
             <hr class="divider mb-0 mt-0" />

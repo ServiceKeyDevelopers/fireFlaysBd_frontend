@@ -53,16 +53,16 @@ const cartDecrement = (index) => {
                             <tr class="product-row" v-for="(product, index) in cartItem" :key="index">
                                 <td>
                                     <figure class="product-image-container">
-                                        <a href="product.html" class="product-image">
+                                        <router-link :to="{name: 'ProductDetailsPage',params: { id: product.item_id, slug: product.slug },}" class="product-image">
                                             <img :src="product.image" alt="product">
-                                        </a>
+                                        </router-link>
 
                                         <a href="#" class="btn-remove icon-cancel" title="Remove Product" @click.prevent="deleteCart(index)"></a>
                                     </figure>
                                 </td>
                                 <td class="product-col">
                                     <h5 class="product-title">
-                                        <a href="product.html">{{ product.name }}</a>
+                                        <router-link :to="{name: 'ProductDetailsPage',params: { id: product.item_id, slug: product.slug },}">{{ product.name }}</router-link>
                                     </h5>
                                 </td>
                                 <td v-html="$filters.productPrice(product)"></td>

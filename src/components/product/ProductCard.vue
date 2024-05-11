@@ -10,9 +10,10 @@ const auth        = useAuth();
 const wishlist    = useWishlist();
 const modal       = useModal();
 const cart        = useCart();
-const {loading}   = storeToRefs(cart);
+const {loading}   = storeToRefs(wishlist);
 const name        = ref('')
 const phoneNumber = ref('')
+const notify      = useNotification();
 
 const props = defineProps({
   product: Object,
@@ -24,6 +25,12 @@ const props = defineProps({
 const addToWishlist = async(product) => {
     if (Object.keys(auth.user).length > 0) {
         let res = await wishlist.addToWishlist(product);
+        if (res.data.result == 0) {
+            notify.Success(`${product.name} Successfully Added Your Wishlist Item`);
+        }else{
+            notify.Warning(`${product.name} Successfully Removed Your Wishlist Item`);
+        }
+        
     }else{
         modal.toggleLoginModal()
     }
@@ -51,9 +58,9 @@ const addToWishlist = async(product) => {
                     <div class="category-list">
                         <router-link :to="{name: 'ShopPage', query:{ category: product.category.id}}" class="product-category">{{ product.category.name }}</router-link>
                     </div>
-                    <a href="wishlist.html" class="btn-icon-wish">
-                        <i class="icon-heart" @click.prevent="addToWishlist(product)"></i>
-                        <!-- <i class="fas fa-spinner fa-spin"></i> -->
+                    <a href="wishlist.html" class="btn-icon-wish" @click.prevent="addToWishlist(product)">
+                        <i class="fas fa-spinner fa-spin" v-if="loading == product.id"></i>
+                        <i class="icon-heart" v-else></i>
                     </a>
                 </div>
                 <h3 class="product-title">
@@ -78,5 +85,7 @@ const addToWishlist = async(product) => {
 </template>
 
 <style>
-
+.icon-heart:hover{
+    color: #8dc540;
+}
 </style>

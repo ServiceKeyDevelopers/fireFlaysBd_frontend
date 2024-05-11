@@ -14692,6 +14692,7 @@ aside .widget-info i {
 .header-contact:hover .header-icon {
   transform: scale(1.15, 1.15);
 }
+
 .header-dropdown {
   padding-top: 6px;
   margin-left: 2rem;

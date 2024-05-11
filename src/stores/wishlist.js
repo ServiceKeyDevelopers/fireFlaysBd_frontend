@@ -16,17 +16,13 @@ export const useWishlist = defineStore("wishlist", {
     async index(product) {
       try {
         const res = await axiosInstance.get("/wishlists");
-
+        console.log(res);
         if (res.status === 200) {
           const auth = useAuth();
-          auth.user.meta.wishlist = res.data.data;
+          auth.user.wishlist = res.data.data;
         }
       } catch (error) {
-        if (error.response.data) {
-          return new Promise((reject) => {
-            reject(error.response.data);
-          });
-        }
+        console.log(error);
       }
     },
 
@@ -34,33 +30,30 @@ export const useWishlist = defineStore("wishlist", {
     async addToWishlist(product) {
       this.loading = product.id;
       try {
-        const res = await axiosInstance.post("/wishlists", {
-          product_id: product.id,
-        });
-        console.log(res);
-        // if (res.status) {
-        //   const auth = useAuth();
-        //   if (res.status === 201) {
-        //     // attach
-        //     auth.user.meta.wishlist.unshift(product);
-        //   } else {
-        //     // detach
-        //     const index = auth.user.meta.wishlist.findIndex(
-        //       (i) => i.id === product.id
-        //     );
-        //     auth.user.meta.wishlist.splice(index, 1);
-        //   }
-        //   return new Promise((resolve) => {
-        //     resolve(res);
-        //   });
-        // }
-      } catch (error) {
-        if (error.response.data) {
-          return new Promise((reject) => {
-            reject(error.response.data);
-          });
+        const res = await axiosInstance.post("/wishlists", {product_id: product.id});
+        if (res.status) {
+          const auth = useAuth();
+          if (res.data.result == 0) {
+            // attach
+            auth.user.wishlist.unshift(product);
+          } else {
+            // detach
+            const index = auth.user.wishlist.findIndex((i) => i.id === product.id);
+            auth.user.wishlist.splice(index, 1);
+          }
+          return res;
         }
+      } catch (error) {
+        console.log(error);
+      } finally{
+        this.loading = false;
       }
     },
+
+    async destroy(index) {
+      const auth = useAuth();
+      auth.user.wishlist.splice(index, 1);
+  },
+
   },
 });
