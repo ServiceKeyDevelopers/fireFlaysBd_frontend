@@ -17,7 +17,7 @@ import { Pagination, Autoplay, Navigation } from "swiper/modules";
 const route = useRoute();
 const router= useRouter();
 
-const allProducts = ref('');
+
 const shop = useShop();
 const { products, sideBar, loading } = storeToRefs(shop);
 

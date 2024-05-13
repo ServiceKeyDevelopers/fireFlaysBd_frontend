@@ -21,7 +21,6 @@ const modalOC = () => {
 
 const otpSubmit = async () => {
   const fromData = {otp: otp.value, phone_number: user.value.phone_number }
-  // console.log(fromData);
   try {
     const res = await auth.otpVerify(fromData);
     console.log(res);
