@@ -4,32 +4,35 @@ import axiosInstance from "@/services/axiosService.js";
 import { useCart, useOrder, useAuth, useModal } from "@/stores";
 import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue";
+//GTM
+import { useGtm } from '@gtm-support/vue-gtm';
 // validation error
 import { Form, Field } from "vee-validate";
 import * as yup from "yup";
 
 // All Variable  Code Is Here.....................................................................................................
-const modal =  useModal()
-const auth = useAuth();
-const { isOrder } = storeToRefs(auth);
-const cart = useCart();
+const gtm                                  = useGtm();
+const modal                                = useModal()
+const auth                                 = useAuth();
+const { isOrder }                          = storeToRefs(auth);
+const cart                                 = useCart();
 const { cartItem, totalPrice, campaignId } = storeToRefs(cart);
-const order = useOrder();
-const { storeOrder, backendErrors } = storeToRefs(order);
+const order                                = useOrder();
+const { storeOrder, backendErrors }        = storeToRefs(order);
 
-const name = ref(auth?.user?.user?.name);
-const phoneNumber = ref(auth?.user?.user?.phone_number);
-const email = ref("");
-const address = ref("");
-const payment_gateway_id = ref(1);
+const name                = ref(auth?.user?.user?.name);
+const phoneNumber         = ref(auth?.user?.user?.phone_number);
+const email               = ref("");
+const address             = ref("");
+const payment_gateway_id  = ref(1);
 const delivery_gateway_id = ref();
-const deliverCharge = ref();
-const deliveryInfo = ref([]);
-const payment_gateways = ref([]);
-const orderNote = ref("");
+const deliverCharge       = ref();
+const deliveryInfo        = ref([]);
+const payment_gateways    = ref([]);
+const orderNote           = ref("");
 
 const discountCouponPrice = ref("");
-const couponId = ref("");
+const couponId            = ref("");
 
 
 
@@ -90,6 +93,15 @@ const orderSubmited = async () => {
 const placeOrder = async() => {
   if (Object.keys(auth.user).length > 0) {
     orderSubmited();
+    // GTM TRACK
+    gtm.trackEvent({
+      event: 'Order_Submited', // Custom event name
+      category: 'Ecommerce', // Event category (adjust as needed)
+      action: 'Order Submited', // Action (adjust as needed)
+      label: cartItem.value, // Product name as event label
+      value: quantity, // Quantity added (optional)
+      // Add other relevant product details as event properties (optional)
+    });
   }else{
     const res = await auth.login({phone_number: phoneNumber.value, name: name.value});
     if (res?.status == 200) {
@@ -101,6 +113,15 @@ const placeOrder = async() => {
 
 const handleOrderSubmitted = async () => {
   await orderSubmited(); 
+  // GTM TRACK
+  gtm.trackEvent({
+      event: 'Order_Submited', // Custom event name
+      category: 'Ecommerce', // Event category (adjust as needed)
+      action: 'Order Submited', // Action (adjust as needed)
+      label: cartItem.value, // Product name as event label
+      value: quantity, // Quantity added (optional)
+      // Add other relevant product details as event properties (optional)
+    });
 };
 
 // order work end here 

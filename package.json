@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@gtm-support/vue-gtm": "^2.2.0",
     "@vueuse/components": "^10.9.0",
     "@vueuse/core": "^10.9.0",
     "@websitebeaver/vue-magnifier": "^1.1.0",
