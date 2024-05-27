@@ -56,22 +56,22 @@ const changeImage = (img, index) => {
 const productByid = async () => {
   singleProduct.value = await product.productById(route.params.id);
   //GTM
-  const gtm = useGtm();
-  const ecommerce = {
-    item_id: singleProduct.value.id,
-    item_name: singleProduct.value.name,
-    item_category: singleProduct.value.category,
-    price: singleProduct.value.mrp ? singleProduct.value.mrp : singleProduct.value.offer_price,
-  }
-  gtm.trackEvent({
-      event: 'Product_Details_Page', // Custom event name
-      gtm: {uniqueEventId:singleProduct.value.id, start:'GTM-5GSKDBVT'},
-      category: 'Ecommerce', // Event category (adjust as needed)
-      action: 'Product Details Page', // Action (adjust as needed)
-      Ecommerce: ecommerce, // Product name as event label
-      value: quantityInput, // Quantity added (optional)
-      // Add other relevant product details as event properties (optional)
-  });
+  // const gtm = useGtm();
+  // const ecommerce = {
+  //   item_id: singleProduct.value.id,
+  //   item_name: singleProduct.value.name,
+  //   item_category: singleProduct.value.category,
+  //   price: singleProduct.value.mrp ? singleProduct.value.mrp : singleProduct.value.offer_price,
+  // }
+  // gtm.trackEvent({
+  //     event: 'Product_Details_Page', // Custom event name
+  //     gtm: {uniqueEventId:singleProduct.value.id, start:'GTM-5GSKDBVT'},
+  //     category: 'Ecommerce', // Event category (adjust as needed)
+  //     action: 'Product Details Page', // Action (adjust as needed)
+  //     Ecommerce: ecommerce, // Product name as event label
+  //     value: quantityInput, // Quantity added (optional)
+  //     // Add other relevant product details as event properties (optional)
+  // });
 
   // for related products
   categoryId.value.push(singleProduct.value?.category_id);

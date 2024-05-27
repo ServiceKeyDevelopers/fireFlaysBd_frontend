@@ -106,17 +106,20 @@ const clearSearchBar = () =>{
                                                 </div>
                                                 <div class="col-md-7 col-sm-5 search-details">
                                                     <p style="color:#000; margin: 0;line-height: 1.2;">{{ product.name }}</p>
-                                                    <span style="font-size: 12px;"><span style="color: #000; font-weight: 500;">Category : </span> {{ product.category.name }}</span>
+                                                    <span style="font-size: 12px; margin-right: 20px; color: red" v-if="product?.current_stock > 0"><span style="color: red; font-weight: 900;">In Stock</span></span>
+                                                    <span style="font-size: 12px; margin-right: 20px; color: red" v-else><span style="color: red; font-weight: 900;">Out Of Stock</span></span>
+                                                    <span style="font-size: 12px; margin-right: 20px;"><span style="color: #000; font-weight: 500;">Category : </span> {{ product.category.name }}</span>
+                                                    <span style="font-size: 12px; margin-right: 20px; color: red" v-if="product?.sku"><span style="color: red; font-weight: 900;">SKU : {{ product.sku }}</span></span>
+                                                    <span v-if="product.mrp !=0" style="font-weight: 700; color: red;"> Price :
+                                                        <del v-if="product.offer_price !=0">{{product.mrp}} tk </del>
+                                                        <span>{{ product.offer_price !=0? product.offer_price : product.mrp  }} tk</span>
+                                                    </span>
                                                 </div>
                                                 <div class="col-md-4 col-sm-5 search-price">
                                                     <p>
                                                         <span v-if="product.offer_percent !=0" class="featured_label">{{Math.floor(product.offer_percent)}}% Off</span>
                                                     </p>
                                                     <div>
-                                                        <span class="product-price" v-if="product.mrp !=0" style="font-weight: 400;">
-                                                            <del v-if="product.offer_price !=0">{{product.mrp}} tk </del>
-                                                            <span>{{ product.offer_price !=0? product.offer_price : product.mrp  }} tk</span>
-                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -197,7 +200,7 @@ const clearSearchBar = () =>{
     }
     .featured_label{
         float: right;
-        margin: -2px -48px 0 0;
+        margin: 2px -48px 0 0;
         background-color: #E86121;
         color: #fff;
         padding: 0 40px;

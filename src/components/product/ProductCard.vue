@@ -45,8 +45,12 @@ const addToWishlist = async(product) => {
                 <router-link :to="{name: 'ProductDetailsPage',params: { id: product.id, slug: product.slug },}">
                     <img :src="product.image" width="205" height="205" :alt="product.name">
                 </router-link>
-
-                <div class="btn-icon-group">
+                <div class="btn-icon-group" v-if="product.product_prices.length > 0">
+                    <router-link class="btn-icon btn-add-cart product-type-simple" :to="{name: 'ProductDetailsPage',params: { id: product.id, slug: product.slug },}">
+                        
+                    </router-link>
+                </div>
+                <div class="btn-icon-group" v-else>
                     <a href="" class="btn-icon btn-add-cart product-type-simple" @click.prevent="addToCart(product)">
                         <i class="icon-shopping-cart"></i>
                     </a>
