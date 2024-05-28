@@ -7,7 +7,7 @@ export const useCart = defineStore("cart", {
   state: () => ({
     cartItem: [],
     campaignId: 0,
-    loading: false,
+    cartLoading: false,
   }),
 
   persist: {
@@ -40,7 +40,7 @@ export const useCart = defineStore("cart", {
 
     async addToCart(product) {
       this.campaignId = product.campaign_id;
-      this.loading = product.id;
+      this.cartLoading = product.item_id;
       let item = product;
       if (this.cartItem.length > 0) {
         if (item.size_id) {
@@ -66,7 +66,7 @@ export const useCart = defineStore("cart", {
       }
       //looging animation 
       await new Promise(resolve => setTimeout(resolve, 1000));
-      this.loading = false;      
+      this.cartLoading = false;      
     },
 
     async destroy(index) {

@@ -1,6 +1,6 @@
 <script setup>
-// import GuestLayout from './views/common/GuestLayout.vue'
-// import Layout from './views/common/Layout.vue'
+import GuestLayout from './views/common/GuestLayout.vue'
+import Layout from './views/common/Layout.vue'
 // import Login from './views/pages/Authentication/Login.vue'
 import { ref, onMounted } from "vue";
 import { Header, Sidebar, Footer, Modal,LoginModal, MobileMenu, StickyNavber, BannerSection, InfoSection, FeatureSection, PopularSection, ProductSection, SpecialOffersSection } from "@/components";
@@ -28,6 +28,7 @@ const toggleMenu = () => {
     <div class="page-wrapper">
       <Header />
       <Modal />
+      <LoginModal />
       <Layout v-if="route.path != '/login'">
             <main class="main home">
               <div class="container-fluid p-0">

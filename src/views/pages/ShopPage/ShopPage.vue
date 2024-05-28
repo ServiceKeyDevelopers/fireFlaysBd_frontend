@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, watch } from "vue";
 // import {Header} from "@/components";
-import {ProductCard, Breadcrumb} from "@/components";
+import {ProductCard, Breadcrumb, LoginModal} from "@/components";
 import { storeToRefs } from 'pinia';
 import {useShop} from '@/stores'
 import { useRoute, useRouter } from "vue-router";

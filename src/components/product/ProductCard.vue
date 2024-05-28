@@ -6,14 +6,15 @@ import { useCart, useNotification, useModal, useAuth, useWishlist } from "@/stor
 import { addToCart } from '@/composables/addToCart'
 import { storeToRefs } from "pinia";
 
-const auth        = useAuth();
-const wishlist    = useWishlist();
-const modal       = useModal();
-const cart        = useCart();
-const {loading}   = storeToRefs(wishlist);
-const name        = ref('')
-const phoneNumber = ref('')
-const notify      = useNotification();
+const auth          = useAuth();
+const wishlist      = useWishlist();
+const modal         = useModal();
+const cart          = useCart();
+const {cartLoading} = storeToRefs(cart);
+const {loading}     = storeToRefs(wishlist);
+const name          = ref('')
+const phoneNumber   = ref('')
+const notify        = useNotification();
 
 const props = defineProps({
   product: Object,
@@ -22,7 +23,7 @@ const props = defineProps({
   required: true,
 });
 
-const addToWishlist = async(product) => {
+const addToWishlist = async (product) => {
     if (Object.keys(auth.user).length > 0) {
         let res = await wishlist.addToWishlist(product);
         if (res.data.result == 0) {
@@ -47,12 +48,12 @@ const addToWishlist = async(product) => {
                 </router-link>
                 <div class="btn-icon-group" v-if="product.product_prices.length > 0">
                     <router-link class="btn-icon btn-add-cart product-type-simple" :to="{name: 'ProductDetailsPage',params: { id: product.id, slug: product.slug },}">
-                        
+                        <i class="icon-info"></i>
                     </router-link>
                 </div>
-                <div class="btn-icon-group" v-else>
-                    <a href="" class="btn-icon btn-add-cart product-type-simple" @click.prevent="addToCart(product)">
-                        <i class="icon-shopping-cart"></i>
+                    <div class="btn-icon-group" v-else>
+                        <a href="" class="btn-icon btn-add-cart product-type-simple" @click.prevent="addToCart(product)">
+                        <i class="" :class="cartLoading == product.id ? 'icon-spin5 fa-spin' : 'icon-shopping-cart'"></i>
                     </a>
                 </div>
                 <router-link :to="{name: 'ProductDetailsPage',params: { id: product.id, slug: product.slug },}" class="btn-quickview" title="Quick View">Quick View</router-link>
@@ -63,8 +64,7 @@ const addToWishlist = async(product) => {
                         <router-link :to="{name: 'ShopPage', query:{ category: product.category.id}}" class="product-category">{{ product.category.name }}</router-link>
                     </div>
                     <a href="wishlist.html" class="btn-icon-wish" @click.prevent="addToWishlist(product)">
-                        <i class="fas fa-spinner fa-spin" v-if="loading == product.id"></i>
-                        <i class="icon-heart" v-else></i>
+                        <i :class="loading == product.id ? 'icon-spin5 fa-spin' : 'icon-heart'"></i>
                     </a>
                 </div>
                 <h3 class="product-title">

@@ -20,7 +20,7 @@ const modalOC = () => {
 }
 
 const loginOrRegisterUser = async() => {
-	const res = await auth.login({phone_number: phoneNumber.value, name: name.value});
+  const res = await auth.login({phone_number: phoneNumber.value, name: name.value});
 	if (res?.status == 200) {
       modal.toggleLoginModal() 
       modal.toggleModal() 

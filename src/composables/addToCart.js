@@ -9,6 +9,7 @@ export function addToCart(tProduct, quantity = 1, productPrices = '') {
     const sizeOfferPrice = ref(productPrices.offer_price);
     const sizeId         = ref(productPrices.size_id);
     const gtm            = useGtm();
+  
 
     if(productPrices){
       cart.addToCart({

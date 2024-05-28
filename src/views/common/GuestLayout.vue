@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { Login } from "@/components";
+// import { Login } from "@/components";
 
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -23,7 +23,7 @@ const toggleMenu = () => {
 
 <template>
   <div>
-    <slot />
+    <slot></slot>
   </div>
 </template>
 
