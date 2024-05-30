@@ -344,7 +344,7 @@ onMounted(() => {
 <style scope>
 
 :root {
-  --primary-color:  #8dc540;
+  --primary-color:  #00b37c;
 }
 
 /* shadow effect */

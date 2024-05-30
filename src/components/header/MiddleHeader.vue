@@ -27,7 +27,7 @@ const logout = async () => {
 const isMenuActive = ref(false);
 const stickyNavbar = ref(false);
 
-const Top = ref(0)
+const Top = ref(-66)
 const toggleMenu = () => {
   isMenuActive.value =!isMenuActive.value;
   document.body.classList.toggle('mmenu-active');
@@ -74,14 +74,14 @@ const clearSearchBar = () =>{
 </script>
 <template>
     <div>
-        <div class="header-middle sticky-header" :class="{'fixed' : stickyNavbar }" data-sticky-options="{'mobile': true}" :style="{'top': Top + 'px'}">
+        <div class="header-middle sticky-header" :class="{'fixed slide-bottom' : stickyNavbar }" data-sticky-options="{'mobile': true}" :style="{'top': Top + 'px'}">
                 <div class="container-fluid">
                     <div class="header-left justify-content-lg-center">
                         <button class="mobile-menu-toggler text-primary mr-2" @click="toggleMenu" type="button" :class="{ active: isMenuActive }">
                             <i class="fas fa-bars"></i>
                         </button>
                         <router-link :to="{name: 'HomePage'}" class="logo">
-                            <img src="@/assets/images/logo-black.png" class="w-100" width="111" height="44" alt="Porto Logo">
+                            <img src="@/assets/images/Fireflys-Final-Logo.png" class="w-100" width="111" height="44" alt="Porto Logo">
                         </router-link>
                     </div>
                     <!-- End .header-left -->
@@ -160,6 +160,35 @@ const clearSearchBar = () =>{
 </template>
 
 <style>
+
+/* animation sticky navbar start  */
+.slide-bottom {
+	-webkit-animation: slide-bottom 0.9s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-bottom 0.9s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+ @-webkit-keyframes slide-bottom {
+    0% {
+      -webkit-transform: translateY(0);
+              transform: translateY(0);
+    }
+    100% {
+      -webkit-transform: translateY(66px);
+              transform: translateY(66px);
+    }
+  }
+  @keyframes slide-bottom {
+    0% {
+      -webkit-transform: translateY(0);
+              transform: translateY(0);
+    }
+    100% {
+      -webkit-transform: translateY(66px);
+              transform: translateY(66px);
+    }
+  }
+  
+/* animation sticky navbar end  */
 
 .cate-btn{
   font-size:25px;

@@ -78,6 +78,6 @@ onMounted(() => {
 
 <style>
 .category-sidebar-active{
-    color: #8dc540;
+    color: #00b37c;
 }
 </style>

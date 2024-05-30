@@ -90,6 +90,6 @@ const addToWishlist = async (product) => {
 
 <style>
 .icon-heart:hover{
-    color: #8dc540;
+    color: #00b37c;
 }
 </style>

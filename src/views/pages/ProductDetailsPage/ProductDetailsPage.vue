@@ -493,7 +493,7 @@ onMounted(() => {
 }
 
 .buyNowBtn{
-  background-color: #8DC540;
+  background-color: #00b37c;
   color: #fff;
 }
 .buyNowBtn:hover{
@@ -566,7 +566,7 @@ img{
 }
 .quantity__minus:hover,
 .quantity__plus:hover {
-  background: #575b71;
+  background: #1f7956;
   color: #fff;
 } 
 .quantity__minus {
@@ -590,7 +590,7 @@ img{
 }
 .quantity__minus:link,
 .quantity__plus:link {
-  color: #8184a1;
+  color: #ffffff;
 } 
 .quantity__minus:visited,
 .quantity__plus:visited {

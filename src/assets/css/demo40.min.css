@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
 :root {
-  --bg-primary-color: #8DC540;
-  --primary-color: #8DC540;
+  --bg-primary-color: #00b37c;
+  --primary-color: #00b37c;
 }
 
 .mt-1 {
@@ -448,7 +448,7 @@
   background-color: #2f3946 !important;
 }
 .bg-primary {
-  background-color: #8DC540 !important;
+  background-color: #00b37c !important;
 }
 .bg-secondary {
   background-color: #ff7272 !important;
@@ -457,7 +457,7 @@
   color: #222529 !important;
 }
 .text-primary {
-  color: #8DC540 !important;
+  color: #00b37c !important;
 }
 .text-secondary {
   color: #ff7272 !important;
