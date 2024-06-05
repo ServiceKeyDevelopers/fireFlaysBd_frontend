@@ -218,7 +218,6 @@ onMounted(() => {
                   :class="[activeImage == index ? 'active-thumb' : '']">
                   <img :src="image.image" alt="shoe image" @click.prevent="changeImage(image.image, index)">
                 </div>
-
               </div>
             </div>
 
@@ -261,6 +260,7 @@ onMounted(() => {
                     class="product-category">{{ singleProduct?.category }}</router-link>
                 </strong>
               </li>
+              <li v-if="singleProduct?.warranty">warranty : <span class="product-category">{{ singleProduct?.warranty }}</span></li>
             </ul>
             <template v-if="singleProduct &&  singleProduct?.product_prices.length > 0">
               <ProductSize :product="singleProduct" @sizeByPrice="sizeByPrice" />

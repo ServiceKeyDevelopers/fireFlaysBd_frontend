@@ -27,7 +27,7 @@ const logout = async () => {
 const isMenuActive = ref(false);
 const stickyNavbar = ref(false);
 
-const Top = ref(-66)
+const Top = ref(0)
 const toggleMenu = () => {
   isMenuActive.value =!isMenuActive.value;
   document.body.classList.toggle('mmenu-active');
@@ -74,14 +74,14 @@ const clearSearchBar = () =>{
 </script>
 <template>
     <div>
-        <div class="header-middle sticky-header" :class="{'fixed slide-bottom' : stickyNavbar }" data-sticky-options="{'mobile': true}" :style="{'top': Top + 'px'}">
+        <div class="header-middle sticky-header" :class="{'fixed' : stickyNavbar }" data-sticky-options="{'mobile': true}" :style="{'top': Top + 'px'}">
                 <div class="container-fluid">
                     <div class="header-left justify-content-lg-center">
                         <button class="mobile-menu-toggler text-primary mr-2" @click="toggleMenu" type="button" :class="{ active: isMenuActive }">
                             <i class="fas fa-bars"></i>
                         </button>
                         <router-link :to="{name: 'HomePage'}" class="logo">
-                            <img src="@/assets/images/Fireflys-Final-Logo.png" class="w-100" width="111" height="44" alt="Porto Logo">
+                            <img src="@/assets/images/logo-black.png" class="w-100" width="111" height="44" alt="Porto Logo">
                         </router-link>
                     </div>
                     <!-- End .header-left -->

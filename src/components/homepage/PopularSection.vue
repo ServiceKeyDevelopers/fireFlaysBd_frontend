@@ -26,10 +26,8 @@ const modules = ref([Pagination, Autoplay]);
         :slidesPerView="4"
         :sliderPerGroup="4"
         :space-between="20"
-        :loop="true"
-        :autoplay="{
-          delay: 2000,
-        }"
+        :loop="false"
+        
         :modules="modules"
         class="mySwiper"
         :breakpoints="{
@@ -86,6 +84,23 @@ const modules = ref([Pagination, Autoplay]);
             <div class="banner-layer banner-layer-middle">
               <h3>Cooking</h3>
               <span>4 Products </span>
+            </div>
+          </div>
+        </swiper-slide>
+        <swiper-slide>
+          <div class="banner banner-image font2">
+            <a href="demo40-shop.html">
+              <img
+                src="@/assets/images/demoes/demo40/categories/category-4.jpg"
+                width="374"
+                height="200"
+                alt="banner"
+                style="background-color: #f4f4f4"
+              />
+            </a>
+            <div class="banner-layer banner-layer-middle">
+              <h3>Breakfast</h3>
+              <span>8 Products </span>
             </div>
           </div>
         </swiper-slide>
