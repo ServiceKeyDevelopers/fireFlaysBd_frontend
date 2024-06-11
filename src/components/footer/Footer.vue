@@ -118,8 +118,6 @@ onMounted(() => {
 <template>
     <div>
         <footer class="footer font2">
-            
-
             <div class="footer-middle">
                 <div class="row">
                     <div class="col-md-6 col-lg-3">
@@ -185,6 +183,26 @@ onMounted(() => {
 </template>
 
 <style>
+
+.footer {
+  background: rgb(2,0,36) !important;
+  background: linear-gradient(259deg, rgba(2, 0, 36, 1) 0%, rgba(0, 179, 124, 1) 0%, rgba(5, 48, 67, 1) 100%) !important;
+  padding: 0px 40px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.widget-title{
+  color: white !important;
+}
+.widget-content ul li{
+  color: white !important;
+}
+
+.footer-copyright{
+  color: white !important;
+}
+
 .icon-font-size{
   font-size:20px;
   margin-right:15px;

@@ -13,7 +13,7 @@ export const useShop = defineStore("shop", {
   actions: {
     // API Calling Code Is Here.....................................................................................................
 
-    async getData(type = "", brand, category, subCategory, price, search, paginateSize) {
+    async getData(type = "", brand, category, subCategory, price, search, paginateSize, page) {
         this.loading = true
       try {
         const res = await axiosInstance.get(`/products`, {
@@ -25,6 +25,7 @@ export const useShop = defineStore("shop", {
             category_ids   : category,
             sub_category_id: subCategory,
             name           : search,
+            page
           },
         });
         if (res.status === 200) {

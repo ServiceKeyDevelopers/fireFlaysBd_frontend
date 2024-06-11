@@ -257,7 +257,7 @@ onMounted(() => {
                 CATEGORies:
                 <strong>
                   <router-link :to="{name: 'ShopPage', query:{ category: singleProduct?.category_id }}"
-                    class="product-category">{{ singleProduct?.category }}</router-link>
+                    class="product-category">{{ singleProduct?.category?.name }}</router-link>
                 </strong>
               </li>
               <li v-if="singleProduct?.warranty">warranty : <span class="product-category">{{ singleProduct?.warranty }}</span></li>
@@ -274,7 +274,7 @@ onMounted(() => {
 
               <template v-if="singleProduct && singleProduct.product_prices.length > 0">
                 <template v-if="productPrices">
-                  <a href="javascript:;" class="btn btn-dark add-cart mr-2"
+                  <a href="javascript:;" class="btn addToBtn add-cart mr-2"
                     @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Add to Cart</a>
                   <router-link :to="{name: 'CheckoutPage'}" href="javascript:;" class="btn buyNowBtn add-cart mr-2"
                     @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Buy Now</router-link>
@@ -282,13 +282,13 @@ onMounted(() => {
                 <template v-else>
                   <p class="mb-2 text-danger">প্রথমে ওয়েট সিলেক্ট করুন তারপর<span class="fw-bold"> BUY NOW </span> বাটনে
                     ক্লিক করুন অথবা<span class="fw-bold"> ADD TO CART </span>বাটনে ক্লিক করুন</p>
-                  <button href="javascript:;" disabled class="btn btn-dark add-cart mr-2" title="Add to Cart"
+                  <button href="javascript:;" disabled class="btn addToBtn add-cart mr-2" title="Add to Cart"
                     @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Add to Cart</button>
                   <button href="javascript:;" disabled class="btn buyNowBtn add-cart mr-2">Buy Now</button>
                 </template>
               </template>
               <template v-else>
-                <a href="javascript:;" class="btn btn-dark add-cart mr-2" title="Add to Cart"
+                <a href="javascript:;" class="btn addToBtn add-cart mr-2" title="Add to Cart"
                   @click.prevent="addToCart(singleProduct, quantityInput)">Add to Cart</a>
                 <router-link :to="{name: 'CheckoutPage'}" href="javascript:;" class="btn buyNowBtn add-cart mr-2"
                   @click.prevent="addToCart(singleProduct, quantityInput)">Buy Now</router-link>
@@ -497,7 +497,15 @@ onMounted(() => {
   color: #fff;
 }
 .buyNowBtn:hover{
-  background-color: #69922e;
+  background-color: #2e927c;
+  color: #fff;
+}
+.addToBtn{
+  background-color: #053043;
+  color: #fff;
+}
+.addToBtn:hover{
+  background-color: #0f4861;
   color: #fff;
 }
 

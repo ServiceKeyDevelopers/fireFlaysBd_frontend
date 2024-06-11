@@ -70,15 +70,6 @@ const addToWishlist = async (product) => {
                 <h3 class="product-title">
                     <router-link :to="{name: 'ProductDetailsPage',params: { id: product.id, slug: product.slug },}">{{ product.name }}</router-link>
                 </h3>
-                <div class="ratings-container">
-                    <div class="product-ratings">
-                        <span class="ratings" style="width:100%"></span>
-                        <!-- End .ratings -->
-                        <span class="tooltiptext tooltip-top"></span>
-                    </div>
-                    <!-- End .product-ratings -->
-                </div>
-                <!-- End .product-container -->
 
                 <ProductPrice :product="product" />
                 <!-- End .price-box -->
@@ -89,6 +80,22 @@ const addToWishlist = async (product) => {
 </template>
 
 <style>
+
+.product-title a {
+    font-weight: 700;
+    color: #053043 !important;
+}
+.product-title a:hover{
+    color: #00b37c !important;
+}
+
+.category-list a {
+    color: black !important;
+}
+.category-list a:hover {
+    color: #00b37c !important;
+}
+
 .icon-heart:hover{
     color: #00b37c;
 }

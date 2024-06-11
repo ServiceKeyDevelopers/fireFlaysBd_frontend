@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, watch } from "vue";
-// import {Header} from "@/components";
-import {ProductCard, Breadcrumb, LoginModal} from "@/components";
+import { Bootstrap5Pagination } from 'laravel-vue-pagination';
+import {ProductCard, Breadcrumb, LoginModal, Footer} from "@/components";
 import { storeToRefs } from 'pinia';
 import {useShop} from '@/stores'
 import { useRoute, useRouter } from "vue-router";
@@ -14,26 +14,26 @@ import "swiper/css/pagination";
 // import required modules
 import { Pagination, Autoplay, Navigation } from "swiper/modules";
 
-const route = useRoute();
-const router= useRouter();
+const route  = useRoute();
+const router = useRouter();
 
 
-const shop = useShop();
+const shop                           = useShop();
 const { products, sideBar, loading } = storeToRefs(shop);
 
 const newSlide = ref([Navigation]);
-const modules = ref([Pagination, Autoplay]);
+const modules  = ref([Pagination, Autoplay]);
 
-const productType = ref("");
-const selectedBrandIds = ref([]);
-const selectedCategoryIds = ref([]);
+const productType            = ref("");
+const selectedBrandIds       = ref([]);
+const selectedCategoryIds    = ref([]);
 const selectedSubCategoryIds = ref("");
-const sortingPrice = ref([]);
-const searchQuery = ref("");
-const paginateSize = ref("");
+const sortingPrice           = ref([]);
+const searchQuery            = ref("");
+const paginateSize           = ref(20);
 
 // sorting functions 
-const getProducts = () => {
+const getProducts = (page=1) => {
   products.value = [];
   shop.getData(
     productType.value,
@@ -43,8 +43,13 @@ const getProducts = () => {
     sortingPrice.value,
     searchQuery.value,
     paginateSize.value,
+    page 
   );
 };
+
+const sortByPaginateSize = () => {
+    getProducts();
+}
 
 
 // Category wise product showing
@@ -143,74 +148,35 @@ onMounted(() => {
             </template>
         </div>
 
-        <footer class="footer font2">
-            <div class="footer-middle">
-                <div class="row">
-                    <div class="col-md-6 col-lg-3">
-                        <div class="widget">
-                            <h3 class="widget-title">Customer Services</h3>
-                            <div class="widget-content">
-                                <ul>
-                                    <li><a href="#">Help & FAQs</a></li>
-                                    <li><a href="#">Order Tracking</a></li>
-                                    <li><a href="#">Shipping & Delivery</a></li>
-                                    <li><a href="#">Orders History</a></li>
-                                    <li><a href="#">Advanced Search</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="widget">
-                            <h3 class="widget-title">About Us</h3>
-                            <div class="widget-content">
-                                <ul>
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="#">Careers</a></li>
-                                    <li><a href="#">Our Stores</a></li>
-                                    <li><a href="#">Corporate Sales</a></li>
-                                    <li><a href="#">Careers</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="widget">
-                            <h3 class="widget-title">More Information</h3>
-                            <div class="widget-content">
-                                <ul>
-                                    <li><a href="#">Affiliates</a></li>
-                                    <li><a href="#">Refer a Friend</a></li>
-                                    <li><a href="#">Student Beans Offers</a></li>
-                                    <li><a href="#">Gift Vouchers</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="widget">
-                            <h3 class="widget-title">Follow Us</h3>
-                            <div class="widget-content">
-                                <div class="social-icons">
-                                    <a href="#" class="social-icon social-facebook icon-facebook" target="_blank" title="Facebook"></a>
-                                    <a href="#" class="social-icon social-twitter icon-twitter" target="_blank" title="Twitter"></a>
-                                    <a href="#" class="social-icon social-instagram icon-instagram" target="_blank" title="Instagram"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <nav class="toolbox toolbox-pagination">
+            <div class="toolbox-item toolbox-show">
+                <label>Show:</label>
+
+                <div class="select-custom">
+                    <select name="count" class="form-control" v-model="paginateSize" @change="sortByPaginateSize">
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
                 </div>
+                <!-- End .select-custom -->
             </div>
-            <div class="footer-bottom d-sm-flex align-items-center">
-                <div class="footer-left">
-                    <span class="footer-copyright">Service Key © 2024. All Rights
-                        Reserved</span>
-                </div>
-            </div>
-            <!-- End .footer-bottom -->
-        </footer>
-        <!-- End .footer -->
+            <!-- End .toolbox-item -->
+
+            <ul class="pagination toolbox-item">
+                <Bootstrap5Pagination :data="products" @pagination-change-page="getProducts" :limit="3" >
+                    <template #prev-nav>
+                        <a class="Previous" href="#">Prev</a>
+                    </template>
+                    <template #next-nav>
+                        <a class="Next" href="#">Next</a>
+                    </template>
+                </Bootstrap5Pagination>
+            </ul>
+        </nav>
+
+        <Footer />
     </div>
   </div>
 </template>

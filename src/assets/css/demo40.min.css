@@ -3,6 +3,7 @@
 :root {
   --bg-primary-color: #00b37c;
   --primary-color: #00b37c;
+  --secendprimary-color: #053043;
 }
 
 .mt-1 {
@@ -771,7 +772,7 @@
 .owl-theme .owl-dots .owl-dot {
   display: inline-block;
   zoom: 1;
-  *display: inline;
+  display: inline;
 }
 .owl-theme .owl-dots .owl-dot span {
   position: relative;
@@ -10878,8 +10879,6 @@ footer a {
   padding-bottom: 3.3rem;
 }
 .footer-bottom {
-  color: #777;
-  background: #fff;
   border-top: 1px solid #e7e7e7;
   padding-bottom: 4.4rem;
   padding-top: 2.6rem;
@@ -12150,7 +12149,7 @@ span.toggle:before {
 }
 .product-single-details .product-title {
   margin-bottom: 1.1rem;
-  color: #222529;
+  color: var(--secendprimary-color);
   font-size: 3rem;
   font-weight: 700;
   letter-spacing: -0.01em;

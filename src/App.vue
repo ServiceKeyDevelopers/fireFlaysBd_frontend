@@ -62,8 +62,6 @@ const toggleMenu = () => {
 
    <StickyNavber />
 
-
-
   </div>
 </template>
 
