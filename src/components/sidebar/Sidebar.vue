@@ -61,7 +61,7 @@ onMounted(() => {
                         </ul>
                     </nav>
 
-                    <h2 class="side-menu-title ls-n-10 pb-2">Categories</h2>
+                    <h2 class="side-menu-title ls-n-10 pb-2 mt-2">Categories</h2>
                     <nav class="side-nav">
                         <ul class="menu menu-vertical sf-arrows d-block no-superfish">
                             <li v-for="(category, index) in categories.result" :key="index">
