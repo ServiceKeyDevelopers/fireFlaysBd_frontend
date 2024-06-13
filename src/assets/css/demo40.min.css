@@ -14826,7 +14826,7 @@ aside .widget-info i {
   background-color: transparent;
 }
 .sidebar-opened .sidebar-overlay {
-  z-index: 1049;
+  z-index: 1 !important;
 }
 .menu ul li.active > a,
 .menu ul li.show > a,
