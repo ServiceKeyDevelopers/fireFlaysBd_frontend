@@ -248,7 +248,11 @@ onMounted(() => {
                         <p class="text-danger">Total</p>
                         <p class="text-danger"><span class="flag-discount mr-4">30% Save</span> {{ cart.totalPrice + Number(deliverCharge) }}  <span class="font-weight-bold">TK</span></p>
                       </div>
-                </div>
+                      </div>
+                      <div class="text-note">
+                        <p class="text-danger">প্রয়োজনীয় কোনো তথ্য দিতে এই এখানে লিখুনঃ </p>
+                          <textarea name="" id="" cols="50" rows="5" placeholder="দয়া করে আপনার অর্ডারের জন্য যে কোনও বিশেষ নির্দেশিকা বা পছন্দ দিন এখানে বলতে পারেন ।" v-model="orderNote"></textarea>
+                      </div>
                 </div><!-- End .cart-table-container -->
             </div>
             <div class="col-lg-3">
