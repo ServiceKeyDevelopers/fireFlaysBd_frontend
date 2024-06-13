@@ -28,9 +28,9 @@ onMounted(() => {
         <h2 class="d-flex align-items-center text-transform-none mb-0">
           <i></i>Special Offers
         </h2>
-        <a class="d-block view-all ml-auto mt-0" href="demo40-shop.html"
+        <router-link class="d-block view-all ml-auto mt-0" :to="{name: 'ShopPage'}"
           >View All<i class="fas fa-chevron-right"></i
-        ></a>
+        ></router-link>
       </div>
 
       <swiper
