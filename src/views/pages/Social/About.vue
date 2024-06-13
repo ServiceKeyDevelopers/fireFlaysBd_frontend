@@ -1,18 +1,21 @@
 <script setup>
+ref
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from "swiper/vue";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+// import required modules
+import { Pagination, Autoplay, Navigation } from "swiper/modules";
+import { ref } from "vue";
+
+const newSlide = ref([Navigation]);
+const modules = ref([Pagination, Autoplay]);
 
 </script>
 
 <template>
 <main class="main about">
-
-			<nav aria-label="breadcrumb" class="breadcrumb-nav">
-				<div class="container">
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="demo4.html"><i class="icon-home"></i></a></li>
-						<li class="breadcrumb-item active" aria-current="page">About Us</li>
-					</ol>
-				</div><!-- End .container -->
-			</nav>
 
 			<div class="about-section">
 				<div class="container">
@@ -77,20 +80,19 @@
 				<div class="container">
 					<h2 class="subtitle text-center">HAPPY CLIENTS</h2>
 
-					<div class="testimonials-carousel owl-carousel owl-theme images-left" data-owl-options="{
-						'margin': 20,
-                        'lazyLoad': true,
-                        'autoHeight': true,
-                        'dots': false,
-                        'responsive': {
-                            '0': {
-                                'items': 1
-                            },
-                            '992': {
-                                'items': 2
-                            }
-                        }
-                    }">
+					<swiper
+                    :slidesPerView="3"
+                    :sliderPerGroup="3"
+                    :space-between="30"
+                    :loop="true"
+                    :autoplay="{
+                      delay: 2000,
+                    }"
+                    :modules="modules"
+                    class="mySwiper"
+                    :breakpoints="{ [425 - 320]:{ slidesPerView:2,spaceBetweenSlides: 20  }, 768:{ slidesPerView:3,spaceBetweenSlides: 30  }, 800:{ slidesPerView:3,spaceBetweenSlides: 30  } }"
+                  >
+                    <swiper-slide>
 						<div class="testimonial">
 							<div class="testimonial-owner">
 								<figure>
@@ -107,26 +109,9 @@
 								<p>Lorem ipsum dolor sit amet, consectetur elitad adipiscing Cras non placerat mipsum
 									dolor sit amet, consectetur elitad adipiscing cas non placerat mi.</p>
 							</blockquote>
-						</div><!-- End .testimonial -->
-
-						<div class="testimonial">
-							<div class="testimonial-owner">
-								<figure>
-									<img src="@/assets/images/clients/client2.png" alt="client">
-								</figure>
-
-								<div>
-									<strong class="testimonial-title">Bob Smith</strong>
-									<span>SMARTWAVE CEO</span>
-								</div>
-							</div><!-- End .testimonial-owner -->
-
-							<blockquote>
-								<p>Lorem ipsum dolor sit amet, consectetur elitad adipiscing Cras non placerat mipsum
-									dolor sit amet, consectetur elitad adipiscing cas non placerat mi.</p>
-							</blockquote>
-						</div><!-- End .testimonial -->
-
+						</div>
+                    </swiper-slide>
+                    <swiper-slide>
 						<div class="testimonial">
 							<div class="testimonial-owner">
 								<figure>
@@ -143,8 +128,85 @@
 								<p>Lorem ipsum dolor sit amet, consectetur elitad adipiscing Cras non placerat mipsum
 									dolor sit amet, consectetur elitad adipiscing cas non placerat mi.</p>
 							</blockquote>
-						</div><!-- End .testimonial -->
-					</div><!-- End .testimonials-slider -->
+						</div>
+                    </swiper-slide>
+                    <swiper-slide>
+						<div class="testimonial">
+							<div class="testimonial-owner">
+								<figure>
+									<img src="@/assets/images/clients/client1.png" alt="client">
+								</figure>
+
+								<div>
+									<strong class="testimonial-title">John Smith</strong>
+									<span>SMARTWAVE CEO</span>
+								</div>
+							</div><!-- End .testimonial-owner -->
+
+							<blockquote>
+								<p>Lorem ipsum dolor sit amet, consectetur elitad adipiscing Cras non placerat mipsum
+									dolor sit amet, consectetur elitad adipiscing cas non placerat mi.</p>
+							</blockquote>
+						</div>
+                    </swiper-slide>
+                    <swiper-slide>
+						<div class="testimonial">
+							<div class="testimonial-owner">
+								<figure>
+									<img src="@/assets/images/clients/client1.png" alt="client">
+								</figure>
+
+								<div>
+									<strong class="testimonial-title">John Smith</strong>
+									<span>SMARTWAVE CEO</span>
+								</div>
+							</div><!-- End .testimonial-owner -->
+
+							<blockquote>
+								<p>Lorem ipsum dolor sit amet, consectetur elitad adipiscing Cras non placerat mipsum
+									dolor sit amet, consectetur elitad adipiscing cas non placerat mi.</p>
+							</blockquote>
+						</div>
+                    </swiper-slide>
+                    <swiper-slide>
+						<div class="testimonial">
+							<div class="testimonial-owner">
+								<figure>
+									<img src="@/assets/images/clients/client1.png" alt="client">
+								</figure>
+
+								<div>
+									<strong class="testimonial-title">John Smith</strong>
+									<span>SMARTWAVE CEO</span>
+								</div>
+							</div><!-- End .testimonial-owner -->
+
+							<blockquote>
+								<p>Lorem ipsum dolor sit amet, consectetur elitad adipiscing Cras non placerat mipsum
+									dolor sit amet, consectetur elitad adipiscing cas non placerat mi.</p>
+							</blockquote>
+						</div>
+                    </swiper-slide>
+                    <swiper-slide>
+						<div class="testimonial">
+							<div class="testimonial-owner">
+								<figure>
+									<img src="@/assets/images/clients/client1.png" alt="client">
+								</figure>
+
+								<div>
+									<strong class="testimonial-title">John Smith</strong>
+									<span>SMARTWAVE CEO</span>
+								</div>
+							</div><!-- End .testimonial-owner -->
+
+							<blockquote>
+								<p>Lorem ipsum dolor sit amet, consectetur elitad adipiscing Cras non placerat mipsum
+									dolor sit amet, consectetur elitad adipiscing cas non placerat mi.</p>
+							</blockquote>
+						</div>
+                    </swiper-slide>
+                  </swiper>
 				</div><!-- End .container -->
 			</div><!-- End .testimonials-section -->
 
@@ -193,6 +255,7 @@
 					</div><!-- End .row -->
 				</div><!-- End .container -->
 			</div><!-- End .counters-section -->
+			<!-- <Footer /> -->
 		</main>
 </template>
 

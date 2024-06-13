@@ -1,4 +1,5 @@
 <script setup>
+import {Footer } from "@/components";
 
 </script>
 
@@ -29,7 +30,7 @@
                         <i class="sicon-location-pin"></i>
                         <div class="feature-box-content">
                             <h3>Address</h3>
-                            <h5>123 Wall Street, New York / NY</h5>
+                            <h5>House # 40, Road # 2, Dhaka Real Estate, Katasur, Mohammadpur, Dhaka</h5>
                         </div>
                     </div>
                 </div>
@@ -38,7 +39,7 @@
                         <i class="fa fa-mobile-alt"></i>
                         <div class="feature-box-content">
                             <h3>Phone Number</h3>
-                            <h5>(800) 123-4567</h5>
+                            <h5>01712079742</h5>
                         </div>
                     </div>
                 </div>
@@ -47,7 +48,7 @@
                         <i class="far fa-envelope"></i>
                         <div class="feature-box-content">
                             <h3>E-mail Address</h3>
-                            <h5>porto@portotheme.com</h5>
+                            <h5>ahsumon2000@gmail.com</h5>
                         </div>
                     </div>
                 </div>
@@ -103,136 +104,22 @@
                     <div class="card card-accordion">
                         <a class="card-header" href="#" data-toggle="collapse" data-target="#collapseOne"
                             aria-expanded="true" aria-controls="collapseOne">
-                            Curabitur eget leo at velit imperdiet viaculis
-                            vitaes?
+                            Is bonus applicable on sales made using a voucher?
                         </a>
 
                         <div id="collapseOne" class="collapse show" data-parent="#accordion">
-                            <p>Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Curabitur eget leo at velit
-                                imperdiet varius. In eu ipsum vitae velit
-                                congue iaculis vitae at risus. Nullam tortor
-                                nunc, bibendum vitae semper a, volutpat eget
-                                massa.</p>
+                            <p>Yes. Bonus is applicable on sales as long as the paid price is equal to or above BDT 500.</p>
                         </div>
                     </div>
 
                     <div class="card card-accordion">
                         <a class="card-header collapsed" href="#" data-toggle="collapse"
                             data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
-                            Curabitur eget leo at velit imperdiet vague
-                            iaculis vitaes?
+                            When will the bonus be disbursed?
                         </a>
 
                         <div id="collapseTwo" class="collapse" data-parent="#accordion">
-                            <p>Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Curabitur eget leo at velit
-                                imperdiet varius. In eu ipsum vitae velit
-                                congue iaculis vitae at risus. Nullam tortor
-                                nunc, bibendum vitae semper a, volutpat eget
-                                massa. Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit. Integer
-                                fringilla, orci sit amet posuere auctor,
-                                orci eros pellentesque odio, nec
-                                pellentesque erat ligula nec massa. Aenean
-                                consequat lorem ut felis ullamcorper posuere
-                                gravida tellus faucibus. Maecenas dolor
-                                elit, pulvinar eu vehicula eu, consequat et
-                                lacus. Duis et purus ipsum. In auctor mattis
-                                ipsum id molestie. Donec risus nulla,
-                                fringilla a rhoncus vitae, semper a massa.
-                                Vivamus ullamcorper, enim sit amet consequat
-                                laoreet, tortor tortor dictum urna, ut
-                                egestas urna ipsum nec libero. Nulla justo
-                                leo, molestie vel tempor nec, egestas at
-                                massa. Aenean pulvinar, felis porttitor
-                                iaculis pulvinar, odio orci sodales odio, ac
-                                pulvinar felis quam sit.</p>
-                        </div>
-                    </div>
-
-                    <div class="card card-accordion">
-                        <a class="card-header collapsed" href="#" data-toggle="collapse"
-                            data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                            Curabitur eget leo at velit imperdiet viaculis
-                            vitaes?
-                        </a>
-
-                        <div id="collapseThree" class="collapse" data-parent="#accordion">
-                            <p>Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Curabitur eget leo at velit
-                                imperdiet varius. In eu ipsum vitae velit
-                                congue iaculis vitae at risus. Nullam tortor
-                                nunc, bibendum vitae semper a, volutpat eget
-                                massa.</p>
-                        </div>
-                    </div>
-
-                    <div class="card card-accordion">
-                        <a class="card-header collapsed" href="#" data-toggle="collapse"
-                            data-target="#collapseFour" aria-expanded="true" aria-controls="collapseThree">
-                            Curabitur eget leo at velit imperdiet vague
-                            iaculis vitaes?
-                        </a>
-
-                        <div id="collapseFour" class="collapse" data-parent="#accordion">
-                            <p>Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Curabitur eget leo at velit
-                                imperdiet varius. In eu ipsum vitae velit
-                                congue iaculis vitae at risus. Nullam tortor
-                                nunc, bibendum vitae semper a, volutpat eget
-                                massa. Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit. Integer
-                                fringilla, orci sit amet posuere auctor,
-                                orci eros pellentesque odio, nec
-                                pellentesque erat ligula nec massa. Aenean
-                                consequat lorem ut felis ullamcorper posuere
-                                gravida tellus faucibus. Maecenas dolor
-                                elit, pulvinar eu vehicula eu, consequat et
-                                lacus. Duis et purus ipsum. In auctor mattis
-                                ipsum id molestie. Donec risus nulla,
-                                fringilla a rhoncus vitae, semper a massa.
-                                Vivamus ullamcorper, enim sit amet consequat
-                                laoreet, tortor tortor dictum urna, ut
-                                egestas urna ipsum nec libero. Nulla justo
-                                leo, molestie vel tempor nec, egestas at
-                                massa. Aenean pulvinar, felis porttitor
-                                iaculis pulvinar, odio orci sodales odio, ac
-                                pulvinar felis quam sit.</p>
-                        </div>
-                    </div>
-
-                    <div class="card card-accordion">
-                        <a class="card-header collapsed" href="#" data-toggle="collapse"
-                            data-target="#collapseFive" aria-expanded="true" aria-controls="collapseThree">
-                            Curabitur eget leo at velit imperdiet varius
-                            iaculis vitaes?
-                        </a>
-
-                        <div id="collapseFive" class="collapse" data-parent="#accordion">
-                            <p>Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Curabitur eget leo at velit
-                                imperdiet varius. In eu ipsum vitae velit
-                                congue iaculis vitae at risus. Nullam tortor
-                                nunc, bibendum vitae semper a, volutpat eget
-                                massa. Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit. Integer
-                                fringilla, orci sit amet posuere auctor,
-                                orci eros pellentesque odio, nec
-                                pellentesque erat ligula nec massa. Aenean
-                                consequat lorem ut felis ullamcorper posuere
-                                gravida tellus faucibus. Maecenas dolor
-                                elit, pulvinar eu vehicula eu, consequat et
-                                lacus. Duis et purus ipsum. In auctor mattis
-                                ipsum id molestie. Donec risus nulla,
-                                fringilla a rhoncus vitae, semper a massa.
-                                Vivamus ullamcorper, enim sit amet consequat
-                                laoreet, tortor tortor dictum urna, ut
-                                egestas urna ipsum nec libero. Nulla justo
-                                leo, molestie vel tempor nec, egestas at
-                                massa. Aenean pulvinar, felis porttitor
-                                iaculis pulvinar, odio orci sodales odio, ac
-                                pulvinar felis quam sit.</p>
+                            <p>Bonus will be given on 20th of every month, given that it is equal to or more than BDT 500 (before tax deduction). Current month’s bonus will be given on the following month.</p>
                         </div>
                     </div>
                 </div>
@@ -240,6 +127,7 @@
         </div>
     </div>
 
+    <!-- <Footer /> -->
     <div class="mb-8"></div>
 </main>
 </template>

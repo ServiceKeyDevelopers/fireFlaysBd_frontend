@@ -3,7 +3,7 @@
         <div class="container my-5">
             <h1>Return and Refund Policy</h1>
             <p>Last updated: March 12, 2024</p>
-            <p>Thank you for shopping at maxfit food.</p>
+            <p>Thank you for shopping at FireFlys BD.</p>
             <p>If, for any reason, You are not completely satisfied with a purchase We invite You to review our policy on refunds and returns. This Return and Refund Policy has been created with the help of the <a href="https://www.privacypolicies.com/return-refund-policy-generator/" target="_blank">Return and Refund Policy Generator</a>.</p>
             <p>The following terms are applicable for any products that You purchased with Us.</p>
             <h2>Interpretation and Definitions</h2>
@@ -25,7 +25,7 @@
             <p><strong>Service</strong> refers to the Website.</p>
             </li>
             <li>
-            <p><strong>Website</strong> refers to maxfit food, accessible from <a href="maxfit food.com.bd" rel="external nofollow noopener" target="_blank">maxfit food.com.bd</a></p>
+            <p><strong>Website</strong> refers to FireFlys BD, accessible from <a href="FireFlys BD.com.bd" rel="external nofollow noopener" target="_blank">FireFlys BD.com.bd</a></p>
             </li>
             <li>
             <p><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</p>
@@ -36,7 +36,7 @@
             <p>The deadline for cancelling an Order is 7 days from the date on which You received the Goods or on which a third party you have appointed, who is not the carrier, takes possession of the product delivered.</p>
             <p>In order to exercise Your right of cancellation, You must inform Us of your decision by means of a clear statement. You can inform us of your decision by:</p>
             <ul>
-            <li>By email: info.maxfit food@gmail.com</li>
+            <li>By email: info.FireFlys BD@gmail.com</li>
             </ul>
             <p>We will reimburse You no later than 14 days from the day on which We receive the returned Goods. We will use the same means of payment as You used for the Order, and You will not incur any fees for such reimbursement.</p>
             <h2>Conditions for Returns</h2>
@@ -63,7 +63,7 @@
             <h3>Contact Us</h3>
             <p>If you have any questions about our Returns and Refunds Policy, please contact us:</p>
             <ul>
-            <li>By email: info.maxfit food@gmail.com</li>
+            <li>By email: info.FireFlys BD@gmail.com</li>
             </ul>
         </div>
     </div>
