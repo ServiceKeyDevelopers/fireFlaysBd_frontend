@@ -3,7 +3,7 @@ import GuestLayout from './views/common/GuestLayout.vue'
 import Layout from './views/common/Layout.vue'
 // import Login from './views/pages/Authentication/Login.vue'
 import { ref, onMounted } from "vue";
-import { Header, Sidebar, Footer, Modal,LoginModal, MobileMenu, StickyNavber, BannerSection, InfoSection, FeatureSection, PopularSection, ProductSection, SpecialOffersSection } from "@/components";
+import { Header, Sidebar, Footer, Modal, Breadcrumb,LoginModal, MobileMenu, StickyNavber, BannerSection, InfoSection, FeatureSection, PopularSection, ProductSection, SpecialOffersSection } from "@/components";
 import { useRoute } from 'vue-router';
 const route = useRoute();
 // Import Swiper Vue.js components
@@ -33,25 +33,31 @@ const toggleMenu = () => {
             <main class="main home">
               <div class="container-fluid p-0">
                   <div class="row m-0">
-                  <div class="sidebar-overlay" @click="toggleMenu()"></div>
-                  <div class="sidebar-toggle custom-sidebar-toggle" @click="toggleMenu()">
-                      <i class="fas fa-sliders-h"></i>
-                  </div>
+                    <div class="sidebar-overlay" @click="toggleMenu()"></div>
+                    <div class="sidebar-toggle custom-sidebar-toggle" @click="toggleMenu()">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
 
-                  <Sidebar />
-                  <!-- End .col-lg-3 -->
+                    <Sidebar />
+                    <!-- End .col-lg-3 -->
 
-                  <div class="col-lg-9">
-                      <router-view />
-                  </div>
+                    <div class="col-lg-9">
+                          <template v-if="route.name != 'HomePage'">
+                            <Breadcrumb />
+                          </template>
+
+                          <router-view />
+
+                          <Footer />
+                    </div>
                   </div>
               </div>
-            </main>
+              </main>
       </Layout>
       <!-- End .main -->
       <GuestLayout v-else>
         <RouterView/>
-      </GuestLayout>
+        </GuestLayout>
     </div>
     <!-- End .page-wrapper -->
 

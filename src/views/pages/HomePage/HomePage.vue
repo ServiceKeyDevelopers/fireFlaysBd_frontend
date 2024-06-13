@@ -51,9 +51,6 @@ const {sections} = storeToRefs(section);
       <SpecialOffersSection />
 
       <!-- Special Offers End -->
-
-      <Footer />
-      <!-- End .footer -->
       
     </div>
   </div>

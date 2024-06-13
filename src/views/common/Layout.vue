@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { Header, Sidebar, Footer, MobileMenu, StickyNavber, BannerSection, InfoSection, FeatureSection, PopularSection, ProductSection, SpecialOffersSection } from "@/components";
-
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
 // Import Swiper styles
@@ -11,7 +10,8 @@ import "swiper/css/pagination";
 import { Pagination, Autoplay, Navigation } from "swiper/modules";
 
 const newSlide = ref([Navigation]);
-const modules = ref([Pagination, Autoplay]);
+const modules  = ref([Pagination, Autoplay]);
+
 
 
 

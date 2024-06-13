@@ -95,8 +95,7 @@ onMounted(() => {
 
 <template>
   <div>
-    <div class="main-content">
-        <Breadcrumb />
+    <div class="main-content">        
         <nav class="toolbox sticky-header" data-sticky-options="{'mobile': true}">
             <div class="toolbox-left">
                 <a href="#" class="sidebar-toggle"><svg data-name="Layer 3" id="Layer_3"
@@ -175,8 +174,6 @@ onMounted(() => {
                 </Bootstrap5Pagination>
             </ul>
         </nav>
-
-        <Footer />
     </div>
   </div>
 </template>

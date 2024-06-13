@@ -198,7 +198,6 @@ onMounted(() => {
 <template>
   <div>
     <div class="main-content">
-      <Breadcrumb />
       <div class="product-single-container product-single-default">
         <div class="cart-message d-none">
           <strong class="single-cart-notice">“Men Black Sports Shoes”</strong>
@@ -463,7 +462,7 @@ onMounted(() => {
         <h2 class="section-title pb-3">Related Products</h2>
 
         <div class="products-slider">
-          <swiper :slidesPerView="6" :sliderPerGroup="6" :loop="true" :autoplay="{
+          <swiper :slidesPerView="6" :sliderPerGroup="6" :space-between="30" :loop="true" :autoplay="{
               delay: 2000,
             }" :modules="modules" class="mySwiper" :breakpoints="{
               [425 - 320]: { slidesPerView: 2, spaceBetweenSlides: 20 },
@@ -476,11 +475,7 @@ onMounted(() => {
             </swiper-slide>
           </swiper>
         </div>
-        <!-- End .products-slider -->
       </div>
-      <!-- End .products-section -->
-      <Footer />
-      <!-- End .footer -->
     </div>
   </div>
 </template>
@@ -527,7 +522,9 @@ img{
     min-width: 100%;
 }
 .img-select{
-    display: flex;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  width: 100%;
 }
 .img-item{
     margin: 0.3rem;
