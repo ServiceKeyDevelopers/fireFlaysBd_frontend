@@ -32,8 +32,8 @@ onMounted(() => {
     <section class="products-container" v-for="(section, index) in sections" :key="index">
       <div class="heading d-flex align-items-center">
         <h2 class="text-transform-none mb-0">{{ section.title }}</h2>
-        <a class="d-block view-all ml-auto" href="demo40-shop.html"
-          >View All<i class="fas fa-chevron-right"></i></a>
+        <router-link class="d-block view-all ml-auto" :to="{name: 'ShopPage'}"
+          >View All<i class="fas fa-chevron-right"></i></router-link>
       </div>
       <swiper
               :slidesPerView="6"
