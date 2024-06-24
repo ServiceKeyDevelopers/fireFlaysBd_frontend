@@ -96,7 +96,7 @@ const modules = ref([Pagination, Autoplay]);
 						<div class="testimonial">
 							<div class="testimonial-owner">
 								<figure>
-									<img src="@/assets/images/clients/client1.png" alt="client">
+									<img src="@/assets/images/clients/client-5.png" alt="client">
 								</figure>
 
 								<div>
@@ -115,12 +115,12 @@ const modules = ref([Pagination, Autoplay]);
 						<div class="testimonial">
 							<div class="testimonial-owner">
 								<figure>
-									<img src="@/assets/images/clients/client1.png" alt="client">
+									<img src="@/assets/images/clients/client-6.png" alt="client">
 								</figure>
 
 								<div>
-									<strong class="testimonial-title">John Smith</strong>
-									<span>SMARTWAVE CEO</span>
+									<strong class="testimonial-title">David Lee</strong>
+									<span>HEALTHCARE Plus CEO</span>
 								</div>
 							</div><!-- End .testimonial-owner -->
 
@@ -134,12 +134,12 @@ const modules = ref([Pagination, Autoplay]);
 						<div class="testimonial">
 							<div class="testimonial-owner">
 								<figure>
-									<img src="@/assets/images/clients/client1.png" alt="client">
+									<img src="@/assets/images/clients/client-7.png" alt="client">
 								</figure>
 
 								<div>
-									<strong class="testimonial-title">John Smith</strong>
-									<span>SMARTWAVE CEO</span>
+									<strong class="testimonial-title">Sarah Wilson</strong>
+									<span>CLEANENERGY Founder</span>
 								</div>
 							</div><!-- End .testimonial-owner -->
 
@@ -153,12 +153,12 @@ const modules = ref([Pagination, Autoplay]);
 						<div class="testimonial">
 							<div class="testimonial-owner">
 								<figure>
-									<img src="@/assets/images/clients/client1.png" alt="client">
+									<img src="@/assets/images/clients/client-8.png" alt="client">
 								</figure>
 
 								<div>
-									<strong class="testimonial-title">John Smith</strong>
-									<span>SMARTWAVE CEO</span>
+									<strong class="testimonial-title">Michael Brown</strong>
+									<span>INNOVATE CFO</span>
 								</div>
 							</div><!-- End .testimonial-owner -->
 
@@ -172,12 +172,12 @@ const modules = ref([Pagination, Autoplay]);
 						<div class="testimonial">
 							<div class="testimonial-owner">
 								<figure>
-									<img src="@/assets/images/clients/client1.png" alt="client">
+									<img src="@/assets/images/clients/client-9.png" alt="client">
 								</figure>
 
 								<div>
-									<strong class="testimonial-title">John Smith</strong>
-									<span>SMARTWAVE CEO</span>
+									<strong class="testimonial-title">Emily Johnson</strong>
+									<span>TECHNOVATE CTO</span>
 								</div>
 							</div><!-- End .testimonial-owner -->
 
@@ -191,14 +191,14 @@ const modules = ref([Pagination, Autoplay]);
 						<div class="testimonial">
 							<div class="testimonial-owner">
 								<figure>
-									<img src="@/assets/images/clients/client1.png" alt="client">
+									<img src="@/assets/images/clients/client-7.png" alt="client">
 								</figure>
 
 								<div>
 									<strong class="testimonial-title">John Smith</strong>
 									<span>SMARTWAVE CEO</span>
 								</div>
-							</div><!-- End .testimonial-owner -->
+							</div>
 
 							<blockquote>
 								<p>Lorem ipsum dolor sit amet, consectetur elitad adipiscing Cras non placerat mipsum

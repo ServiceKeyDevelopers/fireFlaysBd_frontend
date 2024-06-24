@@ -16,7 +16,7 @@ const description = ref()
 const facebook = ref()
 const whatsapp = ref()
 
-const fbPageUrl = ref('https://www.facebook.com/maxfitfood1')
+const fbPageUrl = ref('https://www.facebook.com/fireflysbd')
 
 // social Icons start
 const socialShares = ref("");
@@ -52,6 +52,9 @@ const getSettingsData = async() => {
     } 
     if (ele.key == "whatsapp" ) {
       whatsapp.value = ele
+    } 
+    if (ele.key == "pageUrl" ) {
+      fbPageUrl.value = ele
     } 
   })
 }
@@ -168,6 +171,11 @@ onMounted(() => {
                                 <a :href="socialURL(socialShare.type, socialShare.contact)" target="_blank" title="" class="icon-font-size"><i :class="socialIcons(socialShare.type)"></i></a>
                               </template>
                             </div>
+                            <div class="fb-page" :data-href="fbPageUrl" data-tabs="timeline" data-width="" data-height="130" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                              <blockquote :cite="fbPageUrl" class="fb-xfbml-parse-ignore">
+                              <a :href="fbPageUrl" class="text-light">FireFlys BD</a>
+                              </blockquote>
+                          </div>
                         </div>
                     </div>
                 </div>

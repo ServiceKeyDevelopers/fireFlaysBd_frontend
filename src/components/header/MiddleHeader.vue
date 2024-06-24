@@ -13,6 +13,7 @@ const notify = useNotification();
 // search from start
 const searchData = ref([]);
 const name = ref('');
+const showSidebar = ref(false);
 // search from end
 
 const logout = async () => {
@@ -33,6 +34,13 @@ const toggleMenu = () => {
   document.body.classList.toggle('mmenu-active');
 };
 
+
+const showSearchBar = () => {
+    showSidebar.value = !showSidebar.value
+    if (showSidebar.value == false) {
+        name.value='';
+    }
+}
 
 
 window.addEventListener('scroll', () => {
@@ -65,6 +73,7 @@ window.addEventListener('scroll', () => {
 
 const clearSearchBar = () =>{
     name.value='';
+    showSearchBar()
 }
 
 // search from end
@@ -76,19 +85,19 @@ const clearSearchBar = () =>{
     <div>
         <div class="header-middle sticky-header" :class="{'fixed' : stickyNavbar }" data-sticky-options="{'mobile': true}" :style="{'top': Top + 'px'}">
                 <div class="container-fluid">
-                    <div class="header-left justify-content-lg-center">
+                    <div class="header-left justify-content-md-center justify-content-between">
                         <button class="mobile-menu-toggler text-primary mr-2" @click="toggleMenu" type="button" :class="{ active: isMenuActive }">
                             <i class="fas fa-bars"></i>
                         </button>
-                        <router-link :to="{name: 'HomePage'}" class="logo">
+                        <router-link :to="{name: 'HomePage'}" class="logo text-end">
                             <img src="@/assets/images/logo-black.png" class="w-100" width="111" height="44" alt="Porto Logo">
                         </router-link>
                     </div>
                     <!-- End .header-left -->
 
                     <div class="header-right w-lg-max">
-                        <div class="header-icon header-search header-search-inline header-search-category d-sm-block d-none w-lg-max text-right mt-0">
-                            <a href="#" class="search-toggle" role="button"><i class="icon-magnifier"></i></a>
+                        <div class="header-icon header-search header-search-inline header-search-category d-sm-block d-none w-lg-max text-right mt-0" :class="{'show' : showSidebar}">
+                            <a href="#" class="search-toggle" role="button" @click.prevent="showSearchBar"><i class="icon-magnifier"></i></a>
                             <form class="header-form">
                                 <div class="header-search-wrapper mr-1">
                                     <input type="search" class="form-control" name="q" id="q" placeholder="Search anything..."  v-model="name" @input="getProducts()">
@@ -101,10 +110,10 @@ const clearSearchBar = () =>{
                                         
                                         <router-link :to="{name:'ProductDetailsPage',params: { id: product.id, slug: product.slug }}" @click="clearSearchBar" class="product-info">
                                             <div class="row search-row">
-                                                <div class="col-md-1 col-sm-2 search-img">
+                                                <div class="col-md-1 col-2 search-img">
                                                     <img :src="product.image" alt="" style="border-radius: 5px; width: 35px;">
                                                 </div>
-                                                <div class="col-md-7 col-sm-5 search-details">
+                                                <div class="col-md-7 col-5 search-details">
                                                     <p style="color:#000; margin: 0;line-height: 1.2;">{{ product.name }}</p>
                                                     <span style="font-size: 12px; margin-right: 20px; color: red" v-if="product?.current_stock > 0"><span style="color: red; font-weight: 900;">In Stock</span></span>
                                                     <span style="font-size: 12px; margin-right: 20px; color: red" v-else><span style="color: red; font-weight: 900;">Out Of Stock</span></span>
@@ -115,7 +124,7 @@ const clearSearchBar = () =>{
                                                         <span>{{ product.offer_price !=0? product.offer_price : product.mrp  }} tk</span>
                                                     </span>
                                                 </div>
-                                                <div class="col-md-4 col-sm-5 search-price">
+                                                <div class="col-md-4 col-5 search-price">
                                                     <p>
                                                         <span v-if="product.offer_percent !=0" class="featured_label">{{Math.floor(product.offer_percent)}}% Off</span>
                                                     </p>
@@ -130,7 +139,7 @@ const clearSearchBar = () =>{
                         </div>
                         <!-- End .header-search -->
 
-                        <div :to="{name: 'WishlistPage'}" class="header-contact header-wishlist dropdown cart-dropdown d-lg-flex pl-4 pr-sm-4 pr-2 ml-2">
+                        <div :to="{name: 'WishlistPage'}" class="header-contact header-wishlist dropdown cart-dropdown d-md-flex d-none pl-4 pr-sm-4 pr-2 ml-2">
                             <router-link :to="{name: 'WishlistPage'}" class="header-mr-0" title="wishlist">
                                 <i class="icon-wishlist-2"></i>
                                 <span class=" cart-count badge-circle">{{ auth?.user?.wishlist?.length }}</span>
@@ -138,11 +147,11 @@ const clearSearchBar = () =>{
                             <h6 class="text-capitalize"><span>Favorites</span><router-link :to="{name: 'WishlistPage'}">Wishlist</router-link></h6>
                         </div>
 
-                        <div class="header-contact d-lg-flex pr-sm-4 pr-2" @click.prevent="logout" v-if="user.user">
+                        <div class="header-contact d-md-flex pr-sm-4 pr-2" @click.prevent="logout" v-if="user.user">
                             <a href="" class="header-icon mr-0" title="login"><i class="icon-user-2"></i></a>
                             <h6 class="text-capitalize"><a href="">Logout</a></h6>
                         </div>
-                        <div class="header-contact d-lg-flex pr-sm-4 pr-2" v-else>
+                        <div class="header-contact d-md-flex  d-none pr-sm-4 pr-2" v-else>
                             <router-link :to="{name: 'LoginPage'}" class="header-icon mr-0" title="login"><i class="icon-user-2"></i></router-link>
                             <h6 class="text-capitalize"><span class="ls-n-20">Welcome</span><router-link :to="{name: 'LoginPage'}">Sign In / Register</router-link></h6>
                         </div>
@@ -243,6 +252,13 @@ const clearSearchBar = () =>{
         text-align: left;
     }
 
+    @media (max-width: 991px) {
+        .search-data{
+            width: 797%;
+            top: 60px;
+            left: -273px;
+        }
+    }
     @media (max-width: 767px) {
         .product-price{
             font-size: 13px;
