@@ -23,7 +23,6 @@ const otpSubmit = async () => {
   const fromData = {otp: otp.value, phone_number: user.value.phone_number }
   try {
     const res = await auth.otpVerify(fromData);
-    console.log(res);
     if (res.status == 200) {
       modal.Modalclose()
       if (route.path === "/login") {
@@ -33,6 +32,7 @@ const otpSubmit = async () => {
             emit('orderSubmitted');
       }
       notify.Success("Login Successfully Done");
+      
     } else {
       console.error("Unexpected response:", res);
     }

@@ -28,8 +28,10 @@ const loginOrRegisterUser = async() => {
       phoneNumber.value = ''
     }
 }
-
-
+const registerFunc = () => {
+	router.push({name: 'Register'})
+  modalOC()
+}
 </script>
 
 
@@ -52,6 +54,7 @@ const loginOrRegisterUser = async() => {
                     <input type="email" class="form-control" id="Enter Your Phone Number" placeholder="Enter Your Phone Number" v-model="phoneNumber"
                 </div>
                 <button class="btn btn-sm btn-primary" @click.prevent="loginOrRegisterUser">LOGIN</button> 
+                <button class="btn btn-sm btn-warning mt-1" @click="registerFunc">Registration</button> 
               </div>
              </div>
           </div>

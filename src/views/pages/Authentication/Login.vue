@@ -4,6 +4,7 @@ import { Modal } from "@/components";
 import axiosInstance from "@/services/axiosService.js";
 import { useAuth, useModal } from "@/stores";
 import { useRoute } from 'vue-router';
+import router from '@/router';
 
 const modal =  useModal()
 const auth = useAuth();
@@ -22,6 +23,10 @@ const handleOrderSubmitted = () => {
 	router.push({ name: routeLocationKey.path == '/login' ? 'HomePage' : 'CheckoutPage' });
 }
 
+const registerFunc = () => {
+	router.push({name: 'Register'})
+}
+
 
 </script>
 
@@ -36,8 +41,7 @@ const handleOrderSubmitted = () => {
 					<nav aria-label="breadcrumb" class="breadcrumb-nav">
 						<div class="container">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="demo4.html">Home</a></li>
-								<li class="breadcrumb-item"><a href="category.html">Shop</a></li>
+								<li class="breadcrumb-item"><router-link :to="{name: 'HomePage'}">Home</router-link></li>
 								<li class="breadcrumb-item active" aria-current="page">
 									My Account
 								</li>
@@ -72,6 +76,9 @@ const handleOrderSubmitted = () => {
 
 									<div class="form-footer mb-2">
 										<button type="submit" class="btn btn-dark btn-md w-100 mr-0" @click.prevent="loginOrRegisterUser">Login</button>
+									</div>
+									<div class="form-footer mb-2">
+										<button type="submit" class="btn btn-dark btn-md w-100 mr-0" @click="registerFunc()">Register</button>
 									</div>
 								</form>
 							</div>

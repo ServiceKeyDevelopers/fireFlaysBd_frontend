@@ -29,7 +29,7 @@ const toggleMenu = () => {
       <Header />
       <Modal />
       <LoginModal />
-      <Layout v-if="route.path != '/login'">
+      <Layout v-if="route.path != '/login' && route.path != '/registration'">
             <main class="main home">
               <div class="container-fluid p-0">
                   <div class="row m-0">
@@ -57,7 +57,8 @@ const toggleMenu = () => {
       <!-- End .main -->
       <GuestLayout v-else>
         <RouterView/>
-        </GuestLayout>
+        <Footer />
+      </GuestLayout>
     </div>
     <!-- End .page-wrapper -->
 

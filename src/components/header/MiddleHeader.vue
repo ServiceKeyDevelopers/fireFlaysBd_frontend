@@ -153,7 +153,7 @@ const clearSearchBar = () =>{
                         </div>
                         <div class="header-contact d-md-flex  d-none pr-sm-4 pr-2" v-else>
                             <router-link :to="{name: 'LoginPage'}" class="header-icon mr-0" title="login"><i class="icon-user-2"></i></router-link>
-                            <h6 class="text-capitalize"><span class="ls-n-20">Welcome</span><router-link :to="{name: 'LoginPage'}">Sign In / Register</router-link></h6>
+                            <h6 class="text-capitalize"><span class="ls-n-20">Welcome</span><router-link :to="{name: 'LoginPage'}">Login / Register</router-link></h6>
                         </div>
 
                         <div class="separator"></div>

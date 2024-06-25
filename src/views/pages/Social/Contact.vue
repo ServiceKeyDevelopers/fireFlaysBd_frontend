@@ -28,7 +28,7 @@ import {Footer } from "@/components";
                         <i class="sicon-location-pin"></i>
                         <div class="feature-box-content">
                             <h3>Address</h3>
-                            <h5>House # 40, Road # 2, Dhaka info..., info..., info..., Dhaka</h5>
+                            <h5>House - 613, 3rd Floor, Flat - 4c East Kazipara, Mirput, Bangladesh</h5>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@ import {Footer } from "@/components";
                         <i class="fa fa-mobile-alt"></i>
                         <div class="feature-box-content">
                             <h3>Phone Number</h3>
-                            <h5>01711-986839</h5>
+                            <h5>01711986839</h5>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@ import {Footer } from "@/components";
                         <i class="far fa-envelope"></i>
                         <div class="feature-box-content">
                             <h3>E-mail Address</h3>
-                            <h5>info.firefly.bd@gmail.com</h5>
+                            <h5>support@fireflysbd.com</h5>
                         </div>
                     </div>
                 </div>
@@ -55,7 +55,7 @@ import {Footer } from "@/components";
                         <i class="far fa-calendar-alt"></i>
                         <div class="feature-box-content">
                             <h3>Working Days/Hours</h3>
-                            <h5>Mon - Sun / 10:00AM - 7:00PM</h5>
+                            <h5>Saturday to Thursday / 10:00AM - 8:00PM</h5>
                         </div>
                     </div>
                 </div>

@@ -121,7 +121,7 @@ onMounted(() => {
 <template>
     <div>
         <footer class="footer font2">
-            <div class="footer-middle">
+            <div class="footer-middle constianer">
                 <div class="row">
                     <div class="col-md-6 col-lg-3">
                         <div class="widget">
