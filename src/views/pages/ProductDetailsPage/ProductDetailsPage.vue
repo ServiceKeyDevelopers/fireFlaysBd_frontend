@@ -292,14 +292,14 @@ onMounted(() => {
                 <router-link :to="{name: 'CheckoutPage'}" href="javascript:;" class="btn buyNowBtn add-cart mr-2"
                   @click.prevent="addToCart(singleProduct, quantityInput)">Buy Now</router-link>
               </template>
-              <div class="mt-2">
+              <!-- <div class="mt-2">
                 <a :href="`https://wa.me/+8801791580400?text=Product%20Details%0A%0AWebsite:%20https://fireflysbd.com/single-product/${singleProduct?.id}%0AProduct%20Name:%20${singleProduct?.name}%0AProduct%20Size:%20${sizeName}%0AOffer%20Price:%20${productPrices ? productPrices?.offer_price : singleProduct?.offer_price}৳%0ARegular%20Price:%20${productPrices ? productPrices?.mrp : singleProduct?.mrp}৳`"
                   class="btn btn-success mr-2" target="_blank">
                   <i class="fab fa-whatsapp mr-2"></i><span>হোয়াটসঅ্যাপ</span>
                 </a>
                 <a href="tel:+8801791580400" class="btn btn-danger  mr-2"><i
                     class="fas fa-phone-volume mr-2"></i><span>ফোন করুন</span></a>
-              </div>
+              </div> -->
             </div>
 
             <hr class="divider mb-0 mt-0" />
