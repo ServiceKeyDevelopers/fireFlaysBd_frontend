@@ -15313,9 +15313,9 @@ aside .widget-info i {
   .header-middle {
     box-shadow: 0px 20px 10px 0 rgba(99, 111, 113, 0.05);
   }
-  .header-middle .container-fluid {
+  /* .header-middle .container-fluid {
     padding-left: 5px;
-  }
+  } */
   .header-middle .header-left {
     border: 0;
   }

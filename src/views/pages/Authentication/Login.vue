@@ -75,10 +75,8 @@ const registerFunc = () => {
 									<input type="text" class="form-input form-wide" required  v-model="phoneNumber"/>
 
 									<div class="form-footer mb-2">
-										<button type="submit" class="btn btn-dark btn-md w-100 mr-0" @click.prevent="loginOrRegisterUser">Login</button>
-									</div>
-									<div class="form-footer mb-2">
-										<button type="submit" class="btn btn-dark btn-md w-100 mr-0" @click="registerFunc()">Register</button>
+										<button type="submit" class="btn btn-dark btn-md w-100 mr-3" @click.prevent="loginOrRegisterUser">Login</button>
+										<button type="submit" class="btn registerBtnColor btn-md w-100 mr-0" @click="registerFunc()">Register</button>
 									</div>
 								</form>
 							</div>
@@ -91,5 +89,13 @@ const registerFunc = () => {
 </template>
 
 <style>
+
+.registerBtnColor{
+	background-color: #018a6a;
+	color: aliceblue;
+}
+.registerBtnColor:hover{
+	background-color: #217460;
+}
 
 </style>

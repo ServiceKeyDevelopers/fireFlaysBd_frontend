@@ -37,7 +37,7 @@ import {Footer } from "@/components";
                         <i class="fa fa-mobile-alt"></i>
                         <div class="feature-box-content">
                             <h3>Phone Number</h3>
-                            <h5>01711986839</h5>
+                            <h5>+088 1711986839</h5>
                         </div>
                     </div>
                 </div>

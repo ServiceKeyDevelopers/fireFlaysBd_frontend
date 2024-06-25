@@ -28,11 +28,14 @@ const otpSubmit = async () => {
       if (route.path === "/login") {
           router.push({ name: route.path === "/login" ? "HomePage" : "" });
         }
+      if (route.path === "/registration") {
+          router.push({ name: route.path === "/registration" ? "HomePage" : "" });
+        }
       if(route.path === "/checkoutPage"){
             emit('orderSubmitted');
       }
       notify.Success("Login Successfully Done");
-      
+
     } else {
       console.error("Unexpected response:", res);
     }

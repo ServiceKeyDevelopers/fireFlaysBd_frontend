@@ -313,6 +313,11 @@ onMounted(() => {
                 </template>
               </div>
 
+              <a href="wishlist.html" class="btn-icon-wish add-wishlist" title="Add to Wishlist">
+                <i class="icon-wishlist-2"></i>
+                <span>Add to Wishlist</span>
+              </a>
+
             </div>
             <div class="videoHW" v-if="singleProduct?.video_url">
               <iframe class="" :src="getEmbedUrl(singleProduct?.video_url)" title="YouTube video player" frameborder="0"
