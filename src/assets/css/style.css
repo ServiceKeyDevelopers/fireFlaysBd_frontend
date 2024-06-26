@@ -9560,7 +9560,7 @@ header .separator {
 }
 
 .main-nav .menu {
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-size: 12px;
 }
 .main-nav .menu > li {
@@ -11773,7 +11773,6 @@ span.toggle::before {
 }
 .product-single-details .product-action {
   padding: 1.5rem 0 1.6rem;
-  border-top: 1px solid #e7e7e7;
 }
 .product-single-details .container {
   align-items: center;

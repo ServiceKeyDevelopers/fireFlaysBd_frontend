@@ -17,6 +17,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 // import './style.css';
 
+// cart button animation start
+const isCartButtonAnimated = ref(false);
+// cart button animation end
 const shop = useShop();
 const { products } = storeToRefs(shop);
 
@@ -187,6 +190,15 @@ const getEmbedUrl = (watchUrl) => {
 
 // video url setup end
 
+// cart button animation start
+    const cartClick = () => {
+      isCartButtonAnimated.value = !isCartButtonAnimated.value
+      setTimeout(() => {
+        isCartButtonAnimated.value = false
+      }, 1500);
+    }
+// cart button animation end
+
 onMounted(() => {
   productByid();
   socialMedia();
@@ -273,23 +285,48 @@ onMounted(() => {
 
               <template v-if="singleProduct && singleProduct.product_prices.length > 0">
                 <template v-if="productPrices">
-                  <a href="javascript:;" class="btn addToBtn add-cart mr-2"
-                    @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Add to Cart</a>
-                  <router-link :to="{name: 'CheckoutPage'}" href="javascript:;" class="btn buyNowBtn add-cart mr-2"
+                  <!-- <a href="javascript:;" class="btn addToBtn add-cart mr-2"
+                    @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Add to Cart</a> -->
+                    <span @click="cartClick()">
+                      <button class="cart-button mr-3 mt-3" :class="{'clicked' : isCartButtonAnimated}" @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">
+                        <span class="add-to-cart">Add to cart</span>
+                        <span class="added">Add to cart</span>
+                        <i class="fas fa-shopping-cart"></i>
+                        <i class="fas fa-box"></i>
+                      </button>
+                    </span>
+                  <router-link :to="{name: 'CheckoutPage'}" href="javascript:;" class="btn buyNowBtn add-cart mb-2"
                     @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Buy Now</router-link>
                 </template>
                 <template v-else>
                   <p class="mb-2 text-danger">প্রথমে ওয়েট সিলেক্ট করুন তারপর<span class="fw-bold"> BUY NOW </span> বাটনে
                     ক্লিক করুন অথবা<span class="fw-bold"> ADD TO CART </span>বাটনে ক্লিক করুন</p>
-                  <button href="javascript:;" disabled class="btn addToBtn add-cart mr-2" title="Add to Cart"
-                    @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Add to Cart</button>
-                  <button href="javascript:;" disabled class="btn buyNowBtn add-cart mr-2">Buy Now</button>
+                  <!-- <button href="javascript:;" disabled class="btn addToBtn add-cart mr-2" title="Add to Cart"
+                    @click.prevent="addToCart(singleProduct, quantityInput, productPrices)">Add to Cart</button> -->
+                    <span @click="cartClick()">
+                      <button class="cart-button mr-3 mt-3 btn-disable">
+                        <span class="add-to-cart">Add to cart</span>
+                        <span class="added">Add to cart</span>
+                        <i class="fas fa-shopping-cart"></i>
+                        <i class="fas fa-box"></i>
+                      </button>
+                    </span>
+                  <button href="javascript:;" disabled class="btn buyNowBtn add-cart mr-2 mb-2">Buy Now</button>
                 </template>
               </template>
               <template v-else>
-                <a href="javascript:;" class="btn addToBtn add-cart mr-2" title="Add to Cart"
-                  @click.prevent="addToCart(singleProduct, quantityInput)">Add to Cart</a>
-                <router-link :to="{name: 'CheckoutPage'}" href="javascript:;" class="btn buyNowBtn add-cart mr-2"
+                <!-- <a href="javascript:;" class="btn addToBtn add-cart mr-2" title="Add to Cart"
+                  @click.prevent="addToCart(singleProduct, quantityInput)">Add to Cart</a> -->
+                <span @click="cartClick()">
+                  <button class="cart-button mr-3 mt-3" :class="{'clicked' : isCartButtonAnimated}" @click.prevent="addToCart(singleProduct, quantityInput)">
+                    <span class="add-to-cart">Add to cart</span>
+                    <span class="added">Add to cart</span>
+                    <i class="fas fa-shopping-cart"></i>
+                    <i class="fas fa-box"></i>
+                  </button>
+                </span>
+
+                <router-link :to="{name: 'CheckoutPage'}" href="javascript:;" class="btn buyNowBtn add-cart mb-2"
                   @click.prevent="addToCart(singleProduct, quantityInput)">Buy Now</router-link>
               </template>
               <!-- <div class="mt-2">
@@ -486,12 +523,158 @@ onMounted(() => {
 
 <style scoped>
 
+.btn-disable{
+  background-color: #435d68 !important;
+  cursor: default !important;
+}
+.btn-disable:hover{
+  background-color: #324953 !important;
+  cursor: default !important;
+}
+.cart-button {
+	position: relative;
+	padding: 10px;
+	width: 163px;
+  height: 49px;
+	border: 0;
+	border-radius: 10px;
+	background-color: #053043;
+  color: #fff;
+	outline: none;
+	cursor: pointer;
+	transition: .3s ease-in-out;
+	overflow: hidden;
+}
+.cart-button:hover {
+	background-color: #0f4861;
+}
+.cart-button:active {
+	transform: scale(.9);
+}
+
+.cart-button .fa-shopping-cart {
+	position: absolute;
+	z-index: 2;
+	top: 50%;
+	left: -10%;
+	font-size: 2em;
+	transform: translate(-50%,-50%);
+}
+.cart-button .fa-box {
+	position: absolute;
+	z-index: 3;
+	top: -20%;
+	left: 52%;
+	font-size: 1.2em;
+	transform: translate(-50%,-50%);
+}
+.cart-button span {
+	position: absolute;
+	z-index: 3;
+	left: 50%;
+	top: 50%;
+	font-size: 1.2em;
+	color: #fff;
+	transform: translate(-50%,-50%);
+}
+.cart-button span.add-to-cart {
+	opacity: 1;
+}
+.cart-button span.added {
+	opacity: 0;
+}
+
+.cart-button.clicked .fa-shopping-cart {
+	animation: cart 1.5s ease-in-out forwards;
+}
+.cart-button.clicked .fa-box {
+	animation: box 1.5s ease-in-out forwards;
+}
+.cart-button.clicked span.add-to-cart {
+	animation: txt1 1.5s ease-in-out forwards;
+}
+.cart-button.clicked span.added {
+	animation: txt2 1.5s ease-in-out forwards;
+}
+@keyframes cart {
+	0% {
+		left: -10%;
+	}
+	40%, 60% {
+		left: 50%;
+	}
+	100% {
+		left: 110%;
+	}
+}
+@keyframes box {
+	0%, 40% {
+		top: -20%;
+	}
+	60% {
+		top: 40%;
+		left: 52%;
+	}
+	100% {
+		top: 40%;
+		left: 112%;
+	}
+}
+@keyframes txt1 {
+	0% {
+		opacity: 1;
+	}
+	20%, 100% {
+		opacity: 0;
+	}
+}
+@keyframes txt2 {
+	0%, 80% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .icon-font-size{
   font-size:20px;
   margin-right:15px;
 }
 
 .buyNowBtn{
+  border-radius: 10px;
   background-color: #00b37c;
   color: #fff;
 }
