@@ -9,6 +9,7 @@ export const useProduct = defineStore("product", {
     recentProducts: [],
     topProducts: [],
     featureProducts: [],
+    productReviews: [],
     loading: false,
   }),
 
@@ -42,6 +43,7 @@ export const useProduct = defineStore("product", {
       this.loading = true;
       try {
         const res = await axiosInstance.get(`/products/${id}`);
+        this.productReviews = res.data.reviews;
         return res.data.data;
         
       } catch (error) {

@@ -16,17 +16,20 @@ import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 // import './style.css';
-
+// Review Section Start
+const selectedRating  = ref(0);
+const selectedComment = ref('');
+// Review Section End
 // cart button animation start
 const isCartButtonAnimated = ref(false);
 // cart button animation end
-const shop = useShop();
-const { products } = storeToRefs(shop);
-
-const route         = useRoute();
-const product       = useProduct();
-const singleProduct = ref('');
-const quantityInput = ref(1);
+const shop               = useShop();
+const { products }       = storeToRefs(shop);
+const route              = useRoute();
+const product            = useProduct();
+const { productReviews } = storeToRefs(product);
+const singleProduct      = ref('');
+const quantityInput      = ref(1);
 
 // get size price start  
 const sizeID        = ref('');
@@ -36,7 +39,7 @@ const sizeName      = ref('');
 
 // related product start
 const relatedProducts = ref('');
-const categoryId = ref([]);
+const categoryId      = ref([]);
 // related product end
 
 // social Icons start
@@ -46,11 +49,11 @@ const socialShares = ref("");
 const modules = ref();
 // image section start
 const thumbnailImage = ref(null)
-const activeImage = ref(0)
+const activeImage    = ref(0)
 
 const changeImage = (img, index) => {
     thumbnailImage.value = img
-    activeImage.value = index
+    activeImage.value    = index
 }
 
 // image section end
@@ -84,14 +87,14 @@ const productByid = async () => {
 
 // Related product  start
 const getRelatedProductData = async (catId) => {
-  let type = "";
-  let brand = [];
-  let subCategory = [];
-  let price = [];
-  let search = "";
-  let paginateSize = 8;
-  const res = await shop.getData(type, brand, catId, subCategory, price, search, paginateSize);
-  relatedProducts.value = res.data;
+  let   type                  = "";
+  let   brand                 = [];
+  let   subCategory           = [];
+  let   price                 = [];
+  let   search                = "";
+  let   paginateSize          = 8;
+  const res                   = await shop.getData(type, brand, catId, subCategory, price, search, paginateSize);
+        relatedProducts.value = res?.data;
 };
 
 // product changes function 
@@ -121,7 +124,6 @@ const socialMedia = async () => {
   try {
     const res = await axiosInstance.get("/social-medias");
     socialShares.value = res.data.result;
-    console.log(socialShares.value);
   } catch (error) {
     console.log(error);
   }
@@ -129,26 +131,26 @@ const socialMedia = async () => {
 
 const socialIcons = (socialType) => {
   const iconMapping = {
-    Facebook: "fab fa-facebook-f",
-    Twitter: "fab fa-twitter",
-    Whatsapp: "fab fa-whatsapp",
+    Facebook : "fab fa-facebook-f",
+    Twitter  : "fab fa-twitter",
+    Whatsapp : "fab fa-whatsapp",
     Messenger: "fab fa-facebook-messenger",
-    Linkedin: "fab fa-linkedin",
+    Linkedin : "fab fa-linkedin",
     Instagram: "fab fa-instagram",
-    Phone: "fas fa-phone",
+    Phone    : "fas fa-phone",
   };
   return iconMapping[socialType] || "default-icon-class";
 };
 
 const socialURL = (socialType, socialUrl) => {
   const iconMapping = {
-    Facebook: `https://www.facebook.com/${socialUrl}/`,
-    Twitter: `https://www.twitter.com/${socialUrl}/`,
-    Whatsapp: `https://wa.me/+88${socialUrl}?text=Hello!`,
+    Facebook : `https://www.facebook.com/${socialUrl}/`,
+    Twitter  : `https://www.twitter.com/${socialUrl}/`,
+    Whatsapp : `https://wa.me/+88${socialUrl}?text=Hello!`,
     Messenger: `https://www.messenger.com/t/${socialUrl}/`,
-    Linkedin: `https://www.linkedin.com/${socialUrl}/`,
+    Linkedin : `https://www.linkedin.com/${socialUrl}/`,
     Instagram: `https://www.instagram.com/${socialUrl}/`,
-    Phone: `https://m.me/+88${socialUrl}`,
+    Phone    : `https://m.me/+88${socialUrl}`,
   };
   return iconMapping[socialType] || "default-icon-class";
 };
@@ -183,7 +185,7 @@ const decrementCartItem = () => {
 
 const getEmbedUrl = (watchUrl) => {
   const videoIdMatch = watchUrl.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
-  const videoId = (videoIdMatch && videoIdMatch[1]) || '';
+  const videoId      = (videoIdMatch && videoIdMatch[1]) || '';
   
   return `https://www.youtube.com/embed/${videoId}`;
 }
@@ -198,6 +200,41 @@ const getEmbedUrl = (watchUrl) => {
       }, 1500);
     }
 // cart button animation end
+
+// Review Section Start
+const selectRating = (rating) => {
+  selectedRating.value = rating;
+}
+
+const SubmitReviewForCustomer = async () => {
+  try {
+    const res = await axiosInstance.post("/product/reviews", {
+      product_id: route.params.id,
+      rate      : selectedRating.value,
+      comment   : selectedComment.value ?? ''
+    });
+    
+    console.log(res);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const calculateWidth = (avgRating) => {
+    const percentage = (avgRating / 5) * 100;
+    return `${percentage}%`;
+  }
+
+const formattedDate = (createdAtString) => {
+  const createdAtDate = new Date(createdAtString);
+  return createdAtDate.toLocaleDateString("en-US", {
+    year : "numeric",
+    month: "long",
+    day  : "2-digit"
+  });
+};
+
+// Review Section End
 
 onMounted(() => {
   productByid();
@@ -242,7 +279,7 @@ onMounted(() => {
 
             <div class="ratings-container">
               <div class="product-ratings">
-                <span class="ratings" style="width: 60%"></span>
+                <span class="ratings" :style="{ width: calculateWidth(singleProduct?.avg_rating) }"></span>
                 <!-- End .ratings -->
                 <span class="tooltiptext tooltip-top"></span>
               </div>
@@ -271,7 +308,7 @@ onMounted(() => {
                     class="product-category">{{ singleProduct?.category?.name }}</router-link>
                 </strong>
               </li>
-              <li v-if="singleProduct?.warranty">warranty : <span class="product-category">{{ singleProduct?.warranty }}</span></li>
+              <li v-if="singleProduct?.warranty">warranty : <span class="product-category">{{ singleProduct?.warranty.name }}</span></li>
             </ul>
             <template v-if="singleProduct &&  singleProduct?.product_prices.length > 0">
               <ProductSize :product="singleProduct" @sizeByPrice="sizeByPrice" />
@@ -378,7 +415,7 @@ onMounted(() => {
 
           <li class="nav-item">
             <a class="nav-link" id="product-tab-reviews" data-toggle="tab" href="#product-reviews-content" role="tab"
-              aria-controls="product-reviews-content" aria-selected="false">Reviews (1)</a>
+              aria-controls="product-reviews-content" aria-selected="false">Reviews</a>
           </li>
         </ul>
 
@@ -394,9 +431,8 @@ onMounted(() => {
 
           <div class="tab-pane fade" id="product-reviews-content" role="tabpanel" aria-labelledby="product-tab-reviews">
             <div class="product-reviews-content">
-              <h3 class="reviews-title">1 review for Men Black Sports Shoes</h3>
 
-              <div class="comment-list">
+              <div class="comment-list" v-for="(review, index) in productReviews.data" :key="index">
                 <div class="comments">
                   <figure class="img-thumbnail">
                     <img src="@/assets/images/blog/author.jpg" alt="author" width="80" height="80" />
@@ -408,20 +444,18 @@ onMounted(() => {
 
                       <div class="ratings-container float-sm-right">
                         <div class="product-ratings">
-                          <span class="ratings" style="width: 60%"></span>
-                          <!-- End .ratings -->
+                          <span class="ratings" :style="{ width: calculateWidth(review.rate) }"></span>
                           <span class="tooltiptext tooltip-top"></span>
                         </div>
-                        <!-- End .product-ratings -->
                       </div>
 
                       <span class="comment-by">
-                        <strong>Joe Doe</strong> – April 12, 2018
+                        <strong>{{ review.user.name }}</strong> – {{ formattedDate(review.created_at) }}
                       </span>
                     </div>
 
                     <div class="comment-content">
-                      <p>Excellent.</p>
+                      <p>{{ review.comment }}</p>
                     </div>
                   </div>
                 </div>
@@ -436,57 +470,16 @@ onMounted(() => {
                   <div class="rating-form">
                     <label for="rating">Your rating <span class="required">*</span></label>
                     <span class="rating-stars">
-                      <a class="star-1" href="#">1</a>
-                      <a class="star-2" href="#">2</a>
-                      <a class="star-3" href="#">3</a>
-                      <a class="star-4" href="#">4</a>
-                      <a class="star-5" href="#">5</a>
+                      <a v-for="n in 5" :key="n" :class="['star-' + n, { 'selected': n <= selectedRating }]"  href="#" @click.prevent="selectRating(n)">{{ n }}</a>
                     </span>
-
-                    <select name="rating" id="rating" required="" style="display: none">
-                      <option value="">Rate…</option>
-                      <option value="5">Perfect</option>
-                      <option value="4">Good</option>
-                      <option value="3">Average</option>
-                      <option value="2">Not that bad</option>
-                      <option value="1">Very poor</option>
-                    </select>
                   </div>
 
                   <div class="form-group">
                     <label>Your review <span class="required">*</span></label>
-                    <textarea cols="5" rows="6" class="form-control form-control-sm"></textarea>
-                  </div>
-                  <!-- End .form-group -->
-
-                  <div class="row">
-                    <div class="col-md-6 col-xl-12">
-                      <div class="form-group">
-                        <label>Name <span class="required">*</span></label>
-                        <input type="text" class="form-control form-control-sm" required />
-                      </div>
-                      <!-- End .form-group -->
-                    </div>
-
-                    <div class="col-md-6 col-xl-12">
-                      <div class="form-group">
-                        <label>Email <span class="required">*</span></label>
-                        <input type="text" class="form-control form-control-sm" required />
-                      </div>
-                      <!-- End .form-group -->
-                    </div>
-
-                    <div class="col-md-6 col-xl-12">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="save-name" />
-                        <label class="custom-control-label mb-0" for="save-name">Save my name, email, and website in
-                          this browser for the next
-                          time I comment.</label>
-                      </div>
-                    </div>
+                    <textarea cols="5" rows="6" class="form-control form-control-sm" v-model="selectedComment"></textarea>
                   </div>
 
-                  <input type="submit" class="btn btn-primary" value="Submit" />
+                  <input type="submit" class="btn btn-primary" value="Submit" @click.prevent="SubmitReviewForCustomer" />
                 </form>
               </div>
               <!-- End .add-product-review -->
@@ -499,7 +492,7 @@ onMounted(() => {
       </div>
       <!-- End .product-single-tabs -->
 
-      <div class="products-section pt-0" v-if="relatedProducts.length > 0">
+      <!-- <div class="products-section pt-0" v-if="relatedProducts.length > 0">
         <h2 class="section-title pb-3">Related Products</h2>
 
         <div class="products-slider">
@@ -516,12 +509,22 @@ onMounted(() => {
             </swiper-slide>
           </swiper>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <style scoped>
+
+.selected {
+  color: #fd5b5a !important; 
+}
+.rating-stars a {
+  color: #fd5b5a !important;
+}
+.ratings-container .ratings:before {
+  color: #fd5b5a !important;
+}
 
 .btn-disable{
   background-color: #435d68 !important;
