@@ -255,8 +255,8 @@ onMounted(() => {
                       </div>
                       </div>
                       <div class="text-note">
-                        <p class="text-danger">প্রয়োজনীয় কোনো তথ্য দিতে এই এখানে লিখুনঃ </p>
-                          <textarea name="" id="" cols="50" rows="5" placeholder="দয়া করে আপনার অর্ডারের জন্য যে কোনও বিশেষ নির্দেশিকা বা পছন্দ দিন এখানে বলতে পারেন ।" v-model="orderNote"></textarea>
+                        <p class="text-danger">To provide any necessary information, write here:</p>
+                          <textarea name="" id="" cols="50" rows="5" placeholder="Please provide any special instructions or preferences for your order here." v-model="orderNote"></textarea>
                       </div>
                 </div><!-- End .cart-table-container -->
             </div>
@@ -267,45 +267,46 @@ onMounted(() => {
                 v-slot="{ errors, isSubmitting }"
               >
                 <div class="left">
-                    <h5 class="text-wrap text-center">অর্ডার কনফার্ম করতে আপনার নাম, মোবাইল নাম্বর, ঠিকানা লিখে অর্ডার করুন" বাটনে ক্লিক করুন।</h5>
+                    <!-- <h5 class="text-wrap text-center">অর্ডার কনফার্ম করতে আপনার নাম, মোবাইল নাম্বর, ঠিকানা লিখে অর্ডার করুন" বাটনে ক্লিক করুন।</h5> -->
+                    <h5 class="text-wrap text-center">To confirm your order, please enter your name, mobile number, and address, then click on the <span class="text-danger">'Order Now'</span> button.</h5>
                     <div class="form-group">
-                        <label for="exampleInputEmail1" class="fw-bold">নামঃ</label>
+                        <label for="exampleInputEmail1" class="fw-bold">Name : </label>
                         <Field
                         name="name"
                         type="text"
                         v-model="name"
                         class="form-control"
-                        placeholder="এখানে লিখুন....."
+                        placeholder="Write Here....."
                         :class="{ 'is-invalid': errors.name }"
                       />
                       <span class="text-danger" v-if="errors.name">{{ errors.name }}</span>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1" class="fw-bold">মোবাইল নম্বরঃ</label>
+                        <label for="exampleInputPassword1" class="fw-bold">Phone Number : </label>
                         <Field
                         name="phone"
                         type="text"
                         v-model="phoneNumber"
                         class="form-control"
-                        placeholder="এখানে লিখুন....."
+                        placeholder="Write Here....."
                         :class="{ 'is-invalid': errors.phone }"
                       />
                       <span class="text-danger" v-if="errors.phone">{{ errors.phone }}</span>
                       <span class="text-danger" v-if="backendErrors?.phone_number">{{ backendErrors.phone_number[0] }}</span>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlTextarea1" class="fw-bold">ঠিকানা:</label>
+                        <label for="exampleFormControlTextarea1" class="fw-bold">Address:</label>
                         <Field
                         name="address"
                         type="text"
                         v-model="address"
                         class="form-control PlaceHolderColorChange"
-                        placeholder="বাসা নং, রোড নং, থানা/উপজেলা, জেলা"
+                        placeholder="House No., Road No., Thana/Upazila, District"
                         :class="{ 'is-invalid': errors.address }"
                       />
                       <span class="text-danger" v-if="errors.address">{{ errors.address }}</span>
                     </div>
-                    <h6 class="delivary-charge text-center mb-3" >ডেলিভারি চার্জ</h6>
+                    <h6 class="delivary-charge text-center mb-3" >Delivery Charge</h6>
                     <div class="formRadioControl" v-for="(delivery, index) in deliveryInfo" :key="index">
                       <input
                         class="form-check-input mr-2"
@@ -316,13 +317,13 @@ onMounted(() => {
                         v-model="delivery_gateway_id"
                         @change="getDeliveryAmount"
                       >
-                      <label class="form-check-label ml-2" :for="'deliveryGateway_' + index">{{ delivery.name + ' - ' + Number(delivery.delivery_fee) }} টাকা </label>
+                      <label class="form-check-label ml-2" :for="'deliveryGateway_' + index">{{ delivery.name + ' - ' + Number(delivery.delivery_fee) }} TK </label>
                     </div>
                 </div>
                 <div class="secend-box border p-3 bg-light mt-3">
-                    <div class="d-flex justify-content-between">
-                      <div class="left-text"><h5 class="text-wrap">পেমেন্ট মেথড সিলেক্ট করুন</h5></div>
-                      <div class="right-text"><i class="fas fa-unlock-alt"></i>সম্পূর্ণ নিরাপদ পেমেন্ট</div>
+                    <div class="d-flex flex-column">
+                      <div class="left-text m-auto"><h5 class="text-wrap">Select Payment Method</h5></div>
+                      <div class="right-text m-auto"><i class="fas fa-unlock-alt"></i>Completely Secure Payment</div>
                     </div>
                         <div class="formRadioControl" v-for="(payment_gateway, index) in payment_gateways" :key="index">
                           <input
@@ -340,7 +341,7 @@ onMounted(() => {
                       
                       
                       <button class="order mt-3" :class="{'animate' : isAnimated}" @click="placeOrder()">
-                        <span class="default">Complete Order</span>
+                        <span class="default">Order Now</span>
                         <span class="success">Order Placed
                         <svg viewbox="0 0 12 10">
                           <polyline points="1.5 6 4.5 9 10.5 1"></polyline>

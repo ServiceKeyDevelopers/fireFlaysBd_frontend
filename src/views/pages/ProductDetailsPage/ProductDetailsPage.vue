@@ -2,7 +2,7 @@
 import { ref, onMounted, watch } from "vue";
 import { Footer, Breadcrumb, ProductSize, ProductPrice, ProductCard } from "@/components";
 import { useRouter, useRoute } from "vue-router";
-import { useProduct, useCart, useNotification, useShop } from "@/stores";
+import { useProduct, useCart, useNotification, useShop, useWishlist, useAuth } from "@/stores";
 import { storeToRefs } from "pinia";
 import { useGtm } from '@gtm-support/vue-gtm';
 // Import Swiper Vue.js components
@@ -23,8 +23,12 @@ const selectedComment = ref('');
 // cart button animation start
 const isCartButtonAnimated = ref(false);
 // cart button animation end
+const auth               = useAuth();
+const notify             = useNotification();
 const shop               = useShop();
 const { products }       = storeToRefs(shop);
+const wishlist           = useWishlist();
+const {loading}          = storeToRefs(wishlist);
 const route              = useRoute();
 const product            = useProduct();
 const { productReviews } = storeToRefs(product);
@@ -236,6 +240,24 @@ const formattedDate = (createdAtString) => {
 
 // Review Section End
 
+// Wishlist Work Start
+
+const addToWishlist = async (product) => {
+    if (Object.keys(auth.user).length > 0) {
+        let res = await wishlist.addToWishlist(product);
+        if (res.data.result == 0) {
+            notify.Success(`${product.name} Successfully Added Your Wishlist Item`);
+        }else{
+            notify.Warning(`${product.name} Successfully Removed Your Wishlist Item`);
+        }
+        
+    }else{
+        modal.toggleLoginModal()
+    }
+}
+
+// Wishlist Work end
+
 onMounted(() => {
   productByid();
   socialMedia();
@@ -387,8 +409,8 @@ onMounted(() => {
                 </template>
               </div>
 
-              <a href="wishlist.html" class="btn-icon-wish add-wishlist" title="Add to Wishlist">
-                <i class="icon-wishlist-2"></i>
+              <a href="wishlist.html" class="btn-icon-wish add-wishlist" title="Add to Wishlist" @click.prevent="addToWishlist(singleProduct)">
+                <i :class="loading == singleProduct.id ? 'icon-spin5 fa-spin' : 'icon-heart'"></i>
                 <span>Add to Wishlist</span>
               </a>
 

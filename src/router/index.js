@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import {HomePage, ShopPage, ProductDetailsPage, WishlistPage, Login, Register, CheckoutPage, Contact, About, CartPage, thankyou, TermsConditions, PrivacyPolicy, ReturnRefund,} from "@/views/pages";
+import {HomePage, ShopPage, ProductDetailsPage, WishlistPage, WarrantyCheck, Login, Register, CheckoutPage, Contact, About, CartPage, thankyou, TermsConditions, PrivacyPolicy, ReturnRefund,} from "@/views/pages";
 import NProgress from "nprogress";
 import {useAuth} from '@/stores'
 
@@ -74,19 +74,25 @@ const routes = [
     path: "/terms-and-conditions",
     name: "TermsConditions",
     component: TermsConditions,
-    meta: { title: "Glossit | Terms & Conditions Page" },
+    meta: { title: "Fireflys BD | Terms & Conditions Page" },
   },
   {
     path: "/Privacy-Policy",
     name: "PrivacyPolicy",
     component: PrivacyPolicy,
-    meta: { title: "Glossit | Privacy & Policy Page" },
+    meta: { title: "Fireflys BD | Privacy & Policy Page" },
   },
   {
     path: "/Privacy-Policy",
     name: "ReturnRefund",
     component: ReturnRefund,
-    meta: { title: "Glossit | Return & Refund Page" },
+    meta: { title: "Fireflys BD | Return & Refund Page" },
+  },
+  {
+    path: "/warranty-check",
+    name: "WarrantyCheck",
+    component: WarrantyCheck,
+    meta: { title: "Fireflys BD | Warranty Check Page" },
   },
 ];
 

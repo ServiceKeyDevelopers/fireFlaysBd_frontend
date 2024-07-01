@@ -53,6 +53,7 @@ onMounted(() => {
                     <nav class="side-nav">
                         <ul class="menu menu-vertical main-vertical sf-arrows d-block pb-0 no-superfish">
                             <li :class="{ 'active': isActiveRoute('ShopPage') }"><router-link :to="{name: 'ShopPage'}" @click="toggleMenu()">Shop</router-link></li>
+                            <li :class="{ 'active': isActiveRoute('WarrantyCheck') }"><router-link :to="{name: 'WarrantyCheck'}" @click="toggleMenu()">Warranty Check</router-link></li>
                             <li :class="{ 'active': isActiveRoute('CheckoutPage') }"><router-link :to="{name: 'CheckoutPage'}" @click="toggleMenu()">Checkout Page</router-link></li>
                             <li :class="{ 'active': isActiveRoute('WishlistPage') }"><router-link :to="{name: 'WishlistPage'}" @click="toggleMenu()">Wishlist</router-link></li>
                             <li :class="{ 'active': isActiveRoute('AboutPage') }"><router-link :to="{name: 'AboutPage'}" @click="toggleMenu()">About Us</router-link></li>
