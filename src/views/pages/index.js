@@ -13,3 +13,4 @@ export { default as TermsConditions } from "./FooterPages/TermsConditions.vue";
 export { default as PrivacyPolicy } from "./FooterPages/PrivacyPolicy.vue";
 export { default as ReturnRefund } from "./FooterPages/ReturnRefund.vue";
 export { default as WarrantyCheck } from "./Warranty/WarrantyCheck.vue";
+export { default as Dashboard } from "./Dashboard/Dashboard.vue";

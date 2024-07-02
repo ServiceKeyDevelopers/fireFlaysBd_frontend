@@ -33,7 +33,8 @@ app.use(
 app.config.globalProperties.$filters = {
     currencySymbol(value) {
       // return "৳" + value.toLocaleString();
-      return Math.round(value) ? "৳ " + value.toLocaleString() : "৳";
+      // return Math.round(value) ? "৳ " + value.toLocaleString() : "৳";
+      return Math.round(value) ? "TK " + value.toLocaleString() : "TK";
     },
     makeImagePath(img) {
       return import.meta.env.VITE_API_URL + "/" + img;

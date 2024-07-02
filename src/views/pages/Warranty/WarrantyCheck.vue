@@ -12,15 +12,25 @@ const submitWarrantyNumber = async() =>{
   try {
     const res = await axiosInstance.get(`/warranty-end-date/${warrantyNumber.value}`);
     if (res.data) {
+      warrantyNumber.value = ''
       warranty.value = res.data.warranty_end_date
     }else{
       
     }
-    console.log(res);
   } catch (error) {
     console.log(error);
   }
 }
+
+const calculateDaysBetweenDates = (endDate) =>{
+      const start = new Date(endDate);
+      const today = new Date();
+      
+      const timeDiff = today - start;
+      const dayDiff = timeDiff / (1000 * 3600 * 24);
+
+      return Math.abs(Math.floor(dayDiff));
+  }
 
 </script>
 
@@ -40,7 +50,7 @@ const submitWarrantyNumber = async() =>{
             <button href="#" class="btn btn-primary" @click.prevent="submitWarrantyNumber()">Submit</button> 
           </div>
           <div class="card-footer">
-            <span>Warranty Left - {{ warranty }}</span>
+            <span v-if="warranty">Warranty Left : <span class="text-danger">{{ calculateDaysBetweenDates(warranty) }} Days</span></span>
           </div>
         </div>
       </div>
