@@ -52,9 +52,6 @@ onMounted(() => {
             <div class="sidebar widget widget-dashboard mb-lg-0 mb-3 col-lg-3 order-0">
                 <h2 class="text-uppercase">My Account</h2>
                 <ul class="nav nav-tabs list flex-column mb-0" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="dashboard-tab" data-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="true">Dashboard</a>
-                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link" id="order-tab" data-toggle="tab" href="#order" role="tab" aria-controls="order" aria-selected="true">Orders</a>
@@ -69,41 +66,8 @@ onMounted(() => {
                 </ul>
             </div>
             <div class="col-lg-9 order-lg-last order-1 tab-content">
-                <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
-                    <div class="dashboard-content">
 
-                        <div class="row row-lg">
-                            <div class="col-6 col-md-4">
-                                <div class="feature-box text-center pb-4">
-                                    <a href="#order" class="link-to-tab"><i class="sicon-social-dropbox"></i></a>
-                                    <div class="feature-box-content">
-                                        <h3>ORDERS</h3>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-6 col-md-4">
-                                <div class="feature-box text-center pb-4">
-                                    <router-link :to="{name: 'WishlistPage'}"><i class="sicon-heart"></i></router-link>
-                                    <div class="feature-box-content">
-                                        <h3>WISHLIST</h3>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-6 col-md-4">
-                                <div class="feature-box text-center pb-4">
-                                    <a href="login.html"><i class="sicon-logout"></i></a>
-                                    <div class="feature-box-content" @click="logout">
-                                        <h3>LOGOUT</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End .row -->
-                    </div>
-                </div><!-- End .tab-pane -->
-
-                <div class="tab-pane fade" id="order" role="tabpanel">
+                <div class="tab-pane fade show active" id="order" role="tabpanel">
                     <div class="order-content">
                         <h3 class="account-sub-title d-none d-md-block"><i class="sicon-social-dropbox align-middle mr-3"></i>Orders</h3>
                         <div class="order-table-container text-center">
@@ -115,7 +79,7 @@ onMounted(() => {
                                         <th class="order-status">Status</th>
                                         <th class="order-price">Total</th>
                                         <th class="order-action">Delivery location</th>
-                                        <th class="order-action">Warranty</th>
+                                        <th class="order-action">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -135,10 +99,8 @@ onMounted(() => {
                                         <td class="text-center p-0"  >
                                             <p class="mb-5 mt-5">{{ orderList.address_details }}</p>
                                         </td>
-                                        <td class="text-center p-0"  >
-                                            <p class="mb-5 mt-5">
-                                                No Order has been made yet.
-                                            </p>
+                                        <td class="text-center p-0">
+                                            <router-link :to="{name: 'OrderItem', params:{ id: orderList.id  } }" class="btn btn-sm btn-success text-capitalize">View Items</router-link>
                                         </td>
                                     </tr>
                                 </tbody>

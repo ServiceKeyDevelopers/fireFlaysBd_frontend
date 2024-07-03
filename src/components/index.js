@@ -24,3 +24,5 @@ export { default as LoginModal } from "@/components/modal/LoginModal.vue";
 export { default as HomeSliderSkeleton } from "@/components/skeleton/HomeSliderSkeleton.vue";
 export { default as BannerSkeleton } from "@/components/skeleton/BannerSkeleton.vue";
 export { default as ProductSkeleton } from "@/components/skeleton/ProductSkeleton.vue";
+export { default as ChatIcon } from "@/components/ChatIcon/ChatIcon.vue";
+export { default as ProductRequestIcon } from "@/components/ChatIcon/ProductRequestIcon.vue";

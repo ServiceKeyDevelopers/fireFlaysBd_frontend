@@ -48,7 +48,10 @@ window.addEventListener('scroll', () => {
         </a>
       </div>
     </div>
-    <a id="scroll-top" href="#top" title="Top" role="button" class="fixed"><i class="icon-angle-up"></i></a>
+
+
+
+    <!-- <a id="scroll-top" href="#top" title="Top" role="button" class="fixed"><i class="icon-angle-up"></i></a> -->
 </template>
 
 <style >

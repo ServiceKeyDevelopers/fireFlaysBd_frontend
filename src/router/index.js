@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import {HomePage, ShopPage, ProductDetailsPage, WishlistPage, WarrantyCheck, Dashboard, Login, Register, CheckoutPage, Contact, About, CartPage, thankyou, TermsConditions, PrivacyPolicy, ReturnRefund,} from "@/views/pages";
+import {HomePage, ShopPage, ProductDetailsPage, WishlistPage, WarrantyCheck, ProductRequest, Dashboard, OrderItem, Login, Register, CheckoutPage, Contact, About, CartPage, thankyou, TermsConditions, PrivacyPolicy, ReturnRefund,} from "@/views/pages";
 import NProgress from "nprogress";
 import {useAuth} from '@/stores'
 
@@ -59,6 +59,12 @@ const routes = [
     meta: { title: "Fireflys BD | Dashboard Page", requiresAuth: true },
   },
   {
+    path: '/order-item/:id',
+    name: 'OrderItem',
+    component: OrderItem,
+    meta: { title: "Fireflys BD | Order Item Page", requiresAuth: true },
+  },
+  {
     path: '/about',
     name: 'AboutPage',
     component: About,
@@ -99,6 +105,12 @@ const routes = [
     name: "WarrantyCheck",
     component: WarrantyCheck,
     meta: { title: "Fireflys BD | Warranty Check Page" },
+  },
+  {
+    path: "/product-request",
+    name: "ProductRequest",
+    component: ProductRequest,
+    meta: { title: "Fireflys BD | Product Request Page" },
   },
 ];
 

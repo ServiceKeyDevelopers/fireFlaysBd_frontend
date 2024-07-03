@@ -54,15 +54,22 @@ export const useOrder = defineStore('order', {
             }                 
        }, 
 
-
        async getOrderList(){
-        const response = await axiosInstance.get('/orders');
-        if (response.status === 200) {
-          this.orderLists = response.data;
-        }else{
-          console.log(response);
-        }
+          const response = await axiosInstance.get('/orders');
+          if (response.status === 200) {
+            this.orderLists = response.data;
+          }else{
+            console.log(response);
+          }
+       },
 
+       async getSingleOrderList(id){
+          return await axiosInstance.get(`/orders/${id}`);
+          // if (response.status === 200) {
+          //   this.orderLists = response.data;
+          // }else{
+          //   console.log(response);
+          // }
        }
       
 

@@ -50,10 +50,10 @@ app.config.globalProperties.$filters = {
   },
 
   productPrice(product){
-    if (product.offer_price == 0) {
-      return `<span>${this.currencySymbol(Math.round(product.mrp))}</span>`;
+    if (product?.offer_price == 0) {
+      return `<span>${this.currencySymbol(Math.round(product?.mrp))}</span>`;
     }else {
-      return `<del>${this.currencySymbol(Math.round(product.mrp))}</del> <span>${this.currencySymbol(Math.round(product.offer_price))}</span>`;
+      return `<del>${this.currencySymbol(Math.round(product?.mrp))}</del> <span>${this.currencySymbol(Math.round(product?.offer_price))}</span>`;
     }
   },
 }

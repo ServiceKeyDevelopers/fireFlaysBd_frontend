@@ -1,6 +1,7 @@
 export { default as HomePage } from "./HomePage/HomePage.vue";
 export { default as ShopPage } from "./ShopPage/ShopPage.vue";
 export { default as ProductDetailsPage } from "./ProductDetailsPage/ProductDetailsPage.vue";
+export { default as ProductRequest } from "./ProductDetailsPage/ProductRequest.vue";
 export { default as WishlistPage } from "./wishlist/WishlistPage.vue";
 export { default as CartPage } from "./Cart/CartPage.vue";
 export { default as CheckoutPage } from "./Checkout/CheckoutPage.vue";
@@ -14,3 +15,4 @@ export { default as PrivacyPolicy } from "./FooterPages/PrivacyPolicy.vue";
 export { default as ReturnRefund } from "./FooterPages/ReturnRefund.vue";
 export { default as WarrantyCheck } from "./Warranty/WarrantyCheck.vue";
 export { default as Dashboard } from "./Dashboard/Dashboard.vue";
+export { default as OrderItem } from "./Dashboard/OrderItem.vue";

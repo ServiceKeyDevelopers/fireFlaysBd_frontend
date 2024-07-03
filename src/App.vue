@@ -3,7 +3,7 @@ import GuestLayout from './views/common/GuestLayout.vue'
 import Layout from './views/common/Layout.vue'
 // import Login from './views/pages/Authentication/Login.vue'
 import { ref, onMounted } from "vue";
-import { Header, Sidebar, Footer, Modal, Breadcrumb,LoginModal, MobileMenu, StickyNavber, BannerSection, InfoSection, FeatureSection, PopularSection, ProductSection, SpecialOffersSection } from "@/components";
+import { Header, Sidebar, Footer, Modal, Breadcrumb,LoginModal,ChatIcon, ProductRequestIcon, MobileMenu, StickyNavber, BannerSection, InfoSection, FeatureSection, PopularSection, ProductSection, SpecialOffersSection } from "@/components";
 import { useRoute } from 'vue-router';
 const route = useRoute();
 // Import Swiper Vue.js components
@@ -26,6 +26,8 @@ const toggleMenu = () => {
 <template>
   <div>
     <div class="page-wrapper">
+      <ProductRequestIcon />
+      <ChatIcon />
       <Header />
       <Modal />
       <LoginModal />
