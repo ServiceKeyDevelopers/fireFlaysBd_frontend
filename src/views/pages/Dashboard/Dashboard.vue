@@ -58,8 +58,13 @@ onMounted(() => {
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link" id="product-request-tab" data-toggle="tab" href="#product-request" role="tab" aria-controls="product-request" aria-selected="true">Product request</a>
+                    </li>
+
+                    <li class="nav-item">
                         <router-link :to="{name: 'WishlistPage'}" class="nav-link" >Wishlist</router-link>
                     </li>
+
                     <li class="nav-item">
                         <a href=""  class="nav-link" @click="logout">Logout</a>
                     </li>
@@ -108,6 +113,35 @@ onMounted(() => {
                             <hr class="mt-0 mb-3 pb-2">
 
                             <router-link :to="{name: 'ShopPage'}" href="category.html" class="btn btn-dark">Go Shop</router-link>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="tab-pane fade" id="product-request" role="tabpanel">
+                    <div class="order-content">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h2>Your Product Request</h2>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Product Name</th>
+                                        <th scope="col">Status</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                            </div>
                         </div>
                     </div>
                 </div>

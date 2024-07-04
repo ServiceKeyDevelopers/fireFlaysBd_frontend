@@ -52,6 +52,17 @@ export const useProduct = defineStore("product", {
         this.loading = false;
       }
     },
+
+    async productRequest(formData) {
+      try {
+        const res = await axiosInstance.post(`/product-requests`, formData);
+        return res ;       
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.loading = false;
+      }
+    },
   },
 });
 
