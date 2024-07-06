@@ -12451,7 +12451,8 @@ main .sticky-header .product-ratings:before {
   white-space: nowrap;
 }
 .rating-stars a.active:before,
-.rating-stars a:hover:before {
+.rating-stars a:hover:before,
+.rating-stars .selected {
   content: "";
   font-weight: 900;
 }

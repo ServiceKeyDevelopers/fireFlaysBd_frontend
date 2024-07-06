@@ -541,9 +541,11 @@ onMounted(() => {
 .selected {
   color: #fd5b5a !important; 
 }
+
 .rating-stars a {
   color: #fd5b5a !important;
 }
+
 .ratings-container .ratings:before {
   color: #fd5b5a !important;
 }

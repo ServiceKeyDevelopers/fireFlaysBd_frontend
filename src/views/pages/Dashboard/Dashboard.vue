@@ -3,17 +3,29 @@
 import { onMounted, ref } from "vue";
 import { useOrder, useStatus } from "@/stores";
 import { storeToRefs } from "pinia";
+import axiosInstance from "@/services/axiosService.js";
 
-const statu = useStatus()
-const statuses = ref()
-const order = useOrder()
-const {orderLists} = storeToRefs(order)
-const isOpen = ref(false);
-const orderId = ref();
+const statu          = useStatus()
+const statuses       = ref()
+const order          = useOrder()
+const {orderLists}   = storeToRefs(order)
+const isOpen         = ref(false);
+const orderId        = ref();
+const productRequest = ref('');
 
 const getStatuses = async() => {
     statuses.value = await statu.getStatus();
 }
+
+const getProductRequests = async() => {
+        try {
+            const res = await axiosInstance.get('/product-requests');
+            console.log(res);
+            productRequest.value = res.data.result
+        } catch (error) {
+            console.log(error.response);
+        }
+    }
 
 
 const toggleOrderList = (index) => {
@@ -43,6 +55,7 @@ const logout = async () => {
 
 onMounted(() => {
     order.getOrderList();
+    getProductRequests();
 })
 </script>
 
@@ -124,8 +137,8 @@ onMounted(() => {
                             <div class="card-header text-center">
                                 <h2>Your Product Request</h2>
                             </div>
-                            <div class="card-body">
-                                <table class="table">
+                            <div class="card-body text-center">
+                                <table class="table table-bordered">
                                     <thead>
                                       <tr>
                                         <th scope="col">#</th>
@@ -134,10 +147,10 @@ onMounted(() => {
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
+                                      <tr v-for="(item, index) in productRequest.data" :key="index">
+                                        <th scope="row">{{ index + 1 }}</th>
+                                        <td>{{ item?.name }}</td>
+                                        <td class="badge my-1" :class="{'badge-success' : item.type == 'approved', 'badge-danger' : item.type == 'panding'}">{{ item?.type }}</td>
                                       </tr>
                                     </tbody>
                                   </table>

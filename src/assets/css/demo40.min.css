@@ -13094,8 +13094,8 @@ main .sticky-header .product-ratings:before {
   overflow: hidden;
   white-space: nowrap;
 }
-.rating-stars a.active:before,
-.rating-stars a:hover:before {
+.rating-stars a.selected:before,
+.rating-stars a:hover:before{
   content: "";
   font-weight: 900;
 }
